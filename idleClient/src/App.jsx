@@ -6,19 +6,9 @@ function App() {
   const [count, setCount] = useState(0)
 
 
-  const [active, setActive] = useState('')
-
-  function someFunction(){
-    
-  }
-
-  useEffect(()=>{
-    someFunction()
-  },[active])
-
   return (
     <div className="App">
-      <button onClick={setActive('test')}></button>
+      <h1>Jaedyn</h1>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
