@@ -55,7 +55,7 @@ def curr_user(request):
     if request.user.is_authenticated:
         user = request.user
         data= UserSerializer(user, many=False)
-        # print(data.data)
+        print(data.data)
         return Response(data.data)
     else:
         return JsonResponse({"user":None})

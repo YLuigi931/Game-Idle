@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [user, setUser]= useState(null)
 
   //--------------Cookie set-up---------------------------//
   function getCookie(name) {
@@ -114,26 +114,23 @@ const signOut=async()=>{
         </div>
     </div>
     {/* SIGN UP */}
+    <hr></hr>
     {/* SIGN IN */}
     <div className='form_container'>
                 <form onSubmit={signIn}>
                     <input id='signInUserName' placeholder='username' />
                     <input id='signInPassword' placeholder='password' type="password"/>
+                    <br></br>
                     <Button style={{margin:'.35rem'}} size='sm' variant="outline-primary" onClick={signIn}>Sign In</Button>
                 </form>
             </div>
       {/* SIGN IN */}
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <hr></hr>
+      {/* SIGN OUT */}
+      <Button  size='sm' variant="outline-danger" className='sign_out_btn' onClick={signOut}>
+        Sign Out
+      </Button>
+      {/* SIGN OUT */}
     </div>
   )
 }
