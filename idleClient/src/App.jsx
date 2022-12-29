@@ -27,7 +27,7 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
 	  <div className='d-flex position-absolute start-50'>
-            <Nav.Link className='test' href="/#/SignIn">Link</Nav.Link>
+            <Nav.Link className='test' href="/#/SignIn">Sign In</Nav.Link>
             <NavDropdown className='test1' title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -45,13 +45,25 @@ function App() {
       </Container>
     </Navbar>
 
+	  <div class='sidenav'>
+	  <a href="Inventory">Inventory</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Skills">Skills</a>
+	  <a href="Whatever">Whatever</a>
+	  </div>
+
+	<body>
 	<Router>
 		<Routes>
 			<Route path='/' element={<Home />}></Route>
 			<Route path='/SignIn' element={<SignInComp />}></Route>
 			<Route></Route>
+			<Route></Route>
+			<Route></Route>
+			<Route></Route>
 		</Routes>
 	</Router>
+	  </body>
 	  </>
   )
 }
