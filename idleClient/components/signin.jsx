@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 function SignInComp(){
 	return (
 	<>
+
 	<div className='box position-absolute top-50 start-50 translate-middle'>
 	<Form>
       <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
@@ -19,6 +20,7 @@ function SignInComp(){
 	</div>
 	</Form>	
 	</div>
+
 
 	</>
 	)
