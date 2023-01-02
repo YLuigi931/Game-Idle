@@ -1,4 +1,7 @@
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import axios from 'axios'
 
 function SignUp(){
     
@@ -39,23 +42,37 @@ function SignUp(){
     return(
         <>
     {/* SIGN UP */}
-     <div className='form_page'>
-        <div className='form_container'>
-        <form onSubmit={signUp}>
-        <div>
-        <input className='signInput' id='signUpFirstName' placeholder='First Name' />
-        <input className='signInput' id='signUpLastName' placeholder='Last Name' />
-        </div><br></br>
-        <div>
-        <input className='signInput' id='signUpEmail' placeholder='email' />
-        <input className='signInput' id='signUpUserName' placeholder='username' />
-        </div><br></br>
-        <input className='signInput' id='signUpPassword' placeholder='password' />
-        <input className='signInput' id='signUpPassword2' placeholder='re-enter password' />
-        <br></br>
-        <Button style={{margin:'.35rem'}} size='sm' variant="outline-primary" onClick={signUp}>Sign Up</Button>
-        </form>
-        </div>
+	<div className='box position-absolute top-50 start-50 translate-middle'>
+        <Form onSubmit={signUp}>
+
+ 	<FloatingLabel controlId="signUpFirstName" label="First Name" className="mb-3">
+        <Form.Control type="text" placeholder="" />
+      	</FloatingLabel>
+
+ 	<FloatingLabel controlId="signUpLastName" label="Last Name" className="mb-3">
+        <Form.Control type="text" placeholder="" />
+      	</FloatingLabel>
+
+      	<FloatingLabel controlId="signUpEmail" label="Email address" className="mb-3">
+        <Form.Control type="email" placeholder="" />
+      	</FloatingLabel>
+	
+	
+      	<FloatingLabel controlId="signUpUserName" label="UserName" className="mb-3">
+        <Form.Control type="text" placeholder="" />
+      	</FloatingLabel>
+	     	
+      	<FloatingLabel controlId="signUpPassword" label="Password" className="mb-3">
+        <Form.Control type="password" placeholder="" />
+      	</FloatingLabel>
+
+
+      	<FloatingLabel controlId="signUpPassword2" label="Re-enter Password" className="mb-3">
+        <Form.Control type="password" placeholder="" />
+      	</FloatingLabel>
+
+        <Button onClick={signUp}>Sign Up</Button>
+        </Form>
     </div>
     {/* SIGN UP */}
         </>

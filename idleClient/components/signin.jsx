@@ -30,13 +30,13 @@ function SignInComp(){
 	{/* SIGN IN */}
 	<div className='box position-absolute top-50 start-50 translate-middle'>
         <Form onSubmit={signIn}>
-      <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
-        <Form.Control id='signInUserName' type="email" placeholder="name@example.com" />
+      <FloatingLabel controlId="signInUserName" label="Email address" className="mb-3">
+        <Form.Control type="email" placeholder="" />
       </FloatingLabel>
 
 	<div className='input-group'>
-      <FloatingLabel controlId="floatingPassword" label="Password">
-        <Form.Control id='signInPassword' type="password" placeholder="Password" />
+      <FloatingLabel controlId="signInPassword" label="Password">
+        <Form.Control type="password" placeholder="" />
       </FloatingLabel>
 	<Button onClick={signIn} className='input-group-append'>Sign in</Button>
 	</div>

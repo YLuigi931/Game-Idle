@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import axios from 'axios'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
-import reactLogo from './assets/react.svg'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -96,8 +95,9 @@ const signOut=async()=>{
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
 	  <div className='d-flex position-absolute start-50'>
+	 <Nav.Link className='test'> Combat </Nav.Link> 
             <NavDropdown className='test1' title="Profile" id="basic-nav-dropdown">
-              <NavDropdown.Item className='test' href="/#/SignIn">Sign-In</NavDropdown.Item>
+              <NavDropdown.Item href="/#/SignIn">Sign-In</NavDropdown.Item>
               <NavDropdown.Item href="/#/SignUp">
                 Sign-Up
               </NavDropdown.Item>
@@ -118,14 +118,13 @@ const signOut=async()=>{
       </Container>
     </Navbar>
 
-	  <div class='sidenav'>
+	  <div className='sidenav'>
 	  <a href="Inventory">Inventory</a>
 	  <a href="Gathering">Gathering</a>
 	  <a href="Skills">Skills</a>
 	  <a href="Whatever">Whatever</a>
 	  </div>
 
-	<body>
 	<Router>
 		<Routes>
 			<Route path='/' element={<Home />}></Route>
@@ -133,7 +132,6 @@ const signOut=async()=>{
 			<Route path='/SignUp' element={<SignUp/>} ></Route>
 		</Routes>
 	</Router>
-	  </body>
 	  </>
     </div>
   )
