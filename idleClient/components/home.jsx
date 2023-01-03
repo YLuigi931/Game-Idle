@@ -1,9 +1,29 @@
+import Card from 'react-bootstrap/Card'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+
 function Home(){
 	return (
 		<>
-		<p>Jacob, was here</p>
-		<p>On the home page</p>
-		<p>bottom line</p>
+    <Row xs={2} xxl={4} lg={3} className="g-4">
+      	{Array.from({ length: 9 }).map((_, idx) => (
+	<>
+    <Col>
+         <Card>
+         <Card.Img variant="top" src="holder.js/100px160" />
+         <Card.Body>
+         <Card.Title>Card title</Card.Title>
+         <Card.Text>
+         This is a longer card with supporting text below as a natural
+         lead-in to additional content. This content is a little bit
+         longer.
+         </Card.Text>
+         </Card.Body>
+         </Card>
+    </Col>
+	</>
+	))}
+    </Row>
 		</>
 	)
 }
