@@ -1,7 +1,19 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import axios from "axios";
-import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import axios from 'axios'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button'
+
+import SignInComp from '../components/signin.jsx'
+import SignUp from '../components/SignUp';
+import Home from '../components/home.jsx'
+
 
 function App() {
 
@@ -60,24 +72,6 @@ if(myResponse.data['signup']==true){
 }
 }
 
-const signIn=async()=>{
-  event.preventDefault()
-  let username=document.getElementById("signInUserName").value
-  let password=document.getElementById("signInPassword").value
-  console.log(username, password)
-  let myResponse=await axios.post('signIn/',{
-    'username':username,
-    'password':password
-  })
-      
-  console.log(myResponse.data)
-  if (myResponse.data["signIn"]==true){
-    window.location.href="/"
-  }
-    else{
-        alert("incorrect input")
-    }
-}
 
 const signOut=async()=>{
   let myResponse=await axios.post('signOut/')
@@ -92,45 +86,53 @@ const signOut=async()=>{
 
   return (
     <div className="App">
+	  <>
+    <Navbar bg="light" expand="lg" fixed='top'>
+      <Container>
+        <Navbar.Brand href="/">IDLE TIME</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+	  <div className='d-flex position-absolute start-50'>
+	 <Nav.Link className='test'> Combat </Nav.Link> 
+            <NavDropdown className='test1' title="Profile" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/#/SignIn">Sign-In</NavDropdown.Item>
+              <NavDropdown.Item href="/#/SignUp">
+                Sign-Up
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.3">{user && user.username}</NavDropdown.Item>
 
-
-    {/* SIGN UP */}
-      <div className='form_page'>
-        <div className='form_container'>
-        <form onSubmit={signUp}>
-        <div>
-        <input className='signInput' id='signUpFirstName' placeholder='First Name' />
-        <input className='signInput' id='signUpLastName' placeholder='Last Name' />
-        </div><br></br>
-        <div>
-        <input className='signInput' id='signUpEmail' placeholder='email' />
-        <input className='signInput' id='signUpUserName' placeholder='username' />
-        </div><br></br>
-        <input className='signInput' id='signUpPassword' placeholder='password' />
-        <input className='signInput' id='signUpPassword2' placeholder='re-enter password' />
-        <br></br>
-        <Button style={{margin:'.35rem'}} size='sm' variant="outline-primary" onClick={signUp}>Sign Up</Button>
-        </form>
-        </div>
-    </div>
-    {/* SIGN UP */}
-    <hr></hr>
-    {/* SIGN IN */}
-    <div className='form_container'>
-                <form onSubmit={signIn}>
-                    <input id='signInUserName' placeholder='username' />
-                    <input id='signInPassword' placeholder='password' type="password"/>
-                    <br></br>
-                    <Button style={{margin:'.35rem'}} size='sm' variant="outline-primary" onClick={signIn}>Sign In</Button>
-                </form>
-            </div>
-      {/* SIGN IN */}
-      <hr></hr>
+              <NavDropdown.Item >
       {/* SIGN OUT */}
       <Button  size='sm' variant="outline-danger" className='sign_out_btn' onClick={signOut}>
         Sign Out
       </Button>
       {/* SIGN OUT */}
+              </NavDropdown.Item>
+            </NavDropdown>
+	    </div>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+
+	  <div className='sidenav'>
+	  <a href="Inventory">Inventory</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Skills">Skills</a>
+	  <a href="Whatever">Whatever</a>
+	  </div>
+
+	<Router>
+		<Routes>
+			<Route path='/' element={<Home />}></Route>
+			<Route path='/SignIn' element={<SignInComp />}></Route>
+			<Route path='/SignUp' element={<SignUp/>} ></Route>
+		</Routes>
+	</Router>
+	  </>
     </div>
   )
 }
