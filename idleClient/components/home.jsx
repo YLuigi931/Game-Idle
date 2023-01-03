@@ -6,11 +6,10 @@ function Home(){
 	return (
 		<>
     <Row xs={2} xxl={4} lg={3} className="g-4">
-      	{Array.from({ length: 9 }).map((_, idx) => (
+      	{Array.from({ length: 8 }).map((_, idx) => (
 	<>
     <Col>
-         <Card>
-         <Card.Img variant="top" src="holder.js/100px160" />
+         <Card className='card'>
          <Card.Body>
          <Card.Title>Card title</Card.Title>
          <Card.Text>
@@ -24,6 +23,25 @@ function Home(){
 	</>
 	))}
     </Row>
+    	<Row xs={1} md={2} className="box g-4" style={{margin:0}}>
+	<Col>
+	<p className='text-center'>just a text test</p>
+	<p className='text-center'>just a text test</p>
+	<p className='text-center'>just a text test</p>
+	<p className='text-center'>just a text test</p>
+	<p className='text-center'>just a text test</p>
+	</Col>
+	<Col>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	</Col>
+	</Row>
 		</>
 	)
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
 
 import axios from 'axios'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'

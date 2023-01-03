@@ -45,3 +45,10 @@ body { padding-top: 86px; padding-left:170px; padding-right: 20px; background-im
 	padding: 4rem;
 	background-color:rgba(128,128,128,.6);
 }
+.card {
+	border: solid 3px;
+	background-color:rgba(66,66,92,.69);
+	color: rgb(176,176,176);
+	border-color:black;
+}
+
