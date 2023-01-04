@@ -79,7 +79,6 @@ class Armor(Item):
   
 class Enemy(models.Model):
     name = models.CharField(max_length=15)
-
     hp = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     attack =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     defense =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
