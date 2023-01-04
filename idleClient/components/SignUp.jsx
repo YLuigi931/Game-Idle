@@ -2,8 +2,15 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { Navigate } from "react-router-dom";
+import { useState, useEffect } from 'react'
+
+
 
 function SignUp(){
+
+  const [newAccount, setNewAccount]= useState(false)
     
     const signUp=async()=>{
         event.preventDefault()
@@ -23,12 +30,22 @@ function SignUp(){
             'email':email,
             'password':password
         })
+    console.log(myResponse.data['signup'])
+    if(myResponse.data['signup']===true){
+      console.log("new user made")
+
+    let username=document.getElementById("signUpUserName").value
+		let password=document.getElementById("signUpPassword").value
+      await axios.post('signIn/',{
+        'username':username,
+        'password':password
+      })
+      setNewAccount(true) //<Navigate replace to="/NewCharacter.jsx" />;
     }else{
         alert("Make sure your passwords match!")
     }
-    if(myResponse.data['signup']==true){
-        window.location.href="/"
-    }
+  }
+
     }
     
     
@@ -40,16 +57,17 @@ function SignUp(){
     }
 
     return(
+      <di>
         <>
     {/* SIGN UP */}
 	<div className='box position-absolute top-50 start-50 translate-middle'>
         <Form onSubmit={signUp}>
 
- 	<FloatingLabel controlId="signUpFirstName" label="First Name" className="mb-3">
+ 	      <FloatingLabel controlId="signUpFirstName" label="First Name" className="mb-3">
         <Form.Control type="text" placeholder="" />
       	</FloatingLabel>
 
- 	<FloatingLabel controlId="signUpLastName" label="Last Name" className="mb-3">
+ 	      <FloatingLabel controlId="signUpLastName" label="Last Name" className="mb-3">
         <Form.Control type="text" placeholder="" />
       	</FloatingLabel>
 
@@ -75,7 +93,11 @@ function SignUp(){
         </Form>
     </div>
     {/* SIGN UP */}
+
+    {newAccount && <Navigate replace to="/NewCharacter" />}
+
         </>
+      </di>
     )
 
 }
