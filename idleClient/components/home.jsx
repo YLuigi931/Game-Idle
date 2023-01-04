@@ -23,11 +23,11 @@ function Home(){
 
 	return (
 		<>
-		<p>Jacob, was here</p>
+		{/* <p>Jacob, was here</p>
 		<p>On the home page</p>
 		<p>bottom line</p>
         <button onClick={testAddItem} >Click to add item!</button>
-        <button onClick={testDeleteItem} >Click to deleeet ittttttteeemmmmmmmmmmmmmmm item!</button>
+        <button onClick={testDeleteItem} >Click to deleeet ittttttteeemmmmmmmmmmmmmmm item!</button> */}
 		</>
 	)
 }
