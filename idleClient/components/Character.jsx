@@ -30,7 +30,7 @@ function Character(){
         }}>
 
     <Card style={{ width: '20rem', paddingTop:'.5rem'}}>
-      <Card.Img variant="top" src={character.sprite} />
+      <Card.Img variant="top" src={character && character.sprite} />
       <Card.Body>
         <Card.Title>{character.name}</Card.Title>
         <Card.Text>

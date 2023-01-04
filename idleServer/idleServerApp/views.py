@@ -126,6 +126,8 @@ def character(request):
         dodge= request.data['dodge']
         crit_chance= request.data['crit_chance']
         user_character= AppUser.objects.get(id=request.user.id)
+        
+        
         saveChar = Character(
             name= name,
             sprite= sprite,
@@ -136,8 +138,17 @@ def character(request):
             crit_chance= crit_chance,
             user_character=user_character
             )
-        print(saveChar)
+        
+        
         saveChar.save()
+        print(saveChar)
+        saveInv = Inventory(
+            max_spaces = 10,
+            user = saveChar
+        )
+        
+        saveInv.save()
+        print(saveInv)
         return JsonResponse({'new_character': True})
 
     if request.method =='GET':

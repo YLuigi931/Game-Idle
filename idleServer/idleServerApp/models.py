@@ -40,20 +40,14 @@ class Armor(Item):
     defense = models.PositiveIntegerField()
 
 
-class Inventory(models.Model):
-    max_spaces = models.PositiveIntegerField()
-    weapon_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
-    armor_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
-    item_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
-
 class Character(models.Model):
     name = models.CharField(max_length=15)
     user_character = models.ForeignKey(AppUser, on_delete=models.DO_NOTHING, related_name='user_character')
-    userInventory = models.ForeignKey(Inventory, on_delete=models.DO_NOTHING, related_name='character_inventory', blank=True, null=True)
     sprite = models.CharField(max_length=250)
     class_type = models.CharField(max_length=15)
     level = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
     xp = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    
 # fighting Stats 
     #overall
     hp = models.IntegerField(default=10, validators=[MaxValueValidator(100), MinValueValidator(1)])
@@ -81,6 +75,14 @@ class Character(models.Model):
     arcana = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     cooking = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     weapons = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+
+class Inventory(models.Model):
+    max_spaces = models.PositiveIntegerField()
+    weapon_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    armor_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    item_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    user = models.ForeignKey(Character, on_delete=models.DO_NOTHING, related_name="character_inventory", blank=True, null=True)
+
    
 
   
