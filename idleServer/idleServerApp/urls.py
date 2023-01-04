@@ -8,5 +8,6 @@ urlpatterns = [
     path('signUp/', views.signUp),
     path('signOut/', views.signOut),
     path('current_user/', views.curr_user),
+    path('character/', views.character),
     re_path(r'.*', views.index, name='index'),
 ]
