@@ -50,17 +50,6 @@ function App() {
 const signOut=async()=>{
   let myResponse=await axios.post('signOut/')
   if (myResponse.data["signout"]==true){
-    window.location.reload()
-  }
-}
-
-  useEffect(()=>{
-    curr_user()
-}, [])
-
-const signOut=async()=>{
-  let myResponse=await axios.post('signOut/')
-  if (myResponse.data["signout"]==true){
     window.location.href="/"
   }
 }
