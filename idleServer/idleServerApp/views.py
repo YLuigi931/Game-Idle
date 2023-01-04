@@ -3,9 +3,12 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
-from .serializer import CharacterSerializer, InventorySerializer, UserSerializer, ItemSerializer
+from .serializer import CharacterSerializer, UserSerializer
 from rest_framework.response import Response
 from .models import *
+
+
+
 
 # Create your views here.
 
@@ -69,7 +72,6 @@ def signOut(request):
         print(e)
         return JsonResponse({'signout':False})
 
-
 # Inventory and Item management start
     # in the following functions, user id and item should be passed in request
 @api_view(["POST"])
@@ -111,3 +113,35 @@ def deleteItem(request):
 
     # user.Inventory.
 # Inventory and Item management end
+
+@api_view(["POST", "GET"])
+def character(request):
+    print(request.data)
+    if request.method =='POST':
+        name= request.data['name']
+        sprite= request.data['sprite']
+        class_type= request.data['class_type']
+        attack= request.data['attack']
+        defense= request.data['defense']
+        dodge= request.data['dodge']
+        crit_chance= request.data['crit_chance']
+        user_character= AppUser.objects.get(id=request.user.id)
+        saveChar = Character(
+            name= name,
+            sprite= sprite,
+            class_type= class_type,
+            attack= attack,
+            defense= defense,
+            dodge= dodge,
+            crit_chance= crit_chance,
+            user_character=user_character
+            )
+        print(saveChar)
+        saveChar.save()
+        return JsonResponse({'new_character': True})
+
+    if request.method =='GET':
+        character = Character.objects.get(user_character=request.user.id)
+        SerializerChar = CharacterSerializer(character, many=False)
+        return Response(SerializerChar.data)
+
