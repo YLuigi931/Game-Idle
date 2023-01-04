@@ -57,6 +57,14 @@ body { padding-top: 86px; padding-left:280px; padding-right: 20px; background-im
 	padding-bottom: 20px;
 }
 
+.special {
+	border: solid 3px;
+	width: auto;
+	position: relative;
+	z-index:1;
+	background-color: purple;
+}
+
 @media (max-width: 1700px){
 	.test{margin-left: 300px;}
 }
