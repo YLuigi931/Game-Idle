@@ -119,10 +119,30 @@ const signOut=async()=>{
     </Navbar>
 
 	  <div className='sidenav'>
+	  <div className='sidenavC'>
 	  <a href="Inventory">Inventory</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
 	  <a href="Gathering">Gathering</a>
 	  <a href="Skills">Skills</a>
 	  <a href="Whatever">Whatever</a>
+	  </div>
 	  </div>
 
 	<Router>

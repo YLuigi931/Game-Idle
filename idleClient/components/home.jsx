@@ -25,13 +25,35 @@ function Home(){
     </Row>
     	<Row xs={1} md={2} className="box g-4" style={{margin:0}}>
 	<Col>
-	<p className='text-center'>just a text test</p>
-	<p className='text-center'>just a text test</p>
-	<p className='text-center'>just a text test</p>
-	<p className='text-center'>just a text test</p>
-	<p className='text-center'>just a text test</p>
+	<p className='box2 text-center'>just a text test</p>
+	<p className='box2 text-center'>just a text test</p>
+	<p className='box2 text-center'>just a text test</p>
+	<p className='box2 text-center'>just a text test</p>
+	<p className='box2 text-center'>just a text test</p>
+	
 	</Col>
-	<Col>
+	<Col className='box2'>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	<p className='text-center'>Another text test block</p>
+	</Col>
+	</Row>
+
+    	<Row xs={1} md={2} className="box g-4" style={{margin:0}}>
+	<Col className='box2'>
+	<p className='text-center'>just a text test</p>
+	<p className='text-center'>just a text test</p>
+	<p className='text-center'>just a text test</p>
+	<p className='text-center'>just a text test</p>
+	<p className='text-center'>just a text test</p>
+	
+	</Col>
+	<Col className='box2'>
 	<p className='text-center'>Another text test block</p>
 	<p className='text-center'>Another text test block</p>
 	<p className='text-center'>Another text test block</p>
