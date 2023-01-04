@@ -23,10 +23,33 @@ class AppUser(AbstractUser):
        ''',
     )
     REQUIRED_FIELDS = []
+   
+   
+class Item(models.Model):
+    name = models.CharField(max_length=255)
+    quantity = models.PositiveIntegerField()
+    max_stacks = models.PositiveIntegerField()
+    rarity = models.CharField(max_length=10)
+    description = models.TextField(max_length=255)
 
+
+class Weapon(Item):
+    attack = models.PositiveIntegerField()
+
+class Armor(Item):
+    defense = models.PositiveIntegerField()
+
+
+class Inventory(models.Model):
+    max_spaces = models.PositiveIntegerField()
+    weapon_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    armor_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    item_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
 
 class Character(models.Model):
     name = models.CharField(max_length=15)
+    user_character = models.ForeignKey(AppUser, on_delete=models.DO_NOTHING, related_name='user_character')
+    userInventory = models.ForeignKey(Inventory, on_delete=models.DO_NOTHING, related_name='character_inventory', blank=True, null=True)
     sprite = models.CharField(max_length=250)
     class_type = models.CharField(max_length=15)
     level = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
@@ -58,23 +81,7 @@ class Character(models.Model):
     arcana = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     cooking = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     weapons = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
-    user_character = models.ForeignKey(AppUser, on_delete=models.DO_NOTHING, related_name='user_character')
-
-
    
-class Item(models.Model):
-    name = models.CharField(max_length=255)
-    quantity = models.PositiveIntegerField()
-    max_stacks = models.PositiveIntegerField()
-    rarity = models.CharField(max_length=10)
-    description = models.TextField(max_length=255)
-
-
-class Weapon(Item):
-    attack = models.PositiveIntegerField()
-
-class Armor(Item):
-    defense = models.PositiveIntegerField()
 
   
 class Enemy(models.Model):
@@ -85,7 +92,5 @@ class Enemy(models.Model):
     defense =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     dodge = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
 
-class Inventory(models.Model):
-    user = models.ForeignKey(Character, on_delete=models.DO_NOTHING, related_name='character_inventory')
-    max_spaces = models.PositiveIntegerField(validators=[MaxValueValidator(100), MinValueValidator(5)])
-    in_inventory = ArrayField(models.JSONField(null=True, blank=True), blank=True)
+
+

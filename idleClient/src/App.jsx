@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import axios from 'axios'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
@@ -9,7 +8,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button'
-
 import SignInComp from '../components/signin.jsx'
 import SignUp from '../components/SignUp';
 import Home from '../components/home.jsx'
@@ -48,6 +46,17 @@ function App() {
     setUser(user)
   }
 
+
+const signOut=async()=>{
+  let myResponse=await axios.post('signOut/')
+  if (myResponse.data["signout"]==true){
+    window.location.reload()
+  }
+}
+
+  useEffect(()=>{
+    curr_user()
+}, [])
 
 const signOut=async()=>{
   let myResponse=await axios.post('signOut/')
@@ -95,6 +104,7 @@ const signOut=async()=>{
     </Navbar>
 
 	  <div className='sidenav'>
+
     <a href="/#/Character">Character Stats</a>
 	  <a href="Inventory">Inventory</a>
 	  <a href="Gathering">Gathering</a>
