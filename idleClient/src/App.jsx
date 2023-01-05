@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
 
 import axios from 'axios'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
@@ -120,6 +120,24 @@ const signOut=async()=>{
 
 	  <div className='sidenav'>
 	  <a href="Inventory">Inventory</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
 	  <a href="Gathering">Gathering</a>
 	  <a href="Skills">Skills</a>
 	  <a href="Whatever">Whatever</a>
