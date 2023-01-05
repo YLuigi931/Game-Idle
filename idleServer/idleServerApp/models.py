@@ -39,7 +39,6 @@ class Weapon(Item):
 class Armor(Item):
     defense = models.PositiveIntegerField()
 
-
 class Character(models.Model):
     name = models.CharField(max_length=15)
     user_character = models.ForeignKey(AppUser, on_delete=models.DO_NOTHING, related_name='user_character')
@@ -92,6 +91,8 @@ class Enemy(models.Model):
     attack =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     defense =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     dodge = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+
+
 
 
 
