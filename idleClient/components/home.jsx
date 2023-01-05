@@ -49,7 +49,9 @@ function Home(){
 	</>
 	))}
     </Row>
-	<ProgressBar now={fill} />
+	<ProgressBar className='progress' style={{margin:'2rem'}}>
+	<ProgressBar className='progress-bar'/>
+	</ProgressBar>
     	<Row xs={1} md={2} className="box g-4" style={{margin:0}}>
 	<Col>
 	<p onClick={()=>{setBobby(!bobby)}} className='box2 text-center'>just a text test</p>

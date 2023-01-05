@@ -64,6 +64,20 @@ body { padding-top: 86px; padding-left:280px; padding-right: 20px; background-im
 	z-index:1;
 	background-color: purple;
 }
+.progress-bar {
+	border:black solid 1px;
+	background-color: green;
+	animation-name: progressBar;
+	animation-duration: 2s;
+	animation-timing-function: ease;
+	animation-iteration-count: infinite;
+	animation-play-state: running;
+}
+
+@keyframes progressBar {
+	from {width: 0%}
+	to{width: 100%}
+}
 
 @media (max-width: 1700px){
 	.test{margin-left: 300px;}
