@@ -116,6 +116,7 @@ def deleteItem(request):
 
 @api_view(["POST", "GET"])
 def character(request):
+
     print(request.data)
     if request.method =='POST':
         name= request.data['name']
@@ -126,7 +127,6 @@ def character(request):
         dodge= request.data['dodge']
         crit_chance= request.data['crit_chance']
         user_character= AppUser.objects.get(id=request.user.id)
-        
         
         saveChar = Character(
             name= name,

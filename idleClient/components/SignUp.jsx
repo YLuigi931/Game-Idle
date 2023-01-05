@@ -40,7 +40,9 @@ function SignUp(){
         'username':username,
         'password':password
       })
-      setNewAccount(true) //<Navigate replace to="/NewCharacter.jsx" />;
+
+      // window.location.replace("/#/signIn")
+      setNewAccount(true) 
     }else{
         alert("Make sure your passwords match!")
     }
@@ -54,6 +56,10 @@ function SignUp(){
       if (myResponse.data["signout"]==true){
         window.location.reload()
       }
+    }
+
+    function workerFunction(){
+      // <Navigate replace to="/NewCharacter" />
     }
 
     return(
@@ -94,7 +100,7 @@ function SignUp(){
     </div>
     {/* SIGN UP */}
 
-    {newAccount && <Navigate replace to="/NewCharacter" />}
+    {newAccount && <Navigate replace to="/NewCharacter"/>}
 
         </>
       </di>
