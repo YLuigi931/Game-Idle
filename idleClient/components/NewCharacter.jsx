@@ -85,8 +85,7 @@ function NewCharacter(){
         'sprite': sprite,
         'class_type': class_type,
         'attack': attack,
-        'defense': defense,
-        'dodge': dodge,
+        'defense': defense,        'dodge': dodge,
         'crit_chance': crit_chance,
     })
     console.log(myResponse)
