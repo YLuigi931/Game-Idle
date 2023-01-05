@@ -5,6 +5,7 @@ import axios from 'axios'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { Navigate } from "react-router-dom";
 import { useState, useEffect } from 'react'
+import NewCharacter from './NewCharacter';
 
 
 
@@ -100,7 +101,8 @@ function SignUp(){
     </div>
     {/* SIGN UP */}
 
-    {newAccount && <Navigate replace to="/NewCharacter"/>}
+    {newAccount && <NewCharacter />}
+
 
         </>
       </di>
