@@ -5,6 +5,7 @@ import axios from 'axios'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { Navigate } from "react-router-dom";
 import { useState, useEffect } from 'react'
+import NewCharacter from './NewCharacter';
 
 
 
@@ -40,7 +41,9 @@ function SignUp(){
         'username':username,
         'password':password
       })
-      setNewAccount(true) //<Navigate replace to="/NewCharacter.jsx" />;
+
+      // window.location.replace("/#/signIn")
+      setNewAccount(true) 
     }else{
         alert("Make sure your passwords match!")
     }
@@ -54,6 +57,10 @@ function SignUp(){
       if (myResponse.data["signout"]==true){
         window.location.reload()
       }
+    }
+
+    function workerFunction(){
+      // <Navigate replace to="/NewCharacter" />
     }
 
     return(
@@ -94,7 +101,8 @@ function SignUp(){
     </div>
     {/* SIGN UP */}
 
-    {newAccount && <Navigate replace to="/NewCharacter" />}
+    {newAccount && <NewCharacter />}
+
 
         </>
       </di>

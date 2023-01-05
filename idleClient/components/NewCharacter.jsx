@@ -8,7 +8,28 @@ import Card from 'react-bootstrap/Card';
 
 function NewCharacter(){
 
+    //--------------Cookie set-up---------------------------//
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+  axios.defaults.headers.common["X-CSRFToken"]=csrftoken
+  //--------------Cookie set-up---------------------------//
+    
     const [selectedChar, setSelectedChar]= useState({})
+    const [user, setUser]= useState(null)
 
     let assassianClass = {   
         type: 'Assassin',
@@ -51,7 +72,8 @@ function NewCharacter(){
         sprite: 'https://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/35338ed4dca7e8e.png'
         }
 
-   const addNewCharacter=async()=>{
+   const addNewCharacter=async(event)=>{
+    event.preventDefault()
     let CharacterName = document.getElementById("characterName").value
     let sprite = selectedChar.sprite
     let class_type = selectedChar.type
@@ -75,10 +97,21 @@ function NewCharacter(){
     }
     }
 
+    const curr_user=async()=>{
+        let myResponse=await axios.get('current_user/')
+        let user= myResponse.data
+        setUser(user)
+        console.log(user)
+      }
+
+    useEffect(()=>{
+        curr_user()
+    }, [])
+
     useEffect(()=>{
         console.log(selectedChar)
+
     }, [selectedChar])
-    
 
     return(
         <div style={{
