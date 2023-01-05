@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import (AbstractUser)
 from django.contrib.postgres.fields import ArrayField
+<<<<<<< HEAD
 from django.core.validators import MaxValueValidator, MinValueValidator
+=======
+>>>>>>> Jacob
 
 class AppUser(AbstractUser):
     """
