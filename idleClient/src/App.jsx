@@ -16,7 +16,7 @@ import NewCharacter from '../components/NewCharacter';
 import Gathering from '../components/Gathering';
 import Refining from '../components/Crafting';
 import Crafting from '../components/Crafting';
-import Combat from './components/Combat';
+import Combat from '../components/Combat';
 
 
 function App() {
