@@ -50,7 +50,7 @@ class Character(models.Model):
     
 # fighting Stats 
     #overall
-    hp = models.IntegerField(default=10, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    hp = models.IntegerField(default=100, validators=[MaxValueValidator(100), MinValueValidator(1)])
     attack =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     defense =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     dodge = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
