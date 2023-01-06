@@ -10,6 +10,8 @@ from .models import *
 
 
 
+
+
 # Create your views here.
 
 def index(request):
@@ -128,11 +130,11 @@ def deleteItem(request):
         print("Sorry, unable to complete that action")
     return JsonResponse({'DeleteItem':'Deleted Successfully'})
 
-    # user.Inventory.
 # Inventory and Item management end
 
 @api_view(["POST", "GET"])
 def character(request):
+
     print(request.data)
     if request.method =='POST':
         name= request.data['name']
@@ -143,7 +145,6 @@ def character(request):
         dodge= request.data['dodge']
         crit_chance= request.data['crit_chance']
         user_character= AppUser.objects.get(id=request.user.id)
-        
         
         saveChar = Character(
             name= name,
@@ -172,4 +173,3 @@ def character(request):
         character = Character.objects.get(user_character=request.user.id)
         SerializerChar = CharacterSerializer(character, many=False)
         return Response(SerializerChar.data)
-

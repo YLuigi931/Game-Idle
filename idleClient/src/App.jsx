@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
 import axios from 'axios'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
@@ -45,11 +45,6 @@ function App() {
     console.log(user)
     setUser(user)
   }
-
-
-  useEffect(()=>{
-    curr_user()
-}, [])
 
 const signOut=async()=>{
   let myResponse=await axios.post('signOut/')
@@ -100,9 +95,19 @@ const signOut=async()=>{
 
     <a href="/#/Character">Character Stats</a>
 	  <a href="Inventory">Inventory</a>
-	  <a href="Gathering">Gathering</a>
 	  <a href="Refining">Refining</a>
 	  <a href="Crafting">Crafting</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Skills">Skills</a>
+	  <a href="Whatever">Whatever</a>
+
 	  </div>
 
 	<Router>

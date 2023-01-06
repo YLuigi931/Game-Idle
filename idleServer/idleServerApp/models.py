@@ -3,6 +3,7 @@ from django.contrib.auth.models import (AbstractUser)
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
 class AppUser(AbstractUser):
     """
     user account
@@ -38,7 +39,6 @@ class Weapon(Item):
 
 class Armor(Item):
     defense = models.PositiveIntegerField()
-
 
 class Character(models.Model):
     name = models.CharField(max_length=15)
@@ -88,11 +88,12 @@ class Inventory(models.Model):
   
 class Enemy(models.Model):
     name = models.CharField(max_length=15)
-
     hp = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     attack =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     defense =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     dodge = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+
+
 
 
 
