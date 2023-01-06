@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './App.css'
 import axios from 'axios'
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
@@ -9,10 +8,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button'
-
 import SignInComp from '../components/signin.jsx'
 import SignUp from '../components/SignUp';
 import Home from '../components/home.jsx'
+import Character from '../components/Character';
+import NewCharacter from '../components/NewCharacter';
 
 
 function App() {
@@ -46,37 +46,10 @@ function App() {
     setUser(user)
   }
 
-  const signUp=async()=>{
-    event.preventDefault()
-    let email=document.getElementById("signUpEmail").value
-    let username=document.getElementById("signUpUserName").value
-    let first_name=document.getElementById("signUpFirstName").value
-    let last_name=document.getElementById("signUpLastName").value
-    let password=document.getElementById("signUpPassword").value
-    let password2=document.getElementById("signUpPassword2").value
-    console.log(email, password, password2)
-
-    if (password === password2){
-    let myResponse=await axios.post('signUp/',{
-        'username': username,
-        'first_name': first_name,
-        'last_name': last_name,
-        'email':email,
-        'password':password
-    })
-}else{
-    alert("Make sure your passwords match!")
-}
-if(myResponse.data['signup']==true){
-    window.location.href="/"
-}
-}
-
-
 const signOut=async()=>{
   let myResponse=await axios.post('signOut/')
   if (myResponse.data["signout"]==true){
-    window.location.reload()
+    window.location.href="/"
   }
 }
 
@@ -119,10 +92,22 @@ const signOut=async()=>{
     </Navbar>
 
 	  <div className='sidenav'>
+
+    <a href="/#/Character">Character Stats</a>
 	  <a href="Inventory">Inventory</a>
+	  <a href="Refining">Refining</a>
+	  <a href="Crafting">Crafting</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
+	  <a href="Gathering">Gathering</a>
 	  <a href="Gathering">Gathering</a>
 	  <a href="Skills">Skills</a>
 	  <a href="Whatever">Whatever</a>
+
 	  </div>
 
 	<Router>
@@ -130,6 +115,8 @@ const signOut=async()=>{
 			<Route path='/' element={<Home />}></Route>
 			<Route path='/SignIn' element={<SignInComp />}></Route>
 			<Route path='/SignUp' element={<SignUp/>} ></Route>
+      <Route path='/Character' element={<Character />} ></Route>
+      <Route path='/newCharacter' element={<NewCharacter />}></Route>
 		</Routes>
 	</Router>
 	  </>

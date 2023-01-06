@@ -3,9 +3,18 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
+<<<<<<< HEAD
 from .serializer import CharacterSerializer, InventorySerializer, UserSerializer, ItemSerializer
 from rest_framework.response import Response
 from .models import *
+=======
+from .serializer import CharacterSerializer, UserSerializer
+from rest_framework.response import Response
+from .models import *
+
+
+
+>>>>>>> 9f2b75f5e5226ee0eb19e649fbe076fe2f81f377
 
 # Create your views here.
 
@@ -69,7 +78,10 @@ def signOut(request):
         print(e)
         return JsonResponse({'signout':False})
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9f2b75f5e5226ee0eb19e649fbe076fe2f81f377
 # Inventory and Item management start
     # in the following functions, user id and item should be passed in request
 @api_view(["POST"])
@@ -110,4 +122,51 @@ def deleteItem(request):
     return JsonResponse({'DeleteItem':'Deleted Successfully'})
 
     # user.Inventory.
+<<<<<<< HEAD
 # Inventory and Item management end
+=======
+# Inventory and Item management end
+
+@api_view(["POST", "GET"])
+def character(request):
+
+    print(request.data)
+    if request.method =='POST':
+        name= request.data['name']
+        sprite= request.data['sprite']
+        class_type= request.data['class_type']
+        attack= request.data['attack']
+        defense= request.data['defense']
+        dodge= request.data['dodge']
+        crit_chance= request.data['crit_chance']
+        user_character= AppUser.objects.get(id=request.user.id)
+        
+        saveChar = Character(
+            name= name,
+            sprite= sprite,
+            class_type= class_type,
+            attack= attack,
+            defense= defense,
+            dodge= dodge,
+            crit_chance= crit_chance,
+            user_character=user_character
+            )
+        
+        
+        saveChar.save()
+        print(saveChar)
+        saveInv = Inventory(
+            max_spaces = 10,
+            user = saveChar
+        )
+        
+        saveInv.save()
+        print(saveInv)
+        return JsonResponse({'new_character': True})
+
+    if request.method =='GET':
+        character = Character.objects.get(user_character=request.user.id)
+        SerializerChar = CharacterSerializer(character, many=False)
+        return Response(SerializerChar.data)
+
+>>>>>>> 9f2b75f5e5226ee0eb19e649fbe076fe2f81f377
