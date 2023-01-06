@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import ListGroup from 'react-bootstrap/ListGroup';
 
 
 
@@ -41,9 +42,7 @@ function Gathering(){
 
 	useEffect(()=>{
         if (active) {
-            if (fill < 100 ) {
               idleGathering()
-            }
           }
         }, [fill, active]);
 
@@ -57,9 +56,12 @@ function Gathering(){
             <Card.Body>
             <Card.Title>Fishing</Card.Title>
             <Card.Text>
-            This is a longer card with supporting text below as a natural
-            lead-in to additional content. This content is a little bit
-            longer.
+                <ListGroup>
+                    <ListGroup.Item action onClick={()=>console.log('pond')}>Pond</ListGroup.Item>
+                    <ListGroup.Item>River</ListGroup.Item>
+                    <ListGroup.Item>Lake</ListGroup.Item>
+                    <ListGroup.Item>Ocean</ListGroup.Item>
+                </ListGroup>
             </Card.Text>
             <footer className="text-muted">
                 <Row>
