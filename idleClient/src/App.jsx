@@ -97,7 +97,7 @@ const signOut=async()=>{
 	  <div className='sidenav'>
 
     <a href="/#/Character">Character Stats</a>
-	  <a href="Inventory">Inventory</a>
+	  <a href="/#/Inventory">Inventory</a>
     <a href="/#/Gathering">Gathering</a>
 	  <a href="/#/Refining">Refining</a>
 	  <a href="/#/Crafting">Crafting</a>

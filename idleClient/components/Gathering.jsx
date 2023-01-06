@@ -13,28 +13,36 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 function Gathering(){
 
     const [bobby, setBobby] = useState(true)
-	const [fill, setFill] = useState(0)
+	const [fill, setFill] = useState(1)
     const [active, setActive] = useState(false)
-    const count = 0
-    let idleClock = 4
-    
-    
-    function idleGathering(){
-        setFill(prev => prev += 2)
+    const count = 1
+    let idleClock = 3
+    let timer;
+
+    function gathered(){
+        setFill(prev => prev += 1)
         console.log(fill)
+    }
+    function idleGathering(){
+        if(!timer){
+        timer = setTimeout(()=>gathered(), (idleClock*1000));
+        }
     }
 
     function startGathering(){
         setActive(true)
     }
+
     function stopGathering(){
         setActive(false)
+        clearTimeout(timer);
+        timer = null
     }
 
 	useEffect(()=>{
         if (active) {
             if (fill < 100 ) {
-              setTimeout(()=>idleGathering(), (idleClock*1000));
+              idleGathering()
             }
           }
         }, [fill, active]);
@@ -55,8 +63,8 @@ function Gathering(){
             </Card.Text>
             <footer className="text-muted">
                 <Row>
-                <Button variant="success" onClick={startGathering}>Start Fishing</Button>
-                <Button variant="dark" onClick={stopGathering}>Stop Fishing</Button>
+                <Button  id='start' variant="success" onClick={startGathering}>Start Fishing</Button>
+                <Button id='stop' variant="dark" onClick={stopGathering}>Stop Fishing</Button>
                 </Row>
                 <ProgressBar className='progress' style={{margin:'1rem'}}>
                     {active ?<ProgressBar style={{animationDuration:`${idleClock}s`}} className='progress-bar' />: <></>}
