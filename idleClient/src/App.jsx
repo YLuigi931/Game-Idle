@@ -16,6 +16,7 @@ import NewCharacter from '../components/NewCharacter';
 import Gathering from '../components/Gathering';
 import Refining from '../components/Crafting';
 import Crafting from '../components/Crafting';
+import Inventory from '../components/Inventory';
 
 
 function App() {
@@ -97,7 +98,7 @@ const signOut=async()=>{
 	  <div className='sidenav'>
 
     <a href="/#/Character">Character Stats</a>
-	  <a href="Inventory">Inventory</a>
+	  <a href="/#/Inventory">Inventory</a>
     <a href="/#/Gathering">Gathering</a>
 	  <a href="/#/Refining">Refining</a>
 	  <a href="/#/Crafting">Crafting</a>
@@ -117,6 +118,7 @@ const signOut=async()=>{
       <Route path='/Refining' element={<Refining />}></Route>
       <Route path='/Crafting' element={<Crafting />}></Route>
       <Route path='/Gathering' element={<Gathering />}></Route>
+      <Route path='/Inventory' element={<Inventory />}></Route>
 		</Routes>
 	</Router>
 	  </>
