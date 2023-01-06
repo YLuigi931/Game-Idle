@@ -1,35 +1,3 @@
-<<<<<<< HEAD
-import axios from "axios"
-
-function Home(){
-
-
-
-    const testAddItem = async () => {
-        let character_name = "Test Character"
-        let item = "Iron Sword"
-
-        let myresponse = await axios.post('addItem/', {'character_name': character_name, 'item': item})
-        console.log(myresponse.data)
-    }
-
-    const testDeleteItem = async () => {
-        let character_name = "Test Character"
-        let item = "Iron Sword"
-
-        let myresponse = await axios.post('deleteItem/', {'character_name': character_name, 'item': item})
-        console.log(myresponse.data)
-    }
-
-
-	return (
-		<>
-		<p>Jacob, was here</p>
-		<p>On the home page</p>
-		<p>bottom line</p>
-        <button onClick={testAddItem} >Click to add item!</button>
-        <button onClick={testDeleteItem} >Click to deleeet ittttttteeemmmmmmmmmmmmmmm item!</button>
-=======
 
 import {useState, useEffect} from 'react'
 import Card from 'react-bootstrap/Card'
@@ -133,7 +101,6 @@ function Home(){
 	<p className='text-center'>Another text test block</p>
 	</Col>
 	</Row>
->>>>>>> 9f2b75f5e5226ee0eb19e649fbe076fe2f81f377
 		</>
 	)
 }

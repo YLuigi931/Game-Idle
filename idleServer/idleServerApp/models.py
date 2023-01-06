@@ -1,10 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import (AbstractUser)
 from django.contrib.postgres.fields import ArrayField
-<<<<<<< HEAD
-=======
 from django.core.validators import MaxValueValidator, MinValueValidator
->>>>>>> 9f2b75f5e5226ee0eb19e649fbe076fe2f81f377
 
 
 class AppUser(AbstractUser):
@@ -43,11 +40,6 @@ class Weapon(Item):
 class Armor(Item):
     defense = models.PositiveIntegerField()
 
-<<<<<<< HEAD
-class Enemy(models.Model):
-    name = models.CharField(max_length=15)
-
-=======
 class Character(models.Model):
     name = models.CharField(max_length=15)
     user_character = models.ForeignKey(AppUser, on_delete=models.DO_NOTHING, related_name='user_character')
@@ -83,20 +75,12 @@ class Character(models.Model):
     arcana = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     cooking = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     weapons = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
->>>>>>> 9f2b75f5e5226ee0eb19e649fbe076fe2f81f377
 
 class Inventory(models.Model):
     max_spaces = models.PositiveIntegerField()
     weapon_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
     armor_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
     item_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
-<<<<<<< HEAD
-
-class Character(models.Model):
-    name = models.CharField(max_length=15)
-    user_character = models.ForeignKey(AppUser, on_delete=models.DO_NOTHING, related_name='user_character')
-    userInventory = models.ForeignKey(Inventory, on_delete=models.DO_NOTHING, related_name='character_inventory', blank=True, null=True)
-=======
     user = models.ForeignKey(Character, on_delete=models.DO_NOTHING, related_name="character_inventory", blank=True, null=True)
 
    
@@ -113,4 +97,3 @@ class Enemy(models.Model):
 
 
 
->>>>>>> 9f2b75f5e5226ee0eb19e649fbe076fe2f81f377

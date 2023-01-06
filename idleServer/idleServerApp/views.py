@@ -3,9 +3,13 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
-from .serializer import CharacterSerializer, UserSerializer, ItemSerializer
+from .serializer import CharacterSerializer, UserSerializer
 from rest_framework.response import Response
 from .models import *
+
+
+
+
 
 
 # Create your views here.
