@@ -3,18 +3,10 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
-<<<<<<< HEAD
-from .serializer import CharacterSerializer, InventorySerializer, UserSerializer, ItemSerializer
-from rest_framework.response import Response
-from .models import *
-=======
-from .serializer import CharacterSerializer, UserSerializer
+from .serializer import CharacterSerializer, UserSerializer, ItemSerializer
 from rest_framework.response import Response
 from .models import *
 
-
-
->>>>>>> 9f2b75f5e5226ee0eb19e649fbe076fe2f81f377
 
 # Create your views here.
 
@@ -78,10 +70,6 @@ def signOut(request):
         print(e)
         return JsonResponse({'signout':False})
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 9f2b75f5e5226ee0eb19e649fbe076fe2f81f377
 # Inventory and Item management start
     # in the following functions, user id and item should be passed in request
 @api_view(["POST"])
@@ -121,10 +109,6 @@ def deleteItem(request):
         print("Sorry, unable to complete that action")
     return JsonResponse({'DeleteItem':'Deleted Successfully'})
 
-    # user.Inventory.
-<<<<<<< HEAD
-# Inventory and Item management end
-=======
 # Inventory and Item management end
 
 @api_view(["POST", "GET"])
@@ -168,5 +152,3 @@ def character(request):
         character = Character.objects.get(user_character=request.user.id)
         SerializerChar = CharacterSerializer(character, many=False)
         return Response(SerializerChar.data)
-
->>>>>>> 9f2b75f5e5226ee0eb19e649fbe076fe2f81f377
