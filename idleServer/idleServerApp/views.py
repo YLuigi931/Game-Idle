@@ -89,6 +89,23 @@ def addItem(request):
     print(inventory.weapon_inventory)
     return JsonResponse({'AddItem':'Added Successfully'})
 
+@api_view(["POST"])
+def addGatheringItem(request):
+    inventory = Inventory.objects.get(character_inventory=request.user.id)
+    item = Item.objects.get(name=request.data['item'])
+    inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
+    if f'{item}' in inventory.item_inventory:
+        item.quantity +=1
+        inventory.save()
+    else:
+        if inventoryLength >= inventory.max_spaces:
+            print("Inventory is full!")
+        else:
+            inventory.item_inventory.append(item)
+            inventory.save()
+        print(inventory.item_inventory)
+    return JsonResponse({'AddGatheringItem':'Added Gathering Item Successfully'})
+
     
 @api_view(['POST'])
 def deleteItem(request):
