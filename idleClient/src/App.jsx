@@ -13,6 +13,9 @@ import SignUp from '../components/SignUp';
 import Home from '../components/home.jsx'
 import Character from '../components/Character';
 import NewCharacter from '../components/NewCharacter';
+import Gathering from '../components/Gathering';
+import Refining from '../components/Crafting';
+import Crafting from '../components/Crafting';
 
 
 function App() {
@@ -95,16 +98,10 @@ const signOut=async()=>{
 
     <a href="/#/Character">Character Stats</a>
 	  <a href="Inventory">Inventory</a>
-	  <a href="Refining">Refining</a>
-	  <a href="Crafting">Crafting</a>
-	  <a href="Gathering">Gathering</a>
-	  <a href="Gathering">Gathering</a>
-	  <a href="Gathering">Gathering</a>
-	  <a href="Gathering">Gathering</a>
-	  <a href="Gathering">Gathering</a>
-	  <a href="Gathering">Gathering</a>
-	  <a href="Gathering">Gathering</a>
-	  <a href="Gathering">Gathering</a>
+    <a href="/#/Gathering">Gathering</a>
+	  <a href="/#/Refining">Refining</a>
+	  <a href="/#/Crafting">Crafting</a>
+	
 	  <a href="Skills">Skills</a>
 	  <a href="Whatever">Whatever</a>
 
@@ -117,6 +114,9 @@ const signOut=async()=>{
 			<Route path='/SignUp' element={<SignUp/>} ></Route>
       <Route path='/Character' element={<Character />} ></Route>
       <Route path='/newCharacter' element={<NewCharacter />}></Route>
+      <Route path='/Refining' element={<Refining />}></Route>
+      <Route path='/Crafting' element={<Crafting />}></Route>
+      <Route path='/Gathering' element={<Gathering />}></Route>
 		</Routes>
 	</Router>
 	  </>
