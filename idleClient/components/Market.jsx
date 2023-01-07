@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-import Card from 'react-bootstrap/Card';
+import Accordion from 'react-bootstrap/Accordion';
 
 function Market() {
 
@@ -21,30 +19,30 @@ function Market() {
 
 
     return (
-        <div>
+        <div className="box g-4">
             <h1 style={{color:'white'}}>Market</h1>
-            <Row xs={1} md={4} className="box g-4" style={{margin:10}}>
-                <Col md={8}>
-                    <Row md={4} style={{justifyContent:'space-evenly'}}>
+                <Accordion defaultActiveKey="0">
                         {stock.map((things)=>{
                             return(
 
-                                <div>
-                                <Card className='text-center pop-out-card with-transform'style={{ width: '25rem', margin:'50px'}}>
-                                    <Card.Body>
-                                        <Card.Title>{things.name}</Card.Title>
-                                        <Card.Text>
-                                            {things.rarity}...{things.description}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
+                                <div className='box text-center pop-out-card with-transform'>
+                                
+                                <Accordion.Item eventKey={things.id}>
+                                <Accordion.Header> {things.name} </Accordion.Header>
+                                    <Accordion.Body>
+                                        
+                                        <h4>{things.rarity}</h4>
+                                        <hr/>
+                                        <p>{things.description}</p>
+                                    
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                               
                                 </div>
 
                             )
                         })}
-                    </Row>
-                </Col>
-            </Row>
+                </Accordion>
         </div>
     )
 }
