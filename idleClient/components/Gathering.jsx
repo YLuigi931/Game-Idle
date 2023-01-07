@@ -15,14 +15,16 @@ function Gathering(){
 
     const [bobby, setBobby] = useState(true)
 	const [fill, setFill] = useState(1)
+    const [gatheredType, setGatheredType] = useState(null)
     const [active, setActive] = useState(false)
     const count = 1
-    let idleClock = 3
+    let idleClock = 2
     let timer;
 
     function gathered(){
         setFill(prev => prev += 1)
         console.log(fill)
+        console.log(gatheredType)
     }
     function idleGathering(){
         if(!timer){
@@ -56,14 +58,18 @@ function Gathering(){
             <Card.Body>
             <Card.Title>Fishing</Card.Title>
             <Card.Text>
-                <ListGroup>
-                    <ListGroup.Item action onClick={()=>console.log('pond')}>Pond</ListGroup.Item>
-                    <ListGroup.Item>River</ListGroup.Item>
-                    <ListGroup.Item>Lake</ListGroup.Item>
-                    <ListGroup.Item>Ocean</ListGroup.Item>
+                <ListGroup >
+                    <ListGroup.Item action onClick={()=>setGatheredType('pond_fish')}>Pond</ListGroup.Item>
+                    <ListGroup.Item action onClick={()=>setGatheredType('river_fish')}>River</ListGroup.Item>
+                    <ListGroup.Item action onClick={()=>setGatheredType('lake_fish')}>Lake</ListGroup.Item>
+                    <ListGroup.Item action onClick={()=>setGatheredType('ocean_ocean')}>Ocean</ListGroup.Item>
                 </ListGroup>
             </Card.Text>
             <footer className="text-muted">
+                {(gatheredType == null) ? <></> :
+
+                <div>
+                <h5>{gatheredType}</h5>
                 <Row>
                 <Button  id='start' variant="success" onClick={startGathering}>Start Fishing</Button>
                 <Button id='stop' variant="dark" onClick={stopGathering}>Stop Fishing</Button>
@@ -71,6 +77,8 @@ function Gathering(){
                 <ProgressBar className='progress' style={{margin:'1rem'}}>
                     {active ?<ProgressBar style={{animationDuration:`${idleClock}s`}} className='progress-bar' />: <></>}
                 </ProgressBar>
+                </div>
+            }   
             </footer>
             </Card.Body>
             </Card>
