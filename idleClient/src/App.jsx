@@ -17,6 +17,7 @@ import Gathering from '../components/Gathering';
 import Refining from '../components/Crafting';
 import Crafting from '../components/Crafting';
 import Inventory from '../components/Inventory';
+import Market from '../components/Market';
 
 
 function App() {
@@ -102,7 +103,8 @@ const signOut=async()=>{
     <a href="/#/Gathering">Gathering</a>
 	  <a href="/#/Refining">Refining</a>
 	  <a href="/#/Crafting">Crafting</a>
-	
+    <a href="/#/Market">Market</a>
+
 	  <a href="Skills">Skills</a>
 	  <a href="Whatever">Whatever</a>
 
@@ -119,6 +121,7 @@ const signOut=async()=>{
       <Route path='/Crafting' element={<Crafting />}></Route>
       <Route path='/Gathering' element={<Gathering />}></Route>
       <Route path='/Inventory' element={<Inventory />}></Route>
+      <Route path='/Market' element={<Market />}/>
 		</Routes>
 	</Router>
 	  </>

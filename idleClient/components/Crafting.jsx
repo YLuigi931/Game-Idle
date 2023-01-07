@@ -23,7 +23,7 @@ function Crafting(){
 
     return(
         <>
-        <h1>Gathering page</h1>
+        <h1 style={{color:'white'}}>Gathering page</h1>
         {/* <ProgressBar className='progress' style={{margin:'2rem'}}>
 	<ProgressBar className='progress-bar'/>
 	</ProgressBar> */}
