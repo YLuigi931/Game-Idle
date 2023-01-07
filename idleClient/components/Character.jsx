@@ -5,21 +5,22 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 
-function Character(){
+function Character({character}){
 
-    const [character, setCharacter] = useState([]);
+    console.log(character)
+    // const [character, setCharacter] = useState([]);
 
-    const getCharacter=async()=>{
-        let myResponse=await axios.get('character/')
-        let char= myResponse.data
-        console.log(char)
-        setCharacter(char)
-      }
+    // const getCharacter=async()=>{
+    //     let myResponse=await axios.get('character/')
+    //     let char= myResponse.data
+    //     console.log(char)
+    //     setCharacter(char)
+    //   }
 
 
-    useEffect(()=>{
-        getCharacter()
-    }, [])
+    // useEffect(()=>{
+    //     getCharacter()
+    // }, [])
     
     return(
         <div style={{
