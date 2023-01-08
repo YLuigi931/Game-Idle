@@ -8,6 +8,7 @@ urlpatterns = [
     path('signUp/', views.signUp),
     path('signOut/', views.signOut),
     path('current_user/', views.curr_user),
+    path('getInventory/', views.getInventory),
     path('addItem/', views.addItem),
     path('addGatheringItem/', views.addGatheringItem),
     path('deleteItem/', views.deleteItem),

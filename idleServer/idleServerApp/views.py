@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
-from .serializer import CharacterSerializer, UserSerializer
+from .serializer import CharacterSerializer, UserSerializer, InventorySerializer
 from rest_framework.response import Response
 from .models import *
 
@@ -76,9 +76,25 @@ def signOut(request):
 
 # Inventory and Item management start
     # in the following functions, user id and item should be passed in request
+@api_view(['GET'])
+def getInventory(request):
+    print('------')
+    print(request.user.id)
+    print('------')
+    inventory = Inventory.objects.get(user_id=request.user.id)
+    print(inventory)
+    data= InventorySerializer(inventory, many=False)
+    return Response(data.data)
+
 @api_view(["POST"])
 def addItem(request):
-    inventory = Inventory.objects.get(character_inventory=request.user.id)
+    print('hi')
+    print(request.data)
+    print(request.data['item'])
+    print(request.user.id)
+    inventory = Inventory.objects.get(user_id=request.user.id)
+    print(inventory.weapon_inventory)
+    print(inventory)
     item = Item.objects.get(name=request.data['item'])
     inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
     if inventoryLength >= inventory.max_spaces:
@@ -91,7 +107,7 @@ def addItem(request):
 
 @api_view(["POST"])
 def addGatheringItem(request):
-    inventory = Inventory.objects.get(character_inventory=request.user.id)
+    inventory = Inventory.objects.get(user_id=request.user.id)
     item = Item.objects.get(name=request.data['item'])
     inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
     if f'{item}' in inventory.item_inventory:
