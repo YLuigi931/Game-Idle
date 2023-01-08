@@ -22,6 +22,7 @@ import Combat from '../components/Combat';
 function App() {
 
   const [user, setUser]= useState(null)
+  const [character, setCharacter] = useState([]);
 
   //--------------Cookie set-up---------------------------//
   function getCookie(name) {
@@ -43,12 +44,20 @@ function App() {
   axios.defaults.headers.common["X-CSRFToken"]=csrftoken
   //--------------Cookie set-up---------------------------//
 
+
   const curr_user=async()=>{
     let myResponse=await axios.get('current_user/')
     let user= myResponse.data
     console.log(user)
     setUser(user)
   }
+
+  const getCharacter=async()=>{
+      let myResponse=await axios.get('character/')
+      let char= myResponse.data
+      console.log(char)
+      setCharacter(char)
+    }
 
 const signOut=async()=>{
   let myResponse=await axios.post('signOut/')
@@ -59,6 +68,7 @@ const signOut=async()=>{
 
   useEffect(()=>{
     curr_user()
+    getCharacter()
 }, [])
 
   return (
@@ -113,14 +123,11 @@ const signOut=async()=>{
 
         <div className="sidenav">
           <a href="/#/Character">Character Stats</a>
-          <a href="Inventory">Inventory</a>
+          <a href="/#/Inventory">Inventory</a>
           <a href="/#/Gathering">Gathering</a>
           <a href="/#/Refining">Refining</a>
           <a href="/#/Crafting">Crafting</a>
           <a href="/#/Combat">Combat</a>
-
-          <a href="Skills">Skills</a>
-          <a href="Whatever">Whatever</a>
         </div>
 
         <Router>
@@ -128,14 +135,15 @@ const signOut=async()=>{
             <Route path="/" element={<Home />}></Route>
             <Route path="/SignIn" element={<SignInComp />}></Route>
             <Route path="/SignUp" element={<SignUp />}></Route>
-            <Route path="/Character" element={<Character />}></Route>
-            <Route path="/newCharacter" element={<NewCharacter />}></Route>
-            <Route path="/Refining" element={<Refining />}></Route>
-            <Route path="/Crafting" element={<Crafting />}></Route>
-            <Route path="/Gathering" element={<Gathering />}></Route>
+            <Route path="/Character" element={<Character character={character} />}></Route>
+            <Route path="/newCharacter" element={<NewCharacter  />}></Route>
+            <Route path="/Refining" element={<Refining character={character} />}></Route>
+            <Route path="/Crafting" element={<Crafting  character={character}/>}></Route>
+            <Route path="/Gathering" element={<Gathering  character={character}/>}></Route>
             <Route path="/Combat" element={<Combat />}></Route>
           </Routes>
         </Router>
+        
       </>
     </div>
   );
