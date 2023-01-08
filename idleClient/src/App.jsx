@@ -16,11 +16,13 @@ import NewCharacter from '../components/NewCharacter';
 import Gathering from '../components/Gathering';
 import Refining from '../components/Crafting';
 import Crafting from '../components/Crafting';
+import Combat from '../components/Combat';
 
 
 function App() {
 
   const [user, setUser]= useState(null)
+  const [character, setCharacter] = useState([]);
 
   //--------------Cookie set-up---------------------------//
   function getCookie(name) {
@@ -42,12 +44,20 @@ function App() {
   axios.defaults.headers.common["X-CSRFToken"]=csrftoken
   //--------------Cookie set-up---------------------------//
 
+
   const curr_user=async()=>{
     let myResponse=await axios.get('current_user/')
     let user= myResponse.data
     console.log(user)
     setUser(user)
   }
+
+  const getCharacter=async()=>{
+      let myResponse=await axios.get('character/')
+      let char= myResponse.data
+      console.log(char)
+      setCharacter(char)
+    }
 
 const signOut=async()=>{
   let myResponse=await axios.post('signOut/')
@@ -58,70 +68,85 @@ const signOut=async()=>{
 
   useEffect(()=>{
     curr_user()
+    getCharacter()
 }, [])
 
   return (
     <div className="App">
-	  <>
-    <Navbar bg="light" expand="lg" fixed='top'>
-      <Container>
-        <Navbar.Brand href="/">IDLE TIME</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-	  <div className='d-flex position-absolute start-50'>
-	 <Nav.Link className='test'> Combat </Nav.Link> 
-            <NavDropdown className='test1' title="Profile" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/#/SignIn">Sign-In</NavDropdown.Item>
-              <NavDropdown.Item href="/#/SignUp">
-                Sign-Up
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.3">{user && user.username}</NavDropdown.Item>
+      <>
+        <Navbar bg="light" expand="lg" fixed="top">
+          <Container>
+            <Navbar.Brand href="/">IDLE TIME</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link href="/">Home</Nav.Link>
+                <div className="d-flex position-absolute start-50">
+                  <Nav.Link className="test" href="/#/Combat">
+                    {" "}
+                    Combat{" "}
+                  </Nav.Link>
+                  <NavDropdown
+                    className="test1"
+                    title="Profile"
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item href="/#/SignIn">
+                      Sign-In
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/#/SignUp">
+                      Sign-Up
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action/3.3">
+                      {user && user.username}
+                    </NavDropdown.Item>
 
-              <NavDropdown.Item >
-      {/* SIGN OUT */}
-      <Button  size='sm' variant="outline-danger" className='sign_out_btn' onClick={signOut}>
-        Sign Out
-      </Button>
-      {/* SIGN OUT */}
-              </NavDropdown.Item>
-            </NavDropdown>
-	    </div>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+                    <NavDropdown.Item>
+                      {/* SIGN OUT */}
+                      <Button
+                        size="sm"
+                        variant="outline-danger"
+                        className="sign_out_btn"
+                        onClick={signOut}
+                      >
+                        Sign Out
+                      </Button>
+                      {/* SIGN OUT */}
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
 
-	  <div className='sidenav'>
+        <div className="sidenav">
+          <a href="/#/Character">Character Stats</a>
+          <a href="/#/Inventory">Inventory</a>
+          <a href="/#/Gathering">Gathering</a>
+          <a href="/#/Refining">Refining</a>
+          <a href="/#/Crafting">Crafting</a>
+          <a href="/#/Combat">Combat</a>
+        </div>
 
-    <a href="/#/Character">Character Stats</a>
-	  <a href="Inventory">Inventory</a>
-    <a href="/#/Gathering">Gathering</a>
-	  <a href="/#/Refining">Refining</a>
-	  <a href="/#/Crafting">Crafting</a>
-	
-	  <a href="Skills">Skills</a>
-	  <a href="Whatever">Whatever</a>
-
-	  </div>
-
-	<Router>
-		<Routes>
-			<Route path='/' element={<Home />}></Route>
-			<Route path='/SignIn' element={<SignInComp />}></Route>
-			<Route path='/SignUp' element={<SignUp/>} ></Route>
-      <Route path='/Character' element={<Character />} ></Route>
-      <Route path='/newCharacter' element={<NewCharacter />}></Route>
-      <Route path='/Refining' element={<Refining />}></Route>
-      <Route path='/Crafting' element={<Crafting />}></Route>
-      <Route path='/Gathering' element={<Gathering />}></Route>
-		</Routes>
-	</Router>
-	  </>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/SignIn" element={<SignInComp />}></Route>
+            <Route path="/SignUp" element={<SignUp />}></Route>
+            <Route path="/Character" element={<Character character={character} />}></Route>
+            <Route path="/newCharacter" element={<NewCharacter  />}></Route>
+            <Route path="/Refining" element={<Refining character={character} />}></Route>
+            <Route path="/Crafting" element={<Crafting  character={character}/>}></Route>
+            <Route path="/Gathering" element={<Gathering  character={character}/>}></Route>
+            <Route path="/Combat" element={<Combat />}></Route>
+          </Routes>
+        </Router>
+        
+      </>
     </div>
-  )
+  );
 }
 
 export default App

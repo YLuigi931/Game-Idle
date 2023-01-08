@@ -5,21 +5,22 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 
-function Character(){
+function Character({character}){
 
-    const [character, setCharacter] = useState([]);
+    console.log(character)
+    // const [character, setCharacter] = useState([]);
 
-    const getCharacter=async()=>{
-        let myResponse=await axios.get('character/')
-        let char= myResponse.data
-        console.log(char)
-        setCharacter(char)
-      }
+    // const getCharacter=async()=>{
+    //     let myResponse=await axios.get('character/')
+    //     let char= myResponse.data
+    //     console.log(char)
+    //     setCharacter(char)
+    //   }
 
 
-    useEffect(()=>{
-        getCharacter()
-    }, [])
+    // useEffect(()=>{
+    //     getCharacter()
+    // }, [])
     
     return(
         <div style={{
@@ -71,7 +72,6 @@ function Character(){
         <ListGroup.Item>{character.mining}</ListGroup.Item>
         <ListGroup.Item>{character.smelting}</ListGroup.Item>
         <ListGroup.Item>{character.wood_working}</ListGroup.Item>
-
         <ListGroup.Item>{character.armoring}</ListGroup.Item>
         <ListGroup.Item>{character.arcana}</ListGroup.Item>
         <ListGroup.Item>{character.cooking}</ListGroup.Item>

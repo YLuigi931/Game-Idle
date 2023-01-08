@@ -4,10 +4,21 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import axios from 'axios'
 
 function Home(){
 	const [bobby, setBobby] = useState(true)
 	const [fill, setFill] = useState(0)
+
+
+	const testAddItem = async ()=> {
+
+		let character_name = "nick"
+        let item = "test sword"
+
+        let myresponse = await axios.post('addItem/', {'character_name': character_name, 'item': item})
+        console.log(myresponse.data)
+	}
 
 	useEffect(()=>{
 		if(fill >= 100){
@@ -83,7 +94,7 @@ function Home(){
 	<p className='text-center'>Another text test block</p>
 	</Col>
 	</Row>
-
+			<button onClick={testAddItem} > HERHERHEHRHE IS THE BUTTON </button>
     	<Row xs={1} md={2} className="box g-4" style={{margin:0}}>
 	<Col className='box2'>
 	<p className='text-center'>just a text test</p>

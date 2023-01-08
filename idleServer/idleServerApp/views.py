@@ -78,8 +78,12 @@ def signOut(request):
     # in the following functions, user id and item should be passed in request
 @api_view(["POST"])
 def addItem(request):
-    inventory = Inventory.objects.get(character_inventory=request.user.id)
+
+    inventory = Inventory.objects.get(id=request.user.id)
     item = Item.objects.get(name=request.data['item'])
+    print(item)
+    print(inventory)
+    print(item)
     inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
     if inventoryLength >= inventory.max_spaces:
         print("Inventory is full!")
@@ -91,7 +95,7 @@ def addItem(request):
 
 @api_view(["POST"])
 def addGatheringItem(request):
-    inventory = Inventory.objects.get(character_inventory=request.user.id)
+    inventory = Inventory.objects.get(id=request.user.id)
     item = Item.objects.get(name=request.data['item'])
     inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
     if f'{item}' in inventory.item_inventory:
@@ -109,7 +113,7 @@ def addGatheringItem(request):
     
 @api_view(['POST'])
 def deleteItem(request):
-    inventory = Inventory.objects.get(character_inventory=request.user.id)
+    inventory = Inventory.objects.get(id=request.user.id)
     item = Item.objects.get(name=request.data['item'])
     print(item)
     print(inventory.weapon_inventory)

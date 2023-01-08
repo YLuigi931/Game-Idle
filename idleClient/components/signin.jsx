@@ -24,17 +24,9 @@ function SignInComp(){
     }
 	}
 
-    const testAddItem = async () => {
-        let character_name = "Test Character"
-        let item = "Iron Sword"
-
-        let myresponse = await axios.post('addItem/', {'character_name': character_name, 'item': item})
-        console.log(myresponse)
-    }
-
     const testDeleteItem = async () => {
-        let character_name = "Test Character"
-        let item = "Iron Sword"
+        let character_name = "aa"
+        let item = "test sword"
 
         let myresponse = await axios.post('deleteItem/', {'character_name': character_name, 'item': item})
         console.log(myresponse.data)
