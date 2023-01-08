@@ -33,6 +33,9 @@ class Item(models.Model):
     rarity = models.CharField(max_length=10)
     description = models.TextField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class Weapon(Item):
     attack = models.PositiveIntegerField()
@@ -91,7 +94,7 @@ class equipInventory(models.Model):
     weapon = ArrayField(models.CharField(max_length=200),blank=True, null=True)
     user = models.ForeignKey(Character, on_delete=models.DO_NOTHING, related_name="character_equipment", blank=True, null=True)
 
-   
+    
 
   
 class Enemy(models.Model):

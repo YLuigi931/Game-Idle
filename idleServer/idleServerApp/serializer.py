@@ -24,3 +24,8 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = '__all__'
 
+class EquipmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = equipInventory
+        fields = ['head', 'chest', 'gloves', 'boots', 'weapon']
+

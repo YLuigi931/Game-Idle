@@ -4,20 +4,56 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import axios from 'axios'
 
 function Home(){
 	const [bobby, setBobby] = useState(true)
 	const [fill, setFill] = useState(0)
+	const [bag,setBag] = useState([])
+	const [eq, setEq] = useState([])
 
+
+	const checkInventory=async()=>{
+		const getInventory=await axios.get('getInventory/')
+		setBag(getInventory.data.item_inventory)
+	}
+
+	const checkEquipment=async()=>{
+		const getEquipment=await axios.get('getEquipment/')
+		setEq(getEquipment.data.head)
+		console.log(getEquipment.data.head)
+	}
 
 	const testAddItem = async ()=> {
 
-		let character_name = "nick"
-        let item = "test sword"
+		let character_name = "aa"
+        let item = "test helmet"
 
         let myresponse = await axios.post('addItem/', {'character_name': character_name, 'item': item})
         console.log(myresponse.data)
 	}
+
+	const testDeleteItem = async () => {
+        let character_name = "aa"
+        let item = "test helmet"
+
+        let myresponse = await axios.post('deleteItem/', {'character_name': character_name, 'item': item})
+        console.log(myresponse.data)
+    }
+
+	const testEquipItem = async () => {
+        let character_name = "aa"
+        let item = "test helmet"
+
+		// let oldItem = axios.get('getEquipment/')
+		// console.log(oldItem.data.data)
+
+		let slot = 'head'
+
+        let myresponse = await axios.post('equipItem/', {'character_name': character_name, 'item': item, 'slot': slot})
+        console.log(myresponse.data[0])
+    }
+
 
 	useEffect(()=>{
 		if(fill >= 100){
@@ -95,7 +131,10 @@ function Home(){
 	<p className='text-center'>Another text test block</p>
 	</Col>
 	</Row>
-	<button onClick={testAddItem} > HERHERHEHRHE IS THE BUTTON </button>
+	<button onClick={testAddItem} > Test add item </button>
+	<button onClick={testDeleteItem} >Test delete item!</button>
+	<button onClick={testEquipItem} >Test Equip item!</button>
+	<button onClick={checkEquipment} >Check the head slot!</button>
     	<Row xs={1} md={2} className="box g-4" style={{margin:0}}>
 	<Col className='box2'>
 	<p className='text-center'>just a text test</p>

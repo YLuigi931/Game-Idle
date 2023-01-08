@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
-from .serializer import CharacterSerializer, UserSerializer
+from .serializer import CharacterSerializer, UserSerializer, InventorySerializer, EquipmentSerializer
 from rest_framework.response import Response
 from .models import *
 
@@ -78,20 +78,27 @@ def signOut(request):
     # in the following functions, user id and item should be passed in request
 @api_view(["POST"])
 def addItem(request):
-    inventory = Inventory.objects.get(character_inventory=request.user.id)
+    inventory = Inventory.objects.get(user = request.user.id)
+    
     item = Item.objects.get(name=request.data['item'])
+    print('Adding Item: ', item)
     inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
     if inventoryLength >= inventory.max_spaces:
         print("Inventory is full!")
     else:
-        inventory.weapon_inventory.append(item)
+        inventory.armor_inventory.append(item)
         inventory.save()
-    print(inventory.weapon_inventory)
+    print(inventory.armor_inventory)
+    equipment = equipInventory.objects.get(user=request.user.id)
+    serialEq = EquipmentSerializer(equipment)
+
+    print(serialEq.data['head'])
     return JsonResponse({'AddItem':'Added Successfully'})
 
 @api_view(["POST"])
 def addGatheringItem(request):
-    inventory = Inventory.objects.get(character_inventory=request.user.id)
+    print(request.user.id)
+    inventory = Inventory.objects.get(user=request.user.id)
     item = Item.objects.get(name=request.data['item'])
     inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
     if f'{item}' in inventory.item_inventory:
@@ -109,40 +116,58 @@ def addGatheringItem(request):
 @api_view(["POST"])
 def equipItem(request):
     #this is the user's equipment inventory
-    equipment = equipInventory.objects.get(character_equipment=request.user.id)
+    equipment = equipInventory.objects.get(user=request.user.id)
+    serialEq = EquipmentSerializer(equipment)
+
+    print(serialEq['head'])
 
     #this is the user's regular inventory
-    inventory = Inventory.objects.get(character_inventory=request.user.id)
+    inventory = Inventory.objects.get(user=request.user.id)
+    print('Inventory: ', inventory)
     inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
 
     #this is the item from the database
     item = Item.objects.get(name=request.data['item'])
+    print('Item: ', item)
 
     #this is the index of the item in the user's inventory that will be equipped to the user
-    item_index = inventory.armor_inventory.index({request.data['item']})
+    # item_index = inventory.armor_inventory.index(f'{item}')
 
     #this is the specific armor slot that the equipment will be placed in
     slot = request.data['slot']
 
     #this is the item currently equipped in the slot 
-    itemToBeReplaced = equipInventory.head[0]
-
+    itemToBeReplaced = serialEq.data['head'][0]
+    print(itemToBeReplaced)
 
     
     if slot == 'head':
+
+
+        #reference currently equipped item
+        # equipment.head.append(item)
+        # # equipment.head.remove(f'{itemToBeReplaced}')
         
-        if equipInventory.head[0] == 'Head slot':
+        # inventory.armor_inventory.append(itemToBeReplaced)
+        
+        
+        if serialEq.data['head'][0] == 'Head slot':
             #if the user is a new character and has nothing equipped, just equip the item
-            equipInventory.head[0] = item
+            equipment.head.append(item)
+            print('New Item', item)
+            equipment.head.remove('Head Slot')
+            equipment.save()
+            print(equipment.head)
         else:
             #if the user has an item equipped, swap the equipped item with the item in the inventory 
-            inventory.armor_inventory[item_index] = itemToBeReplaced
-            equipInventory.head[0] = item
+            inventory.armor_inventory.remove(f'{item}')
+            inventory.armor_inventory.append(itemToBeReplaced)
+            serialEq.data['head'][0] = item
         inventory.save()
         equipment.save()
 
     elif slot == 'chest':
-        if equipInventory.chest[0] == 'Head slot':
+        if equipInventory.chest[0] == 'Chest slot':
             #if the user is a new character and has nothing equipped, just equip the item
             equipInventory.chest[0] = item
         else:
@@ -152,7 +177,7 @@ def equipItem(request):
         inventory.save()
         equipment.save()
     elif slot == 'gloves':
-        if equipInventory.gloves[0] == 'Head slot':
+        if equipInventory.gloves[0] == 'Gloves slot':
             #if the user is a new character and has nothing equipped, just equip the item
             equipInventory.gloves[0] = item
         else:
@@ -162,7 +187,7 @@ def equipItem(request):
         inventory.save()
         equipment.save()
     elif slot == 'boots':
-        if equipInventory.boots[0] == 'Head slot':
+        if equipInventory.boots[0] == 'Boots slot':
             #if the user is a new character and has nothing equipped, just equip the item
             equipInventory.boots[0] = item
         else:
@@ -172,7 +197,7 @@ def equipItem(request):
         inventory.save()
         equipment.save()
     elif slot == 'weapon':
-        if equipInventory.weapon[0] == 'Head slot':
+        if equipInventory.weapon[0] == 'Weapon slot':
             #if the user is a new character and has nothing equipped, just equip the item
             equipInventory.weapon[0] = item
         else:
@@ -188,7 +213,7 @@ def equipItem(request):
     
 @api_view(['POST'])
 def deleteItem(request):
-    inventory = Inventory.objects.get(character_inventory=request.user.id)
+    inventory = Inventory.objects.get(user = request.user.id)
     item = Item.objects.get(name=request.data['item'])
     print(item)
     print(inventory.weapon_inventory)
@@ -266,3 +291,15 @@ def character(request):
         character = Character.objects.get(user_character=request.user.id)
         SerializerChar = CharacterSerializer(character, many=False)
         return Response(SerializerChar.data)
+
+@api_view(['GET'])
+def getInventory(request):
+    inventory = Inventory.objects.get(user_id = request.user.id)
+    data = InventorySerializer(inventory, many=False)
+    return Response(data.data)
+
+@api_view(['GET'])
+def getEquipment(request):
+    inventory = equipInventory.objects.get(user_id = request.user.id)
+    data = EquipmentSerializer(inventory, many=False)
+    return Response(data.data)
