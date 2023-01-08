@@ -9,9 +9,6 @@ from .models import *
 
 
 
-
-
-
 # Create your views here.
 
 def index(request):
@@ -65,6 +62,13 @@ def curr_user(request):
         return Response(data.data)
     else:
         return JsonResponse({"user":None})
+
+@api_view(["GET"])    
+def curr_user_inventory(request, user_id):
+        print(user_id)
+        if request.method == "GET":
+            user_inventory = Inventory.objects.all().filter(user = user_id)
+            return JsonResponse({'success':True})
 
 def signOut(request):
     try:

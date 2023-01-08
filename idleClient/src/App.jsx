@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import axios from 'axios'
@@ -23,6 +24,7 @@ import Market from '../components/Market';
 function App() {
 
   const [user, setUser]= useState(null)
+  const [userInventory, setUserInventory]= useState([])
 
   //--------------Cookie set-up---------------------------//
   function getCookie(name) {
@@ -51,6 +53,14 @@ function App() {
     setUser(user)
   }
 
+  const curr_user_inventory=async(user)=>{
+    console.log(user)
+    let inven_id =await axios.get(`current_user_inventory/${user}`)
+    let data = inven_id.data
+    // console.log(data)
+
+  }
+
 const signOut=async()=>{
   let myResponse=await axios.post('signOut/')
   if (myResponse.data["signout"]==true){
@@ -60,6 +70,7 @@ const signOut=async()=>{
 
   useEffect(()=>{
     curr_user()
+    curr_user_inventory()
 }, [])
 
   return (
@@ -103,7 +114,7 @@ const signOut=async()=>{
     <a href="/#/Gathering">Gathering</a>
 	  <a href="/#/Refining">Refining</a>
 	  <a href="/#/Crafting">Crafting</a>
-    <a href="/#/Market">Market</a>
+    <a href="/#/Market/">Market</a>
 
 	  <a href="Skills">Skills</a>
 	  <a href="Whatever">Whatever</a>
@@ -121,7 +132,7 @@ const signOut=async()=>{
       <Route path='/Crafting' element={<Crafting />}></Route>
       <Route path='/Gathering' element={<Gathering />}></Route>
       <Route path='/Inventory' element={<Inventory />}></Route>
-      <Route path='/Market' element={<Market />}/>
+      <Route path='/Market/' element={<Market />}/>
 		</Routes>
 	</Router>
 	  </>

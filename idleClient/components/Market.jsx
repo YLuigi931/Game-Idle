@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Accordion from 'react-bootstrap/Accordion';
 
 function Market() {
 
     const[stock,setStock] = useState([])
+    // const params = useParams()
 
     const getStocks = async() =>{
         let response=await axios.get('market/')
