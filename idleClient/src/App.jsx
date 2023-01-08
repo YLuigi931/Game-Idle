@@ -16,7 +16,8 @@ import NewCharacter from '../components/NewCharacter';
 import Gathering from '../components/Gathering';
 import Refining from '../components/Crafting';
 import Crafting from '../components/Crafting';
-import Combat from '../components/Combat';
+import Inventory from '../components/Inventory';
+import Market from '../components/Market';
 
 
 function App() {
@@ -121,30 +122,35 @@ const signOut=async()=>{
           </Container>
         </Navbar>
 
-        <div className="sidenav">
-          <a href="/#/Character">Character Stats</a>
-          <a href="/#/Inventory">Inventory</a>
-          <a href="/#/Gathering">Gathering</a>
-          <a href="/#/Refining">Refining</a>
-          <a href="/#/Crafting">Crafting</a>
-          <a href="/#/Combat">Combat</a>
-        </div>
+	  <div className='sidenav'>
 
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/SignIn" element={<SignInComp />}></Route>
-            <Route path="/SignUp" element={<SignUp />}></Route>
-            <Route path="/Character" element={<Character character={character} />}></Route>
-            <Route path="/newCharacter" element={<NewCharacter  />}></Route>
-            <Route path="/Refining" element={<Refining character={character} />}></Route>
-            <Route path="/Crafting" element={<Crafting  character={character}/>}></Route>
-            <Route path="/Gathering" element={<Gathering  character={character}/>}></Route>
-            <Route path="/Combat" element={<Combat />}></Route>
-          </Routes>
-        </Router>
-        
-      </>
+    <a href="/#/Character">Character Stats</a>
+	  <a href="/#/Inventory">Inventory</a>
+    <a href="/#/Gathering">Gathering</a>
+	  <a href="/#/Refining">Refining</a>
+	  <a href="/#/Crafting">Crafting</a>
+    <a href="/#/Market">Market</a>
+
+	  <a href="Skills">Skills</a>
+	  <a href="Whatever">Whatever</a>
+
+	  </div>
+
+	<Router>
+		<Routes>
+			<Route path='/' element={<Home />}></Route>
+			<Route path='/SignIn' element={<SignInComp />}></Route>
+			<Route path='/SignUp' element={<SignUp/>} ></Route>
+      <Route path='/Character' element={<Character />} ></Route>
+      <Route path='/newCharacter' element={<NewCharacter />}></Route>
+      <Route path='/Refining' element={<Refining />}></Route>
+      <Route path='/Crafting' element={<Crafting />}></Route>
+      <Route path='/Gathering' element={<Gathering />}></Route>
+      <Route path='/Inventory' element={<Inventory />}></Route>
+      <Route path='/Market' element={<Market />}/>
+		</Routes>
+	</Router>
+	  </>
     </div>
   );
 }

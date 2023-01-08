@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
-from .serializer import CharacterSerializer, UserSerializer
+from .serializer import CharacterSerializer, UserSerializer, ItemSerializer
 from rest_framework.response import Response
 from .models import *
 
@@ -177,3 +177,12 @@ def character(request):
         character = Character.objects.get(user_character=request.user.id)
         SerializerChar = CharacterSerializer(character, many=False)
         return Response(SerializerChar.data)
+
+@api_view(["POST", "GET"])
+def market_inventory(request):
+    
+    if request.method == "GET":
+        all_Inventory = list(Item.objects.all().values())
+        # print(all_Inventory)
+        # SerializerChar = ItemSerializer(all_Inventory, many=False)
+        return JsonResponse({'success':all_Inventory})

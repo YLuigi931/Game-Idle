@@ -30,7 +30,7 @@ class Item(models.Model):
     name = models.CharField(max_length=255)
     quantity = models.PositiveIntegerField()
     max_stacks = models.PositiveIntegerField()
-    rarity = models.CharField(max_length=10)
+    rarity = models.CharField(max_length=75)
     description = models.TextField(max_length=255)
 
 

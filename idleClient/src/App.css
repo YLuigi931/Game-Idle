@@ -40,7 +40,7 @@ body { padding-top: 86px; padding-left:280px; padding-right: 20px; background-im
 
 .box {
 	border: solid 3px;
-	padding: 4rem;
+	padding: 2rem;
 	background-color:rgba(128,128,128,.6);
 	text-align: center;
 	
@@ -50,6 +50,16 @@ body { padding-top: 86px; padding-left:280px; padding-right: 20px; background-im
 	background-color:rgba(66,66,92, 1);
 	color: rgb(176,176,176);
 	border-color:black;
+}
+
+.pop-out-card {
+	transition: all .2s;
+}
+.pop-out-card:hover {
+box-shadow: 2px 12px 15px #999;
+}
+.pop-out-card.with-transform:hover {
+transform: translateY(-2px);
 }
 
 .box2 { 
