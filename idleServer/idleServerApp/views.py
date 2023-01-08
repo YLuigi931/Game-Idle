@@ -106,6 +106,85 @@ def addGatheringItem(request):
         print(inventory.item_inventory)
     return JsonResponse({'AddGatheringItem':'Added Gathering Item Successfully'})
 
+@api_view(["POST"])
+def equipItem(request):
+    #this is the user's equipment inventory
+    equipment = equipInventory.objects.get(character_equipment=request.user.id)
+
+    #this is the user's regular inventory
+    inventory = Inventory.objects.get(character_inventory=request.user.id)
+    inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
+
+    #this is the item from the database
+    item = Item.objects.get(name=request.data['item'])
+
+    #this is the index of the item in the user's inventory that will be equipped to the user
+    item_index = inventory.armor_inventory.index({request.data['item']})
+
+    #this is the specific armor slot that the equipment will be placed in
+    slot = request.data['slot']
+
+    #this is the item currently equipped in the slot 
+    itemToBeReplaced = equipInventory.head[0]
+
+
+    
+    if slot == 'head':
+        
+        if equipInventory.head[0] == 'Head slot':
+            #if the user is a new character and has nothing equipped, just equip the item
+            equipInventory.head[0] = item
+        else:
+            #if the user has an item equipped, swap the equipped item with the item in the inventory 
+            inventory.armor_inventory[item_index] = itemToBeReplaced
+            equipInventory.head[0] = item
+        inventory.save()
+        equipment.save()
+
+    elif slot == 'chest':
+        if equipInventory.chest[0] == 'Head slot':
+            #if the user is a new character and has nothing equipped, just equip the item
+            equipInventory.chest[0] = item
+        else:
+            #if the user has an item equipped, swap the equipped item with the item in the inventory 
+            inventory.armor_inventory[item_index] = itemToBeReplaced
+            equipInventory.chest[0] = item
+        inventory.save()
+        equipment.save()
+    elif slot == 'gloves':
+        if equipInventory.gloves[0] == 'Head slot':
+            #if the user is a new character and has nothing equipped, just equip the item
+            equipInventory.gloves[0] = item
+        else:
+            #if the user has an item equipped, swap the equipped item with the item in the inventory 
+            inventory.armor_inventory[item_index] = itemToBeReplaced
+            equipInventory.gloves[0] = item
+        inventory.save()
+        equipment.save()
+    elif slot == 'boots':
+        if equipInventory.boots[0] == 'Head slot':
+            #if the user is a new character and has nothing equipped, just equip the item
+            equipInventory.boots[0] = item
+        else:
+            #if the user has an item equipped, swap the equipped item with the item in the inventory 
+            inventory.armor_inventory[item_index] = itemToBeReplaced
+            equipInventory.boots[0] = item
+        inventory.save()
+        equipment.save()
+    elif slot == 'weapon':
+        if equipInventory.weapon[0] == 'Head slot':
+            #if the user is a new character and has nothing equipped, just equip the item
+            equipInventory.weapon[0] = item
+        else:
+            #if the user has an item equipped, swap the equipped item with the item in the inventory 
+            inventory.armor_inventory[item_index] = itemToBeReplaced
+            equipInventory.weapon[0] = item
+        inventory.save()
+        equipment.save()
+    
+
+    return JsonResponse({'EquipItem':'Item Equipped Successfully'})
+
     
 @api_view(['POST'])
 def deleteItem(request):
@@ -162,11 +241,25 @@ def character(request):
         print(saveChar)
         saveInv = Inventory(
             max_spaces = 10,
+            weapon_inventory = ["Empty"],
+            armor_inventory = ["Empty"],
+            item_inventory = ["Empty"],
             user = saveChar
+        )
+
+        saveEq = equipInventory(
+            user = saveChar,
+            head = ["Head Slot"],
+            chest = ["Chest Slot"],
+            gloves = ["Glove Slot"],
+            boots = ["Boots Slot"],
+            weapon = ["Weapon Slot"]
         )
         
         saveInv.save()
         print(saveInv)
+        saveEq.save()
+        print(saveEq)
         return JsonResponse({'new_character': True})
 
     if request.method =='GET':

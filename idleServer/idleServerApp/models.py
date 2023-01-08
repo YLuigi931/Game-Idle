@@ -83,6 +83,14 @@ class Inventory(models.Model):
     item_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
     user = models.ForeignKey(Character, on_delete=models.DO_NOTHING, related_name="character_inventory", blank=True, null=True)
 
+class equipInventory(models.Model):
+    head = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    chest = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    gloves = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    boots = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    weapon = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    user = models.ForeignKey(Character, on_delete=models.DO_NOTHING, related_name="character_equipment", blank=True, null=True)
+
    
 
   
