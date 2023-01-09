@@ -23,7 +23,7 @@ function Refining(){
 
     return(
         <>
-        <h1>Refinfing page</h1>
+        <h1 style={{color:'white'}}>Refinfing page</h1>
         {/* <ProgressBar className='progress' style={{margin:'2rem'}}>
 	<ProgressBar className='progress-bar'/>
 	</ProgressBar> */}
