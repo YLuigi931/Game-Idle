@@ -187,18 +187,18 @@ def character(request):
             character.mining_xp = (character.mining_xp + request.data['mining_xp'])
     #refining
         if 'smelting_xp' in request.data:
-            character.smelting_xp = request.data['smelting_xp'] or character.smelting_xp
+            character.smelting_xp = request.data['smelting_xp']
         if 'wood_working_xp' in request.data:
-            character.wood_working_xp = request.data['wood_working_xp'] or character.wood_working_xp
+            character.wood_working_xp = request.data['wood_working_xp']
     #crafting 
         if 'armoring_xp' in request.data:
-            character.armoring_xp = request.data['armoring_xp'] or character.armoring_xp
+            character.armoring_xp = request.data['armoring_xp']
         if 'arcana_xp' in request.data:
-            character.arcana_xp = request.data['arcana_xp'] or character.arcana_xp
+            character.arcana_xp = request.data['arcana_xp']
         if 'cooking_xp' in request.data:
-            character.cooking_xp = request.data['cooking_xp'] or character.cooking_xp
+            character.cooking_xp = request.data['cooking_xp']
         if 'weapons_xp' in request.data:
-            character.weapons_xp = request.data['weapons_xp'] or character.weapons_xp
+            character.weapons_xp = request.data['weapons_xp']
         print(character.fishing_xp)
         print(character.harvesting_xp)
         print(character.logging_xp)
