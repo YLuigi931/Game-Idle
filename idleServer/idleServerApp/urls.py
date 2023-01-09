@@ -18,5 +18,6 @@ urlpatterns = [
     path('market/', views.market_inventory),
     path('getInventory/', views.getInventory),
     path('getEquipment/', views.getEquipment),
+
     re_path(r'.*', views.index, name='index'),
 ]
