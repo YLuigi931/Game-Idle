@@ -50,7 +50,7 @@ class Character(models.Model):
     
 # fighting Stats 
     #overall
-    hp = models.IntegerField(default=10, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    hp = models.IntegerField(default=100, validators=[MaxValueValidator(1000), MinValueValidator(1)])
     attack =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     defense =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     dodge = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
@@ -88,10 +88,14 @@ class Inventory(models.Model):
   
 class Enemy(models.Model):
     name = models.CharField(max_length=15)
-    hp = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    location = models.CharField(default=None, max_length=40)
+    base_damage = models.IntegerField(default=5, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    level = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    hp = models.IntegerField(default=20, validators=[MaxValueValidator(1000), MinValueValidator(1)])
     attack =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     defense =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     dodge = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    crit_chance =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
 
 
 
