@@ -312,15 +312,29 @@ def myInventory(request):
             print(curr_lst)
         
         return JsonResponse({'success':curr_lst})
-@api_view(['GET'])
-def getInventory(request):
-    inventory = Inventory.objects.get(user_id = request.user.id)
-    data = InventorySerializer(inventory, many=False)
-    print(data.data)
-    return Response(data.data)
+# @api_view(['GET'])
+# # def getInventory(request):
+# #     inventory = Inventory.objects.get(user_id = request.user.id)
+# #     data = InventorySerializer(inventory, many=False)
+# #     print(data.data)
+# #     return Response(data.data)
 
-@api_view(['GET'])
-def getEquipment(request):
-    inventory = equipInventory.objects.get(user_id = request.user.id)
-    data = EquipmentSerializer(inventory, many=False)
-    return Response(data.data)
+@api_view(["POST"])   
+def myEquipmentInventory(request):
+    if request.method == 'POST':
+        # print(request.data['userId'])
+        Bag = equipInventory.objects.get(user = request.user.id)
+        curr_lst = [] 
+        curr_lst.append(Bag.head[0])
+        curr_lst.append(Bag.chest[0])
+        curr_lst.append(Bag.gloves[0])
+        curr_lst.append(Bag.boots[0])
+        curr_lst.append(Bag.weapon[0])
+        print('Current List: ',curr_lst)
+        return JsonResponse({'success':curr_lst})
+
+# @api_view(['GET'])
+# def getEquipment(request):
+#     inventory = equipInventory.objects.get(user_id = request.user.id)
+#     data = EquipmentSerializer(inventory, many=False)
+#     return Response(data.data)

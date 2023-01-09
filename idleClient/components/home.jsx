@@ -20,9 +20,11 @@ function Home(){
 	}
 
 	const checkEquipment=async()=>{
-		const getEquipment=await axios.get('getEquipment/')
-		setEq(getEquipment.data.head)
-		console.log(getEquipment.data.head)
+		let response=await axios.post('myEquipmentInventory/')
+        let output=response.data.success
+		console.log(output)
+        // console.log(output['boots'][0], output['chest'][0], output['gloves'][0], output['head'][0], output['weapon'][0])
+        
 	}
 
 	const testAddItem = async ()=> {
@@ -135,8 +137,8 @@ function Home(){
 	<button onClick={testAddItem} > Test add item </button>
 	<button onClick={testDeleteItem} >Test delete item!</button>
 	<button onClick={testEquipItem} >Test Equip item!</button>
-	<button onClick={checkEquipment} >Check the head slot!</button>
-	<button onClick={checkInventory} >Check the inventory!</button>
+	<button onClick={checkEquipment} >Check Equipped items!</button>
+
     	<Row xs={1} md={2} className="box g-4" style={{margin:0}}>
 	<Col className='box2'>
 	<p className='text-center'>just a text test</p>
