@@ -3,11 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
-<<<<<<< HEAD
-from .serializer import CharacterSerializer, UserSerializer, InventorySerializer, ItemSerializer
-=======
-from .serializer import CharacterSerializer, UserSerializer, InventorySerializer, EquipmentSerializer
->>>>>>> nick-new
+from .serializer import CharacterSerializer, UserSerializer, InventorySerializer, ItemSerializer, EquipmentSerializer
 from rest_framework.response import Response
 from .models import *
 
