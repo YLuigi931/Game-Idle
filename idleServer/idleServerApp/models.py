@@ -14,7 +14,7 @@ class AppUser(AbstractUser):
     )
     email = models.EmailField(
         max_length=150,
-        unique=True,
+       
     )
     is_active =  models.BooleanField(
        default=True,
@@ -33,12 +33,19 @@ class Item(models.Model):
     rarity = models.CharField(max_length=75)
     description = models.TextField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class Weapon(Item):
     attack = models.PositiveIntegerField()
+    def __str__(self):
+        return self.name
 
 class Armor(Item):
     defense = models.PositiveIntegerField()
+    def __str__(self):
+        return self.name
 
 class Character(models.Model):
     name = models.CharField(max_length=15)
@@ -83,7 +90,15 @@ class Inventory(models.Model):
     item_inventory = ArrayField(models.CharField(max_length=200),blank=True, null=True)
     user = models.ForeignKey(Character, on_delete=models.CASCADE, related_name="character_inventory", blank=True, null=True)
 
-   
+class equipInventory(models.Model):
+    head = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    chest = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    gloves = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    boots = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    weapon = ArrayField(models.CharField(max_length=200),blank=True, null=True)
+    user = models.ForeignKey(Character, on_delete=models.DO_NOTHING, related_name="character_equipment", blank=True, null=True)
+
+    
 
   
 class Enemy(models.Model):
