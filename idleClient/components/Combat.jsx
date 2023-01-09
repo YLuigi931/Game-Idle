@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 function Combat() {
 
@@ -49,7 +50,8 @@ function Combat() {
           dexterity: char.dexterity,
           wisdom: char.wisdom,
           constitution: char.constitution,
-          hp: 100 + (char.constitution * 5)
+          hp: 100 + (char.constitution * 5),
+          sprite: char.sprite
         });
         
     };
@@ -175,48 +177,68 @@ console.log(user)
 
     return (
       <div className="box">
-        <button onClick={startCombat}>Start Combat</button>
-        <button onClick={stopCombat}>Stop Combat</button>
-        <div>Turn: {turn}</div>
+        <div className="turn">Turn: {turn}</div>
         <div>---------------</div>
         <div>
-          <p>Level: {user.level}</p>
-          {user.name}: {user.hp}
+          <p>Level: {enemy.level}</p>
+          <h4>
+            {enemy.name}: {enemy.hp}
+          </h4>
         </div>
         <div>
           <div className="progressbar">
-            <div
+            <ProgressBar
+              className="health"
               style={{
-                height: "100%",
-                width: `${user.hp}`,
-                backgroundColor: "green",
-                transition: "width",
+                margin: "1rem",
+                backgroundColor: "red",
+                width: "300px",
+                height: "30px",
+                border: "black solid 1px"
               }}
-            ></div>
-
-            <span className="progressPercent">{user.hp}</span>
+            >
+              <div className="progressPercent">
+                {/* <span>{user.hp}</span> */}
+              </div>
+              <ProgressBar
+                now={enemy.hp}
+                // style={{ width: `${user.hp}` }}
+                className="health-bar"
+              />
+            </ProgressBar>
           </div>
         </div>
         <br />
         <div>
-          <p>Level: {enemy.level}</p>
-          {enemy.name}: {enemy.hp}
-        </div>
-        <div>
-
-          <div className="progressbar">
-            <div
-              style={{
-                height: "100%",
-                width: `${enemy.hp}`,
-                backgroundColor: "green",
-                transition: "width 0.5s linear",
-              }}
-            ></div>
-
-            <span className="progressPercent">{enemy.hp}</span>
+          <span>{user.sprite}</span>
+          <div>
+            <p>Level: {user.level}</p>
+            <h4>
+              {user.name}: {user.hp}
+            </h4>
+          </div>
+          <div>
+            <div className="progressbar">
+              <ProgressBar
+                className="health"
+                style={{
+                  margin: "1rem",
+                  backgroundColor: "red",
+                  width: "300px",
+                  height: "30px",
+                  border: "black solid 1px",
+                }}
+              >
+                <div className="progressPercent">
+                  {/* <span>{enemy.hp}</span> */}
+                </div>
+                <ProgressBar now={user.hp} className="health-bar" />
+              </ProgressBar>
+            </div>
           </div>
         </div>
+        <button onClick={startCombat}>Start Combat</button>
+        <button onClick={stopCombat}>Stop Combat</button>
       </div>
     );
 

@@ -41,21 +41,37 @@ body { padding-top: 86px; padding-left:280px; padding-right: 20px; background-im
 
 .box {
 	border: solid 3px;
-	padding: 4rem;
+	padding: 2rem;
 	background-color:rgba(128,128,128,.6);
+	text-align: center;
+	
 }
 .card {
 	border: solid 3px;
-	background-color:rgba(66,66,92,.69);
+	background-color:rgba(66,66,92, 1);
 	color: rgb(176,176,176);
 	border-color:black;
 }
 
+.pop-out-card {
+	transition: all .2s;
+}
+.pop-out-card:hover {
+box-shadow: 2px 12px 15px #999;
+}
+.pop-out-card.with-transform:hover {
+transform: translateY(-2px);
+}
+
 .box2 { 
 	border: solid 3px;
-	background-color:rgb(156,156,156);
+	color: rgb(176,176,176);
+	background-color:rgb(66,66,92);
 	padding-top: 20px;
 	padding-bottom: 20px;
+	margin: .5rem;
+	text-align: center;
+	border-radius:10px;
 }
 
 .special {
@@ -80,6 +96,56 @@ body { padding-top: 86px; padding-left:280px; padding-right: 20px; background-im
 	to{width: 100%}
 }
 
+.progressPercent {
+	display: flex;
+	align-items: center;
+	font-weight: 600;
+	font-family: 'Franklin Gothic Medium';
+	position: absolute;
+	left: 50%;
+
+
+	transform: translate(-50%, -50%);
+	color: white;
+	text-shadow: -1px 0 #555, 0 1px #555, 1px 0 #555, 0 -1px #555;
+}
+
+.health-bar {
+	border: black solid 2px;
+	background-color: green;
+	animation-name: healthBar;
+
+}
+.turn {
+	font-weight: bolder;
+}
+
+.my-popup-content {
+	
+	background: rgb(114, 114, 114);
+	width: 5%;
+	padding: 5px;
+	position: bottom;
+  }
+  .my-popup-arrow {
+	color: rgb(108, 108, 108);
+	position: bottom;
+  }
+  [role='tooltip'].my-popup-content {
+	width: 20px;
+	box-shadow: rgba(0, 0, 0, 0) 0px 0px 3px;
+	position: bottom;
+  }
+  
+  .my-popup-overlay {
+	background: rgba(0, 0, 0, 0);
+	position: bottom;
+  }
+  [data-popup='tooltip'].my-popup-overlay {
+	position: bottom;
+	background: transparent;
+  }
+ 
 @media (max-width: 1700px){
 	.test{margin-left: 300px;}
 }
@@ -88,24 +154,4 @@ body { padding-top: 86px; padding-left:280px; padding-right: 20px; background-im
 	.test{margin-left: 50px;}
 	.sidenav{display:none;width:0px;}
 	body{padding-left:20px;}
-}
-
-.progressbar {
-	position: relative;
-	overflow: hidden;
-	width: 300px;
-	height: 30px;
-	border-radius: 3px;
-	background-color: red;
-}
-
-.progressPercent {
-	font-weight: 600;
-	font-family: 'Franklin Gothic Medium';
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	color: white;
-	text-shadow: -1px 0 #555, 0 1px #555, 1px 0 #555, 0 -1px #555;
-}
+} 

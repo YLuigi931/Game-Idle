@@ -1,26 +1,12 @@
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 
-function Character(){
+function Character({character}){
 
-    const [character, setCharacter] = useState([]);
-
-    const getCharacter=async()=>{
-        let myResponse=await axios.get('character/')
-        let char= myResponse.data
-        console.log(char)
-        setCharacter(char)
-      }
-
-
-    useEffect(()=>{
-        getCharacter()
-    }, [])
-    
     return(
         <div style={{
             display: 'flex',
@@ -64,20 +50,7 @@ function Character(){
         <h6>constitution</h6>{character.constitution}</ListGroup.Item>
         <hr></hr>
         
-        {/* add to respected pages */}
-        {/* <ListGroup.Item>{character.fishing}</ListGroup.Item>
-        <ListGroup.Item>{character.harvesting}</ListGroup.Item>
-        <ListGroup.Item>{character.logging}</ListGroup.Item>
-        <ListGroup.Item>{character.mining}</ListGroup.Item>
-        <ListGroup.Item>{character.smelting}</ListGroup.Item>
-        <ListGroup.Item>{character.wood_working}</ListGroup.Item>
-
-        <ListGroup.Item>{character.armoring}</ListGroup.Item>
-        <ListGroup.Item>{character.arcana}</ListGroup.Item>
-        <ListGroup.Item>{character.cooking}</ListGroup.Item>
-        <ListGroup.Item>{character.weapoins}</ListGroup.Item> */}
-   
-    </ListGroup>
+           </ListGroup>
         </Card.Text>
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
