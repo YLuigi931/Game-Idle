@@ -63,12 +63,12 @@ def curr_user(request):
     else:
         return JsonResponse({"user":None})
 
-@api_view(["GET"])    
-def curr_user_inventory(request, user_id):
-        print(user_id)
-        if request.method == "GET":
-            user_inventory = Inventory.objects.all().filter(user = user_id)
-            return JsonResponse({'success':True})
+# @api_view(["GET"])    
+# def curr_user_inventory(request, user_id):
+#         print(user_id)
+#         if request.method == "GET":
+#             user_inventory = Inventory.objects.all().filter(user = user_id)
+#             return JsonResponse({'success':True})
 
 def signOut(request):
     try:
@@ -166,6 +166,9 @@ def character(request):
         print(saveChar)
         saveInv = Inventory(
             max_spaces = 10,
+            weapon_inventory=[{'empty':True}],
+            armor_inventory=[{'empty':True}],
+            item_inventory=[{'empty':True}],
             user = saveChar
         )
         
@@ -186,3 +189,41 @@ def market_inventory(request):
         # print(all_Inventory)
         # SerializerChar = ItemSerializer(all_Inventory, many=False)
         return JsonResponse({'success':all_Inventory})
+    
+    if request.method == 'POST':
+        
+        # userID = request.data['user']
+        # item = request.data['itemData']
+        print(request.data)
+        #get the bag that has the same user id as the user
+        inventoryBag = Inventory.objects.all().filter(user=request.data['user']).values()
+        print(inventoryBag)
+        
+        #assemble the new list here  
+        for x in inventoryBag:
+            print(x.get('item_inventory'))
+            new_lst=x.get('item_inventory')
+            new_lst.append(request.data['itemData'])
+            print(new_lst)
+            
+        #call the bag once more and update it...Save yay
+        Inventory.objects.all().filter(user=request.data['user']).update(item_inventory=new_lst)
+        
+        #print to verify its in there
+        verify = Inventory.objects.all().filter(user=request.data['user']).values()
+        print(verify)
+        
+        return JsonResponse({'success':True})
+
+@api_view(["POST"])   
+def myInventory(request):
+    if request.method == 'POST':
+        # print(request.data['userId'])
+        inventoryBag = Inventory.objects.all().filter(user=request.data['userId']).values()
+        print(inventoryBag)
+        for x in inventoryBag:
+            # print(x.get('item_inventory'))
+            curr_lst = x.get('item_inventory')
+            print(curr_lst)
+        
+        return JsonResponse({'success':curr_lst})

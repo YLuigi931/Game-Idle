@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -8,13 +8,18 @@ import ListGroup from 'react-bootstrap/ListGroup';
 function Character(){
 
     const [character, setCharacter] = useState([]);
+    
+
+
 
     const getCharacter=async()=>{
         let myResponse=await axios.get('character/')
         let char= myResponse.data
-        console.log(char)
+        // console.log(char)
         setCharacter(char)
       }
+
+    
 
 
     useEffect(()=>{
@@ -63,6 +68,8 @@ function Character(){
         <ListGroup.Item className="d-flex justify-content-between align-items-start">
         <h6>constitution</h6>{character.constitution}</ListGroup.Item>
         <hr></hr>
+
+        
         
         {/* add to respected pages */}
         {/* <ListGroup.Item>{character.fishing}</ListGroup.Item>

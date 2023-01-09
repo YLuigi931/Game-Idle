@@ -1,18 +1,34 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+
 import axios from 'axios'
 import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
 
-function Market() {
+function Market({userStuff}) {
 
     const[stock,setStock] = useState([])
-    // const params = useParams()
-
+    
+    
     const getStocks = async() =>{
+        
         let response=await axios.get('market/')
         let output=response.data.success
         console.log(output)
         setStock(output)
+    }
+
+    function buy_Handler(item){
+        // let response=await axios.post()
+        console.log(item)
+       
+        const add_Item_to_Inventory = async()=>{
+        let send= await axios.post('market/',{
+            'user':userStuff,
+            'itemData':item,
+        })
+        console.log(send)
+        }
+        {add_Item_to_Inventory()}
     }
 
     useEffect(()=>{
@@ -22,6 +38,7 @@ function Market() {
 
     return (
         <div className="box g-4">
+            <>{userStuff}...</>
             <h1 style={{color:'white'}}>Market</h1>
                 <Accordion defaultActiveKey="0">
                         {stock.map((things)=>{
@@ -36,7 +53,7 @@ function Market() {
                                         <h4>{things.rarity}</h4>
                                         <hr/>
                                         <p>{things.description}</p>
-                                    
+                                        <Button type='submit' onClick={()=> buy_Handler(things)} variant="primary">Add to Inventory</Button>
                                     </Accordion.Body>
                                 </Accordion.Item>
                                

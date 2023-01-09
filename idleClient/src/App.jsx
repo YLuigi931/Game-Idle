@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import axios from 'axios'
@@ -24,7 +24,8 @@ import Market from '../components/Market';
 function App() {
 
   const [user, setUser]= useState(null)
-  const [userInventory, setUserInventory]= useState([])
+  const [userId,setUserId]= useState(0)
+  // const [userInventory, setUserInventory]= useState([])
 
   //--------------Cookie set-up---------------------------//
   function getCookie(name) {
@@ -49,17 +50,18 @@ function App() {
   const curr_user=async()=>{
     let myResponse=await axios.get('current_user/')
     let user= myResponse.data
-    console.log(user)
+    // console.log(user)
+    setUserId(user.id)
     setUser(user)
   }
 
-  const curr_user_inventory=async(user)=>{
-    console.log(user)
-    let inven_id =await axios.get(`current_user_inventory/${user}`)
-    let data = inven_id.data
-    // console.log(data)
+  // const curr_user_inventory=async()=>{
+    
+  //   let inven_id =await axios.get(`current_user_inventory/${user}`)
+  //   let data = inven_id.data
+  //   console.log(data)
 
-  }
+  // }
 
 const signOut=async()=>{
   let myResponse=await axios.post('signOut/')
@@ -70,7 +72,7 @@ const signOut=async()=>{
 
   useEffect(()=>{
     curr_user()
-    curr_user_inventory()
+    // curr_user_inventory()
 }, [])
 
   return (
@@ -114,7 +116,7 @@ const signOut=async()=>{
     <a href="/#/Gathering">Gathering</a>
 	  <a href="/#/Refining">Refining</a>
 	  <a href="/#/Crafting">Crafting</a>
-    <a href="/#/Market/">Market</a>
+    <a href={`/#/Market/`}>Market</a>
 
 	  <a href="Skills">Skills</a>
 	  <a href="Whatever">Whatever</a>
@@ -131,8 +133,8 @@ const signOut=async()=>{
       <Route path='/Refining' element={<Refining />}></Route>
       <Route path='/Crafting' element={<Crafting />}></Route>
       <Route path='/Gathering' element={<Gathering />}></Route>
-      <Route path='/Inventory' element={<Inventory />}></Route>
-      <Route path='/Market/' element={<Market />}/>
+      <Route path='/Inventory' element={<Inventory userStuff={userId}/>}></Route>
+      <Route path='/Market/' element={<Market userStuff={userId} />}/>
 		</Routes>
 	</Router>
 	  </>
