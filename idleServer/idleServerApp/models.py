@@ -46,10 +46,10 @@ class Character(models.Model):
     sprite = models.CharField(max_length=250)
     class_type = models.CharField(max_length=15)
     level = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
-    xp = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     
 # fighting Stats 
     #overall
+    combat_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
     hp = models.IntegerField(default=100, validators=[MaxValueValidator(100), MinValueValidator(1)])
     attack =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     defense =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
@@ -63,18 +63,28 @@ class Character(models.Model):
     constitution = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
 # Non-fighting Stats
     #gathering
-    fishing = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
-    harvesting = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
-    logging = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
-    mining = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    fishing_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
+    fishing_level = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    harvesting_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
+    harvesting_level = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    logging_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
+    logging_level = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    mining_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
+    mining_level = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     #refining
-    smelting = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
-    wood_working = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    smelting_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
+    smelting_level = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    wood_working_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
+    wood_working_level = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     #crafting 
-    armoring = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
-    arcana = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
-    cooking = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
-    weapons = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    armoring_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
+    armoring_level = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    arcana_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
+    arcana_level = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    cooking_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
+    cooking_level = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    weapons_xp = models.IntegerField(default=0, validators=[MaxValueValidator(100000), MinValueValidator(1)])
+    weapons_level = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
 
 class Inventory(models.Model):
     max_spaces = models.PositiveIntegerField()

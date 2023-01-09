@@ -12,5 +12,6 @@ urlpatterns = [
     path('addGatheringItem/', views.addGatheringItem),
     path('deleteItem/', views.deleteItem),
     path('character/', views.character),
+    # path('upgradeCharacter/<int:id>', views.upgradeCharacter),
     re_path(r'.*', views.index, name='index'),
 ]

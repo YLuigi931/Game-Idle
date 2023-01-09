@@ -132,7 +132,7 @@ def deleteItem(request):
 
 # Inventory and Item management end
 
-@api_view(["POST", "GET"])
+@api_view(["POST", "GET", "PUT"])
 def character(request):
 
     print(request.data)
@@ -173,3 +173,41 @@ def character(request):
         character = Character.objects.get(user_character=request.user.id)
         SerializerChar = CharacterSerializer(character, many=False)
         return Response(SerializerChar.data)
+
+    if request.method == 'PUT':
+        character = Character.objects.get(user_character=request.user.id)
+    #gathering
+        if 'fishing_xp' in request.data:
+            character.fishing_xp = (character.fishing_xp +request.data['fishing_xp'])
+        if 'harvesting_xp' in request.data:
+            character.harvesting_xp = (character.harvesting_xp +request.data['harvesting_xp'])
+        if 'logging_xp' in request.data:
+            character.logging_xp = (character.logging_xp +request.data['logging_xp'])
+        if 'mining_xp' in request.data:
+            character.mining_xp = (character.mining_xp + request.data['mining_xp'])
+    #refining
+        if 'smelting_xp' in request.data:
+            character.smelting_xp = request.data['smelting_xp'] or character.smelting_xp
+        if 'wood_working_xp' in request.data:
+            character.wood_working_xp = request.data['wood_working_xp'] or character.wood_working_xp
+    #crafting 
+        if 'armoring_xp' in request.data:
+            character.armoring_xp = request.data['armoring_xp'] or character.armoring_xp
+        if 'arcana_xp' in request.data:
+            character.arcana_xp = request.data['arcana_xp'] or character.arcana_xp
+        if 'cooking_xp' in request.data:
+            character.cooking_xp = request.data['cooking_xp'] or character.cooking_xp
+        if 'weapons_xp' in request.data:
+            character.weapons_xp = request.data['weapons_xp'] or character.weapons_xp
+        print(character.fishing_xp)
+        print(character.harvesting_xp)
+        print(character.logging_xp)
+        print(character.mining_xp)
+        print(character.smelting_xp)
+        print(character.wood_working_xp)
+        print(character.armoring_xp)
+        print(character.arcana_xp)
+        print(character.cooking_xp)
+        print(character.weapons_xp)
+        character.save()
+        return JsonResponse({'upgradeCharacter':'upgrade Successful'})
