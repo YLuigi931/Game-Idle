@@ -39,9 +39,13 @@ class Item(models.Model):
 
 class Weapon(Item):
     attack = models.PositiveIntegerField()
+    def __str__(self):
+        return self.name
 
 class Armor(Item):
     defense = models.PositiveIntegerField()
+    def __str__(self):
+        return self.name
 
 class Character(models.Model):
     name = models.CharField(max_length=15)

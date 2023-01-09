@@ -8,7 +8,6 @@ import Row from 'react-bootstrap/Row'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
-// import Popup from 'reactjs-popup';
 
 
 

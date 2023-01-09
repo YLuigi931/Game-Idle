@@ -118,92 +118,54 @@ def equipItem(request):
     #this is the user's equipment inventory
     equipment = equipInventory.objects.get(user=request.user.id)
     serialEq = EquipmentSerializer(equipment)
-
-    print(serialEq['head'])
-
     #this is the user's regular inventory
     inventory = Inventory.objects.get(user=request.user.id)
     print('Inventory: ', inventory)
     inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
-
     #this is the item from the database
     item = Item.objects.get(name=request.data['item'])
-    print('Item: ', item)
-
-    #this is the index of the item in the user's inventory that will be equipped to the user
-    # item_index = inventory.armor_inventory.index(f'{item}')
-
     #this is the specific armor slot that the equipment will be placed in
     slot = request.data['slot']
-
-    #this is the item currently equipped in the slot 
-    itemToBeReplaced = serialEq.data['head'][0]
-    print(itemToBeReplaced)
-
     
     if slot == 'head':
-
-
-        #reference currently equipped item
-        # equipment.head.append(item)
-        # # equipment.head.remove(f'{itemToBeReplaced}')
-        
-        # inventory.armor_inventory.append(itemToBeReplaced)
-        
-        
-        if serialEq.data['head'][0] == 'Head slot':
-            #if the user is a new character and has nothing equipped, just equip the item
-            equipment.head.append(item)
-            print('New Item', item)
-            equipment.head.remove('Head Slot')
-            equipment.save()
-            print(equipment.head)
-        else:
-            #if the user has an item equipped, swap the equipped item with the item in the inventory 
-            inventory.armor_inventory.remove(f'{item}')
-            inventory.armor_inventory.append(itemToBeReplaced)
-            serialEq.data['head'][0] = item
+        itemToBeReplaced = serialEq.data['head'][0]
+        inventory.armor_inventory.remove(f'{item}')
+        inventory.armor_inventory.append(itemToBeReplaced)
+        equipment.head.append(item)
+        equipment.head.remove(itemToBeReplaced)
         inventory.save()
         equipment.save()
 
     elif slot == 'chest':
-        if equipInventory.chest[0] == 'Chest slot':
-            #if the user is a new character and has nothing equipped, just equip the item
-            equipInventory.chest[0] = item
-        else:
-            #if the user has an item equipped, swap the equipped item with the item in the inventory 
-            inventory.armor_inventory[item_index] = itemToBeReplaced
-            equipInventory.chest[0] = item
+        itemToBeReplaced = serialEq.data['chest'][0]
+        inventory.armor_inventory.remove(f'{item}')
+        inventory.armor_inventory.append(itemToBeReplaced)
+        equipment.chest.append(item)
+        equipment.chest.remove(itemToBeReplaced)
         inventory.save()
         equipment.save()
     elif slot == 'gloves':
-        if equipInventory.gloves[0] == 'Gloves slot':
-            #if the user is a new character and has nothing equipped, just equip the item
-            equipInventory.gloves[0] = item
-        else:
-            #if the user has an item equipped, swap the equipped item with the item in the inventory 
-            inventory.armor_inventory[item_index] = itemToBeReplaced
-            equipInventory.gloves[0] = item
+        itemToBeReplaced = serialEq.data['gloves'][0]
+        inventory.armor_inventory.remove(f'{item}')
+        inventory.armor_inventory.append(itemToBeReplaced)
+        equipment.gloves.append(item)
+        equipment.gloves.remove(itemToBeReplaced)
         inventory.save()
         equipment.save()
     elif slot == 'boots':
-        if equipInventory.boots[0] == 'Boots slot':
-            #if the user is a new character and has nothing equipped, just equip the item
-            equipInventory.boots[0] = item
-        else:
-            #if the user has an item equipped, swap the equipped item with the item in the inventory 
-            inventory.armor_inventory[item_index] = itemToBeReplaced
-            equipInventory.boots[0] = item
+        itemToBeReplaced = serialEq.data['boots'][0]
+        inventory.armor_inventory.remove(f'{item}')
+        inventory.armor_inventory.append(itemToBeReplaced)
+        equipment.boots.append(item)
+        equipment.boots.remove(itemToBeReplaced)
         inventory.save()
         equipment.save()
     elif slot == 'weapon':
-        if equipInventory.weapon[0] == 'Weapon slot':
-            #if the user is a new character and has nothing equipped, just equip the item
-            equipInventory.weapon[0] = item
-        else:
-            #if the user has an item equipped, swap the equipped item with the item in the inventory 
-            inventory.armor_inventory[item_index] = itemToBeReplaced
-            equipInventory.weapon[0] = item
+        itemToBeReplaced = serialEq.data['weapon'][0]
+        inventory.armor_inventory.remove(f'{item}')
+        inventory.armor_inventory.append(itemToBeReplaced)
+        equipment.weapon.append(item)
+        equipment.weapon.remove(itemToBeReplaced)
         inventory.save()
         equipment.save()
     
@@ -264,21 +226,26 @@ def character(request):
         
         saveChar.save()
         print(saveChar)
+        weapon = Item.objects.get(id=1)
+        armor = Item.objects.get(name='test boots')
         saveInv = Inventory(
             max_spaces = 10,
-            weapon_inventory = ["Empty"],
-            armor_inventory = ["Empty"],
-            item_inventory = ["Empty"],
+            weapon_inventory = [weapon],
+            armor_inventory = [armor],
+            item_inventory = ["Potion"],
             user = saveChar
         )
 
+        baseHelm =Item.objects.get(name='test helmet')
+        baseChest =Item.objects.get(name='test chest')
+        baseGloves = Item.objects.get(name='test gloves')
         saveEq = equipInventory(
             user = saveChar,
-            head = ["Head Slot"],
-            chest = ["Chest Slot"],
-            gloves = ["Glove Slot"],
-            boots = ["Boots Slot"],
-            weapon = ["Weapon Slot"]
+            head = [baseHelm],
+            chest = [baseChest],
+            gloves = [baseGloves],
+            boots = [armor],
+            weapon = [weapon]
         )
         
         saveInv.save()
