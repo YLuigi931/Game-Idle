@@ -96,6 +96,8 @@ class Enemy(models.Model):
     defense =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     dodge = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     crit_chance =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    xp = models.IntegerField(default=10, validators=[MaxValueValidator(1000), MinValueValidator(1)])
+    loot = []
 
 
 
