@@ -3,12 +3,9 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
-from .serializer import CharacterSerializer, UserSerializer, InventorySerializer, EquipmentSerializer
+from .serializer import CharacterSerializer, UserSerializer, InventorySerializer, ItemSerializer, EquipmentSerializer
 from rest_framework.response import Response
 from .models import *
-
-
-
 
 
 
@@ -66,6 +63,7 @@ def curr_user(request):
     else:
         return JsonResponse({"user":None})
 
+
 def signOut(request):
     try:
         logout(request)
@@ -76,10 +74,19 @@ def signOut(request):
 
 # Inventory and Item management start
     # in the following functions, user id and item should be passed in request
+@api_view(['GET'])
+def getInventory(request):
+    print('------')
+    print(request.user.id)
+    print('------')
+    inventory = Inventory.objects.get(user_id=request.user.id)
+    print(inventory)
+    data= InventorySerializer(inventory, many=False)
+    return Response(data.data)
+
 @api_view(["POST"])
 def addItem(request):
     inventory = Inventory.objects.get(user = request.user.id)
-    
     item = Item.objects.get(name=request.data['item'])
     print('Adding Item: ', item)
     inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
@@ -259,6 +266,52 @@ def character(request):
         SerializerChar = CharacterSerializer(character, many=False)
         return Response(SerializerChar.data)
 
+@api_view(["POST", "GET"])
+def market_inventory(request):
+    
+    if request.method == "GET":
+        all_Inventory = list(Item.objects.all().values())
+        # print(all_Inventory)
+        # SerializerChar = ItemSerializer(all_Inventory, many=False)
+        return JsonResponse({'success':all_Inventory})
+    
+    if request.method == 'POST':
+        
+        # userID = request.data['user']
+        # item = request.data['itemData']
+        print(request.data)
+        #get the bag that has the same user id as the user
+        inventoryBag = Inventory.objects.all().filter(user=request.data['user']).values()
+        print(inventoryBag)
+        
+        #assemble the new list here  
+        for x in inventoryBag:
+            print(x.get('item_inventory'))
+            new_lst=x.get('item_inventory')
+            new_lst.append(request.data['itemData'])
+            print(new_lst)
+            
+        #call the bag once more and update it...Save yay
+        Inventory.objects.all().filter(user=request.data['user']).update(item_inventory=new_lst)
+        
+        #print to verify its in there
+        verify = Inventory.objects.all().filter(user=request.data['user']).values()
+        print(verify)
+        
+        return JsonResponse({'success':True})
+
+@api_view(["POST"])   
+def myInventory(request):
+    if request.method == 'POST':
+        # print(request.data['userId'])
+        inventoryBag = Inventory.objects.all().filter(user=request.data['userId']).values()
+        print(inventoryBag)
+        for x in inventoryBag:
+            # print(x.get('item_inventory'))
+            curr_lst = x.get('item_inventory')
+            print(curr_lst)
+        
+        return JsonResponse({'success':curr_lst})
 @api_view(['GET'])
 def getInventory(request):
     inventory = Inventory.objects.get(user_id = request.user.id)
