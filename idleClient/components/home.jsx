@@ -15,7 +15,8 @@ function Home(){
 
 	const checkInventory=async()=>{
 		const getInventory=await axios.get('getInventory/')
-		setBag(getInventory.data.item_inventory)
+		setBag(getInventory.data['armor_inventory'] + getInventory.data['weapon_inventory'] + getInventory.data['item_inventory'])
+		console.log(bag)
 	}
 
 	const checkEquipment=async()=>{
@@ -135,6 +136,7 @@ function Home(){
 	<button onClick={testDeleteItem} >Test delete item!</button>
 	<button onClick={testEquipItem} >Test Equip item!</button>
 	<button onClick={checkEquipment} >Check the head slot!</button>
+	<button onClick={checkInventory} >Check the inventory!</button>
     	<Row xs={1} md={2} className="box g-4" style={{margin:0}}>
 	<Col className='box2'>
 	<p className='text-center'>just a text test</p>

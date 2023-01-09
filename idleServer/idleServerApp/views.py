@@ -226,7 +226,7 @@ def character(request):
         
         saveChar.save()
         print(saveChar)
-        weapon = Item.objects.get(id=1)
+        weapon = Item.objects.get(name='test sword')
         armor = Item.objects.get(name='test boots')
         saveInv = Inventory(
             max_spaces = 10,
@@ -263,6 +263,7 @@ def character(request):
 def getInventory(request):
     inventory = Inventory.objects.get(user_id = request.user.id)
     data = InventorySerializer(inventory, many=False)
+    print(data.data)
     return Response(data.data)
 
 @api_view(['GET'])
