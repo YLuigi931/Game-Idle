@@ -1,5 +1,5 @@
 [
-    {
+     { 
         "model": "idleServerApp.Item",
         "pk":1,
         "fields":{
@@ -493,6 +493,276 @@
             "rarity": "Common",
             "description":" Its clothes "
         }
+    },
+
+    {
+        "model": "idleServerApp.Item",
+        "pk":46,
+        "fields":{
+            "name": "Copper Ore",
+            "quantity":0,
+            "max_stacks": 10000,
+            "rarity": "Common",
+            "description":" Refine To Craft Armor and Weapons "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":47,
+        "fields":{
+            "name": "Iron Ore",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Uncommon",
+            "description":" Refine To Craft Armor and Weapons "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":48,
+        "fields":{
+            "name": "Torch",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Rare",
+            "description":" Refine To Craft Armor and Weapons "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":49,
+        "fields":{
+            "name": "Dimond Ore",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Very Rare",
+            "description":" Refine To Craft Armor and Weapons "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":50,
+        "fields":{
+            "name": "Greenwood",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Common",
+            "description":" Gather to start fires and build weapons "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":51,
+        "fields":{
+            "name": "Cedar",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Uncommon",
+            "description":" Gather to start fires and build weaponss "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":52,
+        "fields":{
+            "name": "Spruce",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Rare",
+            "description":" Gather to start fires and build weapons "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":53,
+        "fields":{
+            "name": "Redwood",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Very Rare",
+            "description":" Gather to start fires and build weapons "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":54,
+        "fields":{
+            "name": "Pond Fish",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Common",
+            "description":" Fish for food. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":55,
+        "fields":{
+            "name": "Lake Fish",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "uncommon",
+            "description":" Fish for food. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":56,
+        "fields":{
+            "name": "River Fish",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "rare",
+            "description":" Fish for food. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":57,
+        "fields":{
+            "name": "Ocean Fish",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Very Rare",
+            "description":" Fish for food. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":58,
+        "fields":{
+            "name": "Potato",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Common",
+            "description":" Harvest for food. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":59,
+        "fields":{
+            "name": "Corn",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "uncommon",
+            "description":" Harvest for food. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":60,
+        "fields":{
+            "name": "Wheat",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Rare",
+            "description":" Harvest for food. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":61,
+        "fields":{
+            "name": "Strawberry",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Very Rare",
+            "description":" Harvest for food. "
+        }
+    },
+
+    {
+        "model": "idleServerApp.Item",
+        "pk":62,
+        "fields":{
+            "name": "Copper Bar",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Very Rare",
+            "description":" Need 2 Copper Ores. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":63,
+        "fields":{
+            "name": "Iron Bar",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Common",
+            "description":" Need 2 Iron Ores. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":64,
+        "fields":{
+            "name": "Gold Bar",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "uncommon",
+            "description":" Need 2 Gold Ores. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":65,
+        "fields":{
+            "name": "Dimond Bar",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Rare",
+            "description":" Need 2 Dimond Ores. "
+        }
+    },
+
+    {
+        "model": "idleServerApp.Item",
+        "pk":66,
+        "fields":{
+            "name": "Greenwood Log",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Common",
+            "description":" Need 2 Greenwood. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":67,
+        "fields":{
+            "name": "Ceder Log",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "uncommon",
+            "description":" Need 2 Cedar. "
+        }
+    },
+    {
+        "model": "idleServerApp.Item",
+        "pk":68,
+        "fields":{
+            "name": "Spruce Log",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Rare",
+            "description":" Need 2 Spruce "
+        }
+    },
+
+    {
+        "model": "idleServerApp.Item",
+        "pk":68,
+        "fields":{
+            "name": "Redwood Log",
+            "quantity":0,
+            "max_stacks": 100000,
+            "rarity": "Very Rare",
+            "description":" Need 2 Redwoods. "
+        }
     }
+    
+
 
 ]

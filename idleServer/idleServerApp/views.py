@@ -115,6 +115,7 @@ def addGatheringItem(request):
     if f'{item}' in inventory.item_inventory:
         item.quantity +=1
         inventory.save()
+        item.save()
     else:
         if inventoryLength >= inventory.max_spaces:
             print("Inventory is full!")
@@ -284,9 +285,9 @@ def character(request):
             character.mining_xp = (character.mining_xp + request.data['mining_xp'])
     #refining
         if 'smelting_xp' in request.data:
-            character.smelting_xp = request.data['smelting_xp']
+            character.smelting_xp = (character.smelting_xp +request.data['smelting_xp'])
         if 'wood_working_xp' in request.data:
-            character.wood_working_xp = request.data['wood_working_xp']
+            character.wood_working_xp = (character.wood_working_xp +request.data['wood_working_xp'])
     #crafting 
         if 'armoring_xp' in request.data:
             character.armoring_xp = request.data['armoring_xp']

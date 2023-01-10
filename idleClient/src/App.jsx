@@ -15,12 +15,13 @@ import Home from '../components/home.jsx'
 import Character from '../components/Character';
 import NewCharacter from '../components/NewCharacter';
 import Gathering from '../components/Gathering';
-import Refining from '../components/Crafting';
+import Refining from '../components/Refining';
 import Crafting from '../components/Crafting';
 import Combat from '../components/Combat';
 import Inventory2 from '../components/inventory2';
 import Inventory from '../components/Inventory';
 import Market from '../components/Market';
+
 
 
 function App() {
@@ -147,8 +148,8 @@ const signOut=async()=>{
             <Route path="/SignUp" element={<SignUp />}></Route>
             <Route path="/Character" element={<Character character={character} />}></Route>
             <Route path="/newCharacter" element={<NewCharacter  />}></Route>
-            <Route path="/Refining" element={<Refining character={character} />}></Route>
-            <Route path="/Crafting" element={<Crafting  character={character}/>}></Route>
+            <Route path="/Refining" element={<Refining  />}></Route>
+            <Route path="/Crafting" element={<Crafting  />}></Route>
             <Route path="/Gathering" element={<Gathering  character={character}/>}></Route>
             <Route path="/Combat" element={<Combat />}></Route>
             <Route path="/Inventory2f" element={<Inventory2 />}></Route>
