@@ -30,7 +30,7 @@ function Home(){
 	const testAddItem = async ()=> {
 
 		let character_name = "aa"
-        let item = "test helmet"
+        let item = "iron ore"
 
         let myresponse = await axios.post('addItem/', {'character_name': character_name, 'item': item})
         console.log(myresponse.data)
@@ -53,8 +53,11 @@ function Home(){
 
 		let slot = 'head'
 
-        let myresponse = await axios.post('equipItem/', {'character_name': character_name, 'item': item, 'slot': slot})
-        console.log(myresponse.data[0])
+        // let myresponse = await axios.post('equipItem/', {'character_name': character_name, 'item': item, 'slot': slot})
+        // console.log(myresponse.data[0])
+		let myresponse= await axios.get('getInventory/')
+		console.log(myresponse.data)
+		
     }
 
 
