@@ -238,11 +238,12 @@ def character(request):
         print(saveChar.id, 'FIX')
         weapon = Item.objects.get(name='Luck Blade')
         armor = Item.objects.get(name='Armor Boots +3')
+        theitem = Item.objects.get(id=1)
         saveInv = Inventory(
             max_spaces = 10,
             weapon_inventory = [weapon],
             armor_inventory = [armor],
-            item_inventory = ["Potion"],
+            item_inventory = theitem,
             user = saveChar
         )
 
