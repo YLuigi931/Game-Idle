@@ -21,6 +21,7 @@ import Combat from '../components/Combat';
 import Inventory2 from '../components/inventory2';
 import Inventory from '../components/Inventory';
 import Market from '../components/Market';
+import CombatMenu from '../components/CombatMenu';
 
 
 function App() {
@@ -88,7 +89,7 @@ const signOut=async()=>{
               <Nav className="me-auto">
                 <Nav.Link href="/">Home</Nav.Link>
                 <div className="d-flex position-absolute start-50">
-                  <Nav.Link className="test" href="/#/Combat">
+                  <Nav.Link className="test" href="/#/CombatMenu">
                     {" "}
                     Combat{" "}
                   </Nav.Link>
@@ -133,8 +134,8 @@ const signOut=async()=>{
           <a href="/#/Gathering">Gathering</a>
           <a href="/#/Refining">Refining</a>
           <a href="/#/Crafting">Crafting</a>
-          <a href="/#/Combat">Combat</a>
-    	  <a href={`/#/Market/`}>Market</a>
+          <a href="/#/CombatMenu">Combat</a>
+          <a href={`/#/Market/`}>Market</a>
           <a href="Skills">Skills</a>
           <a href="Whatever">Whatever</a>
         </div>
@@ -149,10 +150,11 @@ const signOut=async()=>{
             <Route path="/Refining" element={<Refining />}></Route>
             <Route path="/Crafting" element={<Crafting />}></Route>
             <Route path="/Gathering" element={<Gathering />}></Route>
-            <Route path="/Combat" element={<Combat />}></Route>
+            <Route path="/CombatMenu" element={<CombatMenu />}></Route>
             <Route path="/Inventory2f" element={<Inventory2 />}></Route>
-      	    <Route path='/Inventory' element={<Inventory userStuff={userId}/>}></Route>
-      	    <Route path='/Market/' element={<Market userStuff={userId} />}/>
+            <Route path="/Inventory" element={<Inventory userStuff={userId} />}></Route>
+            <Route path="/Market/" element={<Market userStuff={userId} />} />
+            <Route path="/Combat/:enemy_id" element={<Combat />}></Route>
           </Routes>
         </Router>
       </>

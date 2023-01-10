@@ -24,3 +24,8 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = '__all__'
 
+class EnemySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Enemy
+        fields = '__all__'
+        

@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
-from .serializer import CharacterSerializer, UserSerializer, InventorySerializer, ItemSerializer
+from .serializer import CharacterSerializer, UserSerializer, InventorySerializer, ItemSerializer, EnemySerializer
 from rest_framework.response import Response
 from .models import *
 
@@ -191,6 +191,8 @@ def character(request):
         SerializerChar = CharacterSerializer(character, many=False)
         return Response(SerializerChar.data)
 
+
+
 @api_view(["POST", "GET"])
 def market_inventory(request):
     
@@ -237,3 +239,30 @@ def myInventory(request):
             print(curr_lst)
         
         return JsonResponse({'success':curr_lst})
+
+@api_view(['GET'])
+def get_enemies(request):
+
+    if request.method == "GET":
+        all_enemies = list(Enemy.objects.all().values())
+
+        return JsonResponse({'success':all_enemies})
+
+@api_view(['PUT'])
+def update_xp(request, user_id):
+    print(user_id)
+    print(request)
+    if request.method == 'PUT':
+        try:
+            print(request)
+            character = Character.objects.get(id=user_id)
+            updated_xp = request.data['xp']
+            character.xp = updated_xp
+            print(character.xp)
+            character.save()
+            return JsonResponse({'update': True})
+        except Exception as e:
+            return JsonResponse({'update': False})
+
+
+

@@ -15,5 +15,7 @@ urlpatterns = [
     path('character/', views.character),
     path('myInventory/',views.myInventory),
     path('market/', views.market_inventory),
+    path('enemies/', views.get_enemies),
+    path('update_xp/<int:user_id>/', views.update_xp),
     re_path(r'.*', views.index, name='index'),
 ]
