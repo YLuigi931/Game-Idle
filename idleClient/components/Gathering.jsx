@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card'
@@ -9,13 +9,17 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 
 
 
 
 
 
-function Gathering({character}){
+function Gathering(){
 
     const [popUp, setPopUp] = useState(false)
 	const [fill, setFill] = useState(1)
@@ -24,9 +28,20 @@ function Gathering({character}){
     const [gatheredType, setGatheredType] = useState(null)
     const [catagory, setCatagory] = useState('')
     const [active, setActive] = useState(false)
+    const [character, setCharacter] = useState([]);
     let timer;
 
+    const [show, setShow] = useState(false);
+    const target = useRef(null);
+
 // console.log(character)
+
+const getCharacter=async()=>{
+    let myResponse=await axios.get('character/')
+    let char= myResponse.data
+    // console.log(char)
+    setCharacter(char)
+  }
 
  function upgradeCharacter(){
     // fishing_xp = fishing_xp
@@ -69,18 +84,19 @@ function Gathering({character}){
 
  //add gathered item to invatory ----------
 
-//    function addItem(){
-//     let myResponse = axios.post('addGatheringItem/')
-//    }
+   function addItem(){
+        let item = gatheredType
+    let myResponse = axios.post('addGatheringItem/',{
+        'item': item
+    })
+    console.log(myResponse)
+   }
 
 
     function gathered(){
         setFill(prev => prev += 1)
         setPopUp(true)
         setTimeout(()=>setPopUp(false), ((1000)))
-        // console.log(fill)
-        // console.log(gatheredType)
-        // console.log(catagory)
         upgradeCharacter()
     }
     function idleGathering(){
@@ -101,34 +117,66 @@ function Gathering({character}){
         timer = null
     }
 
+    const renderTooltip1 = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          5000 XP Required
+        </Tooltip>
+      );
+      const renderTooltip2 = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          15000 XP Required
+        </Tooltip>
+      );
+      const renderTooltip3 = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          25000 XP Required
+        </Tooltip>
+      );
+
+      const renderPopUp = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          +1 {gatheredType} ({fill})
+        </Tooltip>
+      );
+
 	useEffect(()=>{
+        getCharacter()
         if (active) {
               idleGathering()
+              addItem()
           }
         }, [fill, active]);
 
+    useEffect(()=>{
+        getCharacter()
+    },[fill])
 
     return(
-        <div style={{margin:'1rem'}} >
+        <div style={{margin:'1rem' }} >
+      
+      {popUp?
+      <ToastContainer  position="bottom-end" show={popUp} className="p-1"  autohide>
+        <Toast bg={'warning'}>
+          <Toast.Body>+1 {gatheredType} ({fill})</Toast.Body>
+        </Toast>
+      </ToastContainer>
+      :<></>
+        }
+      
+
         {(gatheredType == null) ? <div className='box2'><h5 className=''> Start Gathering {gatheredType}</h5></div> :
 
-                <div className='box2'>
+                <div 
+                aria-live="polite"
+        aria-atomic="true"
+        className="box2 position-relative" style={{margin:'1rem', minHeight: '240px' }}>
 
                 <h5 className=''> Start Gathering {gatheredType}</h5>
+
                 <Row style={{justifyContent:'center'}}>
                 <Button style={{margin: '.3rem', width: '10rem'}}  id='start' variant="outline-success" 
                 onClick={startGathering}>Start</Button>
-
-                {/* If we want a stop button */}
-
-                {/* <Button style={{margin: '.3rem', width: '10rem'}} id='stop' variant="outline-danger" 
-                onClick={stopGathering}>Stop</Button> */}
-
-                {/* If we want a stop button */}
-
                 </Row>
-
-                {popUp? <Badge pill bg="outline-success"> +1 {gatheredType} ({fill}) </Badge>:<div style={{margin: '1rem'}}></div>}
 
                 <ProgressBar style={{margin: '1rem'}}>
                     {active ?<ProgressBar style={{animationDuration:`${idleClock}s`}} className='progress-bar' />: <></>}
@@ -136,7 +184,6 @@ function Gathering({character}){
 
                 <Badge style={{margin:'.5rem'}} pill bg="warning">XP: {xp}</Badge>
                 <Badge style={{margin:'.5rem'}} pill bg="warning">Time: {idleClock}'s</Badge>
-
                 </div>
             }   
     <Row  xs={2} xxl={4} lg={3} className="g-4">
@@ -149,34 +196,54 @@ function Gathering({character}){
                 <ListGroup style={{ maxWidth: '10rem', margin:'1rem' }}   >
 
                     {<ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='light' 
-                    action onClick={()=>{setCatagory('fishing'), setGatheredType('pond fish'), setIdleClock(2.5), setxp(10), stopGathering()} }>Pond</ListGroup.Item>}
+                    action onClick={()=>{setCatagory('fishing'), setGatheredType('pond fish'), setIdleClock(1.5), setxp(10), stopGathering()} }>Pond</ListGroup.Item>}
 
 
-                    {character.fishing >= 5? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
-                     action onClick={()=>{setCatagory('fishing'), setGatheredType('river fish'), setIdleClock(3.2), setxp(15), stopGathering()}}>River</ListGroup.Item>
+                    {character.fishing_xp >= 5000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                     action onClick={()=>{setCatagory('fishing'), setGatheredType('river fish'), setIdleClock(2.2), setxp(15), stopGathering()}}>River</ListGroup.Item>
                      :
+                     
+                    <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip1}
+                    >
                      <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 5 Fishing</ListGroup.Item>
+                     action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
+                     
                     }
                     
-                    {character.fishing >= 15? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
-                     action onClick={()=>{setCatagory('fishing'), setGatheredType('lake fish'), setIdleClock(4.2), setxp(25), stopGathering()}}>Lake</ListGroup.Item>
+                    {character.fishing_xp >= 15000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                     action onClick={()=>{setCatagory('fishing'), setGatheredType('lake fish'), setIdleClock(3.2), setxp(35), stopGathering()}}>Lake</ListGroup.Item>
                      :
+                     <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip2}
+                    >
                      <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 15 Fishing</ListGroup.Item>
+                     action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                     
-                    {character.fishing >= 25? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
-                     action onClick={()=>{setCatagory('fishing'), setGatheredType('ocean fish'), setIdleClock(5.2), setxp(50), stopGathering()}}>Ocean</ListGroup.Item>
+                    {character.fishing_xp >= 25000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                     action onClick={()=>{setCatagory('fishing'), setGatheredType('ocean fish'), setIdleClock(4.2), setxp(75), stopGathering()}}>Ocean</ListGroup.Item>
                      :
+                     <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip3}
+                    >
                      <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 25 Fishing</ListGroup.Item>
+                     action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                 </ListGroup>
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-                Current Level: {character.fishing}
+                Current Fishing XP: {character.fishing_xp}
             </Card.Footer>
             </Card>
         </Col>
@@ -191,31 +258,49 @@ function Gathering({character}){
                     action onClick={()=>{setCatagory('harvesting'), setGatheredType('wheat'), setIdleClock(2.5), setxp(10), stopGathering()} }>Wheat</ListGroup.Item>}
 
 
-                    {character.harvesting >= 5? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.harvesting_xp >= 5000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('harvesting'),setGatheredType('corn'), setIdleClock(3.2), setxp(15), stopGathering()}}>Corn</ListGroup.Item>
                      :
+                     <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip1}
+                    >
                      <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 5 Fishing</ListGroup.Item>
+                     action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                     
-                    {character.harvesting >= 15? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.harvesting_xp >= 15000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('harvesting'), setGatheredType('potato'), setIdleClock(4.2), setxp(25), stopGathering()}}>Potato</ListGroup.Item>
                      :
+                     <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip1}
+                    >
                      <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 15 Fishing</ListGroup.Item>
+                     action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                     
-                    {character.harvesting >= 25? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.harvesting_xp >= 25000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('harvesting'), setGatheredType('strawberry'), setIdleClock(5.2), setxp(50), stopGathering()}}>Strawberry</ListGroup.Item>
                      :
+                     <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip1}
+                    >
                      <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 25 Fishing</ListGroup.Item>
+                     action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                 </ListGroup>
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-                Current Level: {character.harvesting}
+                Current harvesting XP: {character.harvesting_xp}
             </Card.Footer>
             </Card>
         </Col>
@@ -230,31 +315,49 @@ function Gathering({character}){
                     action onClick={()=>{setCatagory('logging'), setGatheredType('green wood'), setIdleClock(2.5), setxp(10), stopGathering()} }>Green Wood</ListGroup.Item>}
 
 
-                    {character.logging>= 5? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.logging_xp>= 5000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('logging'), setGatheredType('cedar'), setIdleClock(3.2), setxp(15), stopGathering()}}>Cedar</ListGroup.Item>
                      :
+                     <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip1}
+                    >
                      <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 5 Fishing</ListGroup.Item>
+                     action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                     
-                    {character.logging >= 15? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.logging_xp >= 15000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('logging'), setGatheredType('spruce'), setIdleClock(4.2), setxp(25), stopGathering()}}>Spruce</ListGroup.Item>
                      :
-                     <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 15 Fishing</ListGroup.Item>
+                     <OverlayTrigger
+                     placement="top"
+                     delay={{ show: 250, hide: 400 }}
+                     overlay={renderTooltip1}
+                    >
+                    <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
+                    action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                     
-                    {character.logging >= 25? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.logging_xp >= 25000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('logging'), setGatheredType('redwood'), setIdleClock(5.2), setxp(50), stopGathering()}}>RedWood</ListGroup.Item>
                      :
+                     <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip1}
+                    >
                      <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 25 Fishing</ListGroup.Item>
+                     action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                 </ListGroup>
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-                Current Level: {character.logging}
+                Current Logging XP: {character.logging_xp}
             </Card.Footer>
             </Card>
         </Col>
@@ -269,31 +372,49 @@ function Gathering({character}){
                     action onClick={()=>{setCatagory('mining'), setGatheredType('copper'), setIdleClock(2.5), setxp(10), stopGathering()} }>Copper</ListGroup.Item>}
 
 
-                    {character.mining >= 5? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.mining_xp >= 5000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('mining'), setGatheredType('iron'), setIdleClock(3.2), setxp(15), stopGathering()}}>Iron</ListGroup.Item>
                      :
+                     <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip1}
+                    >
                      <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 5 Mining</ListGroup.Item>
+                     action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                     
-                    {character.mining >= 15? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.mining_xp >= 15000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('mining'), setGatheredType('gold'), setIdleClock(4.2), setxp(25), stopGathering()}}>Gold</ListGroup.Item>
                      :
+                     <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip2}
+                    >
                      <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 15 Mining</ListGroup.Item>
+                     action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                     
-                    {character.mining >= 25? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.mining_xp >= 25000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('mining'), setGatheredType('Dimond'), setIdleClock(5.2), setxp(50), stopGathering()}}>Dimond</ListGroup.Item>
                      :
-                     <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
-                     action >Unlock at Level 25 Mining</ListGroup.Item>
+                     <OverlayTrigger
+                     placement="top"
+                     delay={{ show: 250, hide: 400 }}
+                     overlay={renderTooltip3}
+                    >
+                    <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='danger'
+                    action ref={target} onClick={() => setShow(!show)}>LOCKED</ListGroup.Item>
+                    </OverlayTrigger>
                     }
                 </ListGroup>
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-                Current Level: {character.mining}
+                Current Mining XP: {character.mining_xp}
             </Card.Footer>
             </Card>
         </Col>

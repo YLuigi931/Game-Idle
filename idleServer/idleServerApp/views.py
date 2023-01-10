@@ -104,9 +104,12 @@ def addItem(request):
 
 @api_view(["POST"])
 def addGatheringItem(request):
-    print(request.user.id)
-    inventory = Inventory.objects.get(user=request.user.id)
-    item = Item.objects.get(name=request.data['item'])
+    print(request.user)
+    character = Character.objects.get(user_character=request.user.id)
+    inventory = Inventory.objects.get(user=character.id)
+    print(inventory)
+    item =  Item.objects.get(name=request.data['item'])
+    print(item, 'item')
     inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
     if f'{item}' in inventory.item_inventory:
         item.quantity +=1
@@ -232,9 +235,9 @@ def character(request):
         
         
         saveChar.save()
-        print(saveChar)
-        weapon = Item.objects.get(id=1)
-        armor = Item.objects.get(name='test boots')
+        print(saveChar.id, 'FIX')
+        weapon = Item.objects.get(name='Luck Blade')
+        armor = Item.objects.get(name='Armor Boots +3')
         saveInv = Inventory(
             max_spaces = 10,
             weapon_inventory = [weapon],
@@ -243,9 +246,9 @@ def character(request):
             user = saveChar
         )
 
-        baseHelm =Item.objects.get(name='test helmet')
-        baseChest =Item.objects.get(name='test chest')
-        baseGloves = Item.objects.get(name='test gloves')
+        baseHelm =Item.objects.get(name='Armor Head +3')
+        baseChest =Item.objects.get(name='Armor Body +3')
+        baseGloves = Item.objects.get(name='Armor Gloves +3')
         saveEq = equipInventory(
             user = saveChar,
             head = [baseHelm],

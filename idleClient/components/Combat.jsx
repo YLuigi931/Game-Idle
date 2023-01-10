@@ -210,7 +210,7 @@ console.log(user)
         </div>
         <br />
         <div>
-          <span>{user.sprite}</span>
+          <img src={user.sprite} style={{width: '10rem'}}></img>
           <div>
             <p>Level: {user.level}</p>
             <h4>
