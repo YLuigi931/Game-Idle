@@ -55,7 +55,7 @@ function App() {
     let myResponse=await axios.get('current_user/')
     let user= myResponse.data
     // console.log(user)
-    setUserId(user.id)
+    // setUserId(user.id)
     setUser(user)
   }
 
