@@ -94,8 +94,9 @@ def addItem(request):
         print("Inventory is full!")
     else:
         inventory.armor_inventory.append(item)
+        print(item.quantity)
         inventory.save()
-    print(inventory.armor_inventory)
+    print(inventory.armor_inventory[1].quantity)
     equipment = equipInventory.objects.get(user=request.user.id)
     serialEq = EquipmentSerializer(equipment)
 
@@ -238,12 +239,12 @@ def character(request):
         print(saveChar.id, 'FIX')
         weapon = Item.objects.get(name='Luck Blade')
         armor = Item.objects.get(name='Armor Boots +3')
-        theitem = Item.objects.get(id=1)
+        anItem = Item.objects.get(name='iron ore')
         saveInv = Inventory(
             max_spaces = 10,
             weapon_inventory = [weapon],
             armor_inventory = [armor],
-            item_inventory = theitem,
+            item_inventory = [anItem],
             user = saveChar
         )
 
@@ -354,11 +355,58 @@ def myInventory(request):
             print(curr_lst)
         
         return JsonResponse({'success':curr_lst})
+
 @api_view(['GET'])
 def getInventory(request):
     inventory = Inventory.objects.get(user_id = request.user.id)
-    data = InventorySerializer(inventory, many=False)
-    return Response(data.data)
+    frontInv = []
+    
+    for x,i in enumerate(inventory.weapon_inventory):
+        theItem = Item.objects.get(name=inventory.weapon_inventory[x])
+        frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
+    
+    for x,i in enumerate(inventory.armor_inventory):
+        theItem = Item.objects.get(name=inventory.armor_inventory[x])
+        frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
+
+    for x,i in enumerate(inventory.item_inventory):
+        theItem = Item.objects.get(name=inventory.item_inventory[x])
+        frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
+    
+
+    print(frontInv)
+    return JsonResponse({'thing': frontInv})
+
+@api_view(["POST"])   
+def myEquipmentInventory(request):
+    if request.method == 'POST':
+        # print(request.data['userId'])
+        Bag = equipInventory.objects.get(user = request.user.id)
+        curr_lst = [] 
+        curr_lst.append(Bag.head[0])
+        curr_lst.append(Bag.chest[0])
+        curr_lst.append(Bag.gloves[0])
+        curr_lst.append(Bag.boots[0])
+        curr_lst.append(Bag.weapon[0])
+        print('Current List: ',curr_lst)
+        return JsonResponse({'success':curr_lst})
+
+# @api_view(['GET'])
+# def getEquipment(request):
+#     inventory = equipInventory.objects.get(user_id = request.user.id)
+#     data = EquipmentSerializer(inventory, many=False)
+#     return Response(data.data)
+
+@api_view(['POST'])
+def craftItem(request):
+#the request should send the name of the item that needs to be created and the materials/amount needed 
+    inventory = Inventory.objects.get(user = request.user.id)
+    itemToBeCrafted = request.data['craftItem']
+    item1 = request.data['item1'] #should have name and quantity 
+    item2 = request.data['item2']
+
+    if item1.name in inventory.item_inventory:
+        pass
 
 @api_view(['GET'])
 def getEquipment(request):

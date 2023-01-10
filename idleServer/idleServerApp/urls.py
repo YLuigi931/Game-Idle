@@ -8,7 +8,6 @@ urlpatterns = [
     path('signUp/', views.signUp),
     path('signOut/', views.signOut),
     path('current_user/', views.curr_user),
-    path('getInventory/', views.getInventory),
     path('addItem/', views.addItem),
     path('addGatheringItem/', views.addGatheringItem),
     path('deleteItem/', views.deleteItem),
@@ -18,6 +17,6 @@ urlpatterns = [
     path('market/', views.market_inventory),
     path('getInventory/', views.getInventory),
     path('getEquipment/', views.getEquipment),
-
+    path('myEquipmentInventory/', views.myEquipmentInventory),
     re_path(r'.*', views.index, name='index'),
 ]

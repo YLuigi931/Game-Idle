@@ -15,19 +15,22 @@ function Home(){
 
 	const checkInventory=async()=>{
 		const getInventory=await axios.get('getInventory/')
-		setBag(getInventory.data.item_inventory)
+		setBag(getInventory.data['armor_inventory'] + getInventory.data['weapon_inventory'] + getInventory.data['item_inventory'])
+		console.log(bag)
 	}
 
 	const checkEquipment=async()=>{
-		const getEquipment=await axios.get('getEquipment/')
-		setEq(getEquipment.data.head)
-		console.log(getEquipment.data.head)
+		let response=await axios.post('myEquipmentInventory/')
+        let output=response.data.success
+		console.log(output)
+        // console.log(output['boots'][0], output['chest'][0], output['gloves'][0], output['head'][0], output['weapon'][0])
+        
 	}
 
 	const testAddItem = async ()=> {
 
 		let character_name = "aa"
-        let item = "test helmet"
+        let item = "iron ore"
 
         let myresponse = await axios.post('addItem/', {'character_name': character_name, 'item': item})
         console.log(myresponse.data)
@@ -50,8 +53,11 @@ function Home(){
 
 		let slot = 'head'
 
-        let myresponse = await axios.post('equipItem/', {'character_name': character_name, 'item': item, 'slot': slot})
-        console.log(myresponse.data[0])
+        // let myresponse = await axios.post('equipItem/', {'character_name': character_name, 'item': item, 'slot': slot})
+        // console.log(myresponse.data[0])
+		let myresponse= await axios.get('getInventory/')
+		console.log(myresponse.data)
+		
     }
 
 
@@ -134,7 +140,8 @@ function Home(){
 	<button onClick={testAddItem} > Test add item </button>
 	<button onClick={testDeleteItem} >Test delete item!</button>
 	<button onClick={testEquipItem} >Test Equip item!</button>
-	<button onClick={checkEquipment} >Check the head slot!</button>
+	<button onClick={checkEquipment} >Check Equipped items!</button>
+
     	<Row xs={1} md={2} className="box g-4" style={{margin:0}}>
 	<Col className='box2'>
 	<p className='text-center'>just a text test</p>
