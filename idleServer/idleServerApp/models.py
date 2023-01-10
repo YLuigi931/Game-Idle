@@ -102,6 +102,7 @@ class Inventory(models.Model):
     item_inventory = ArrayField(models.CharField(max_length=200), blank=True, null=True)
     user = models.ForeignKey(Character, on_delete=models.CASCADE, related_name="character_inventory", blank=True, null=True)
 
+
 class equipInventory(models.Model):
     head = ArrayField(models.CharField(max_length=200),blank=True, null=True)
     chest = ArrayField(models.CharField(max_length=200),blank=True, null=True)
@@ -113,8 +114,9 @@ class equipInventory(models.Model):
     
 
   
+
 class Enemy(models.Model):
-    name = models.CharField(max_length=15)
+    name = models.CharField(max_length=40)
     location = models.CharField(default=None, max_length=40)
     base_damage = models.IntegerField(default=5, validators=[MaxValueValidator(100), MinValueValidator(1)])
     level = models.IntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
@@ -123,8 +125,8 @@ class Enemy(models.Model):
     defense =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     dodge = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     crit_chance =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
-    xp = models.IntegerField(default=10, validators=[MaxValueValidator(1000), MinValueValidator(1)])
-    loot = []
+    combat_xp = models.IntegerField(default=10, validators=[MaxValueValidator(1000), MinValueValidator(1)])
+    loot = ['gold coin']
 
 
 
