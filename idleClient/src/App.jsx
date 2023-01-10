@@ -29,6 +29,7 @@ function App() {
   const [user, setUser]= useState(null)
   const [userId,setUserId]= useState(0)
   // const [userInventory, setUserInventory]= useState([])
+  const [character, setCharacter] = useState([]);
 
   //--------------Cookie set-up---------------------------//
   function getCookie(name) {
@@ -50,6 +51,7 @@ function App() {
   axios.defaults.headers.common["X-CSRFToken"]=csrftoken
   //--------------Cookie set-up---------------------------//
 
+
   const curr_user=async()=>{
     let myResponse=await axios.get('current_user/')
     let user= myResponse.data
@@ -58,13 +60,12 @@ function App() {
     setUser(user)
   }
 
-  // const curr_user_inventory=async()=>{
-    
-  //   let inven_id =await axios.get(`current_user_inventory/${user}`)
-  //   let data = inven_id.data
-  //   console.log(data)
-
-  // }
+  const getCharacter=async()=>{
+      let myResponse=await axios.get('character/')
+      let char= myResponse.data
+      console.log(char)
+      setCharacter(char)
+    }
 
 const signOut=async()=>{
   let myResponse=await axios.post('signOut/')
@@ -75,7 +76,7 @@ const signOut=async()=>{
 
   useEffect(()=>{
     curr_user()
-    // curr_user_inventory()
+    getCharacter()
 }, [])
 
   return (
@@ -145,18 +146,21 @@ const signOut=async()=>{
             <Route path="/" element={<Home />}></Route>
             <Route path="/SignIn" element={<SignInComp />}></Route>
             <Route path="/SignUp" element={<SignUp />}></Route>
-            <Route path="/Character" element={<Character />}></Route>
-            <Route path="/newCharacter" element={<NewCharacter />}></Route>
-            <Route path="/Refining" element={<Refining />}></Route>
-            <Route path="/Crafting" element={<Crafting />}></Route>
-            <Route path="/Gathering" element={<Gathering />}></Route>
             <Route path="/CombatMenu" element={<CombatMenu />}></Route>
+            <Route path="/Character" element={<Character character={character} />}></Route>
+            <Route path="/newCharacter" element={<NewCharacter  />}></Route>
+            <Route path="/Refining" element={<Refining character={character} />}></Route>
+            <Route path="/Crafting" element={<Crafting  character={character}/>}></Route>
+            <Route path="/Gathering" element={<Gathering  character={character}/>}></Route>
+            <Route path="/Combat" element={<Combat />}></Route>
+
             <Route path="/Inventory2f" element={<Inventory2 />}></Route>
             <Route path="/Inventory" element={<Inventory userStuff={userId} />}></Route>
             <Route path="/Market/" element={<Market userStuff={userId} />} />
             <Route path="/Combat/:enemy_id" element={<Combat />}></Route>
           </Routes>
         </Router>
+        
       </>
     </div>
   );

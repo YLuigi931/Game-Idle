@@ -11,6 +11,7 @@ function Inventory({userStuff}) {
 
     const[invent,setInvent] = useState([]);
     let array = [];
+    const[bag,setBag] = useState([]);
 
     const playerInventory = async()=>{
         let myResponse = await axios.post('myInventory/',{
@@ -21,15 +22,10 @@ function Inventory({userStuff}) {
         a.forEach(function(entry) {
             console.log(entry);
             setInvent(entry);
-            // array.push(JSON.parse(entry))
           });
         console.log(invent)
-        // let data = JSON.stringify(myResponse.data.success)
-        // console.log(data)
-        // setInvent(data)
-        // console.log(invent)
-        
     }
+    
 
     useEffect(()=>{
         playerInventory()
@@ -47,27 +43,28 @@ function Inventory({userStuff}) {
                     
             <Row md={4}>
                     
-                    {/* {inventory.map((item)=>{
+                    {Array.from({ length: 10}).map((item, index)=>{
                         return(
                             <div>
                             <Card className='text-center pop-out-card with-transform'style={{ width: '8rem', margin:'10px'}}>
                                 <Card.Body>
-                                    <Card.Title>{item['name']}</Card.Title>
+                                    <Card.Title>Item {index+1}</Card.Title>
                                         <Card.Text>
-                                            ({item.quantity}/{item.max_stacks})
+                                            (0/0)
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
                             </div>
                         )
-                    })} */}
+                    })} 
 
                 
 
                 </Row>
                 </Col>
 
-                <Col className='box2' md={4}>
+                <Col className='box' style={{background:'rgb(66,66,92)'}} md={4}>
+	
                     <h4 className='text-center'> Description Block </h4>
                     <hr/>
                 

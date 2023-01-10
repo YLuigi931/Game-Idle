@@ -330,6 +330,38 @@ function Combat({combatant}) {
             </ProgressBar>
           </div>
         </div>
+
+        <br />
+        <div>
+          <img src={user.sprite} style={{width: '10rem'}}></img>
+          <div>
+            <p>Level: {user.level}</p>
+            <h4>
+              {user.name}: {user.hp}
+            </h4>
+          </div>
+          <div>
+            <div className="progressbar">
+              <ProgressBar
+                className="health"
+                style={{
+                  margin: "1rem",
+                  backgroundColor: "red",
+                  width: "300px",
+                  height: "30px",
+                  border: "black solid 1px",
+                }}
+              >
+                <div className="progressPercent">
+                  {/* <span>{enemy.hp}</span> */}
+                </div>
+                <ProgressBar now={user.hp} className="health-bar" />
+              </ProgressBar>
+            </div>
+          </div>
+        </div>
+        <button onClick={startCombat}>Start Combat</button>
+        <button onClick={stopCombat}>Stop Combat</button>
       </div>
       <button onClick={startCombat}>Start Combat</button>
       <button onClick={stopCombat}>Stop Combat</button>
