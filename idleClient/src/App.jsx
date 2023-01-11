@@ -1,6 +1,4 @@
-
 import { useState, useEffect } from 'react'
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import axios from 'axios'
@@ -19,6 +17,7 @@ import Gathering from '../components/Gathering';
 import Refining from '../components/Refining';
 import Crafting from '../components/Crafting';
 import Combat from '../components/Combat';
+import CombatMenu from '../components/CombatMenu';
 import Inventory2 from '../components/inventory2';
 import Inventory from '../components/Inventory';
 import Market from '../components/Market';
@@ -136,7 +135,7 @@ const signOut=async()=>{
           <a href="/#/Gathering">Gathering</a>
           <a href="/#/Refining">Refining</a>
           <a href="/#/Crafting">Crafting</a>
-          <a href="/#/Combat">Combat</a>
+          <a href="/#/CombatMenu">Combat</a>
     	  <a href={`/#/Market/`}>Market</a>
           <a href="Skills">Skills</a>
           <a href="Whatever">Whatever</a>
@@ -152,7 +151,8 @@ const signOut=async()=>{
             <Route path="/Refining" element={<Refining  />}></Route>
             <Route path="/Crafting" element={<Crafting  />}></Route>
             <Route path="/Gathering" element={<Gathering  character={character}/>}></Route>
-            <Route path="/Combat" element={<Combat />}></Route>
+            <Route path="/Combat/:enemy_id" element={<Combat />}></Route>
+            <Route path="/CombatMenu" element={<CombatMenu />}></Route>
             <Route path="/Inventory2f" element={<Inventory2 />}></Route>
       	    <Route path='/Inventory' element={<Inventory userStuff={userId}/>}></Route>
       	    <Route path='/Market/' element={<Market userStuff={userId} />}/>

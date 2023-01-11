@@ -363,6 +363,7 @@ def get_enemies(request):
 
     if request.method == "GET":
         all_enemies = list(Enemy.objects.all().values())
+        print(all_enemies)
 
         return JsonResponse({'success':all_enemies})
 
@@ -388,15 +389,17 @@ def getInventory(request):
     inventory = Inventory.objects.get(user_id = request.user.id)
     frontInv = []
     
-    for x,i in enumerate(inventory.weapon_inventory):
-        theItem = Item.objects.get(name=inventory.weapon_inventory[x])
-        frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
+    # for x,i in enumerate(inventory.weapon_inventory):
+    #     theItem = Item.objects.get(name=inventory.weapon_inventory[x])
+    #     frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
     
-    for x,i in enumerate(inventory.armor_inventory):
-        theItem = Item.objects.get(name=inventory.armor_inventory[x])
-        frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
+    # for x,i in enumerate(inventory.armor_inventory):
+    #     theItem = Item.objects.get(name=inventory.armor_inventory[x])
+    #     frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
 
     for x,i in enumerate(inventory.item_inventory):
+        print(x, i)
+        print(inventory.item_inventory[x])
         theItem = Item.objects.get(name=inventory.item_inventory[x])
         frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
     
