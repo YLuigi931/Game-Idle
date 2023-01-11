@@ -1,7 +1,8 @@
 [
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 1,
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 1,
+    "fields": {
       "name": "Goblin Peasant",
       "location": "Goblin Caves",
       "base_damage": 15,
@@ -12,10 +13,12 @@
       "dodge": 1,
       "crit_chance": 1,
       "combat_xp": 10
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 2,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 2,
+    "fields": {
       "name": "Goblin Warrior",
       "location": "Goblin Caves",
       "base_damage": 20,
@@ -26,10 +29,12 @@
       "dodge": 1,
       "crit_chance": 1,
       "combat_xp": 20
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 3,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 3,
+    "fields": {
       "name": "Goblin Chieftan",
       "location": "Goblin Caves",
       "base_damage": 25,
@@ -40,10 +45,12 @@
       "dodge": 2,
       "crit_chance": 2,
       "combat_xp": 30
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 4,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 4,
+    "fields": {
       "name": "Deer",
       "location": "Dark Woods",
       "base_damage": 15,
@@ -54,10 +61,12 @@
       "dodge": 1,
       "crit_chance": 1,
       "combat_xp": 5
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 5,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 5,
+    "fields": {
       "name": "Wolf",
       "location": "Dark Woods",
       "base_damage": 17,
@@ -68,10 +77,12 @@
       "dodge": 4,
       "crit_chance": 1,
       "combat_xp": 15
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 6,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 6,
+    "fields": {
       "name": "Ogre",
       "location": "Dark Woods",
       "base_damage": 30,
@@ -82,10 +93,12 @@
       "dodge": 1,
       "crit_chance": 1,
       "combat_xp": 30
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 7,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 7,
+    "fields": {
       "name": "Giant Spider",
       "location": "Dark Woods",
       "base_damage": 15,
@@ -96,10 +109,12 @@
       "dodge": 1,
       "crit_chance": 3,
       "combat_xp": 15
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 8,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 8,
+    "fields": {
       "name": "Werewolf",
       "location": "Dark Woods",
       "base_damage": 30,
@@ -110,10 +125,12 @@
       "dodge": 3,
       "crit_chance": 2,
       "combat_xp": 30
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 9,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 9,
+    "fields": {
       "name": "Skeleton",
       "location": "Undead Grotto",
       "base_damage": 15,
@@ -124,10 +141,12 @@
       "dodge": 1,
       "crit_chance": 1,
       "combat_xp": 5
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 10,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 10,
+    "fields": {
       "name": "Zombie",
       "location": "Undead Grotto",
       "base_damage": 20,
@@ -138,10 +157,12 @@
       "dodge": 1,
       "crit_chance": 3,
       "combat_xp": 20
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 11,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 11,
+    "fields": {
       "name": "Wraith",
       "location": "Undead Grotto",
       "base_damage": 25,
@@ -152,10 +173,12 @@
       "dodge": 10,
       "crit_chance": 1,
       "combat_xp": 30
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 12,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 12,
+    "fields": {
       "name": "Undead Lord",
       "location": "Undead Grotto",
       "base_damage": 30,
@@ -166,10 +189,12 @@
       "dodge": 1,
       "crit_chance": 1,
       "combat_xp": 30
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 13,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 13,
+    "fields": {
       "name": "Mummy",
       "location": "Undead Grotto",
       "base_damage": 20,
@@ -180,10 +205,12 @@
       "dodge": 2,
       "crit_chance": 1,
       "combat_xp": 20
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 14,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 14,
+    "fields": {
       "name": "Bandit",
       "location": "Bandit Camp",
       "base_damage": 15,
@@ -194,10 +221,12 @@
       "dodge": 1,
       "crit_chance": 1,
       "combat_xp": 10
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 15,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 15,
+    "fields": {
       "name": "Bandit Brawler",
       "location": "Bandit Camp",
       "base_damage": 25,
@@ -208,10 +237,12 @@
       "dodge": 4,
       "crit_chance": 2,
       "combat_xp": 20
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 16,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 16,
+    "fields": {
       "name": "Bandit Assassin",
       "location": "Bandit Camp",
       "base_damage": 20,
@@ -222,10 +253,12 @@
       "dodge": 2,
       "crit_chance": 10,
       "combat_xp": 30
-    },
-    {
-      "model": "idleServerApp.Enemy",
-      "id": 17,
+    }
+  },
+  {
+    "model": "idleServerApp.Enemy",
+    "pk": 17,
+    "fields": {
       "name": "Bandit Leader",
       "location": "Bandit Camp",
       "base_damage": 30,
@@ -237,4 +270,5 @@
       "crit_chance": 1,
       "combat_xp": 40
     }
-  ]
+  }
+]
