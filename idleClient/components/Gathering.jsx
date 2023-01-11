@@ -85,7 +85,14 @@ const getCharacter=async()=>{
     }
  }
 
- //add gathered item to invatory ----------
+ 
+ const checkItem=async()=>{
+	const getInventory=await axios.get('getInventory/').then(request=>{
+		let data = request.data
+		console.log(data)
+	})
+	// console.log(getInventory)
+}
 
    function addItem(){
     console.log(timer,timer2)

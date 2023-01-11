@@ -521,7 +521,7 @@
         "model": "idleServerApp.Item",
         "pk":48,
         "fields":{
-            "name": "Torch",
+            "name": "Gold Ore",
             "quantity":0,
             "max_stacks": 100000,
             "rarity": "Rare",

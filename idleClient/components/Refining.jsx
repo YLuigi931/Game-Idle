@@ -28,6 +28,15 @@ function Refining(){
     const [catagory, setCatagory] = useState('')
     const [active, setActive] = useState(false)
     const [character, setCharacter] = useState([]);
+	const [needResource, setNeedResource] = useState('')
+	const [copper, SetCopper] = useState(null)
+	const [iron, setIron] = useState(null)
+	const [gold, SetGold] = useState(null)
+	const [dimond, SetDimond] = useState(null)
+	const [greenwood, SetGreenwood] = useState(null)
+	const [cedar, SetCedar] = useState(null)
+	const [spruce, SetSpruce] = useState(null)
+	const [redwood, SetRedwood] = useState(null)
     // const [timer, setTimer] = useState(false);
     // const [timer2, setTimer2] = useState(false);
     let timer;
@@ -75,15 +84,32 @@ const getCharacter=async()=>{
     let myResponse = axios.post('addGatheringItem/',{
         'item': item
     })
-    console.log(myResponse)
+    // console.log(myResponse)
    }
 
-   
+   const checkItem=async()=>{
+	const getInventory=await axios.get('craftItem/').then(request=>{ //+resourceNeeded+'/'
+		let data = request.data
+		SetCopper(data['Current Resources'][0])
+		setIron(data['Current Resources'][1])
+		SetGold(data['Current Resources'][2])
+		SetDimond(data['Current Resources'][3])
+		SetGreenwood(data['Current Resources'][4])
+		SetCedar(data['Current Resources'][5])
+		SetSpruce(data['Current Resources'][6])
+		SetRedwood(data['Current Resources'][7])
+	})
+	// console.log(getInventory)
+   }
+
+
     function gathered(){
+		console.log(copper)
         setFill(prev => prev += 1)
         setPopUp(true)
         setTimeout(()=>setPopUp(false), ((1000)))
         upgradeCharacter()
+		
     }
     function idleGathering(){
         
@@ -99,8 +125,7 @@ const getCharacter=async()=>{
         setActive(true)
     }
 
-    function stopGathering(){
-        console.log(timer,timer2)
+	function stopGathering(){
         clearTimeout(timer);
         clearTimeout(timer2)
         timer = null
@@ -108,6 +133,7 @@ const getCharacter=async()=>{
         setActive(false)
         setPopUp(false)
     }
+
 
     const renderTooltip1 = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -140,12 +166,13 @@ const getCharacter=async()=>{
 
     useEffect(()=>{
         getCharacter()
+		checkItem()
     },[fill])
 
 
     return(
         <div>
-        <h1 style={{color:'white'}}>Refining page</h1>
+
         {popUp?
       <ToastContainer  position="bottom-end" show={popUp} className="p-1"  autohide>
         <Toast bg={'warning'}>
@@ -156,8 +183,8 @@ const getCharacter=async()=>{
         }
       
 		<Row md={8} className='box2'>
-		<Col ><Button onClick={()=>{setCatagory('Smelting')}} variant="dark" >Smelting</Button></Col>
-		<Col ><Button onClick={()=>{setCatagory('Wood Working')}} variant="dark">Wood Working</Button></Col>
+		<Col ><Button onClick={()=>{setCatagory('Smelting'), setGatheredType(null)}} variant="dark" >Smelting</Button></Col>
+		<Col ><Button onClick={()=>{setCatagory('Wood Working'), setGatheredType(null)}} variant="dark">Wood Working</Button></Col>
 
 		</Row>
         {(gatheredType == null) ? <div className='box2'><h5 className=''> Start Refining {gatheredType}</h5></div> :
@@ -168,14 +195,19 @@ const getCharacter=async()=>{
         className="box2 position-relative" style={{margin:'1rem', minHeight: '240px' }}>
 
                 <h5 className=''>{catagory} {gatheredType}</h5>
-
+			
+			{ ///pulledResourceItem == null ? <p>select Item</p>:
+				//pulledResourceItem[0].quantity > 0 ?
                 <Row style={{justifyContent:'center'}}>
                 <Button style={{margin: '.3rem', width: '10rem'}}  id='start' variant="outline-success" 
-                onClick={startGathering}>Start</Button>
+                onClick={()=>{startGathering()}}>Start</Button>
                 </Row>
+				//:<p>Need needResource</p>
+			}
 
         
-				<Badge style={{margin:'.5rem'}} pill bg="success"> Current Smelting XP: {character.smelting_xp}</Badge>
+				{catagory == "Smelting" ? <Badge style={{margin:'.5rem'}} pill bg="success"> Current Smelting XP: {character.smelting_xp}</Badge> 
+				:catagory == "Wood Working" ?<Badge style={{margin:'.5rem'}} pill bg="success"> Current Wood Working XP: {character.wood_working_xp}</Badge>: null}
                 <ProgressBar style={{margin: '1rem'}}>
                     {active ?<ProgressBar style={{animationDuration:`${idleClock}s`}} className='progress-bar' />: <></>}
                 </ProgressBar>
@@ -189,13 +221,19 @@ const getCharacter=async()=>{
 			
 			<Row className="box2 g-4" style={{ justifyContent:'space-evenly'}} >
  
-                    {<Col className='box2' style={{margin: '1rem', textAlign: 'center' }} variant='light' 
-                    action onClick={()=>{setGatheredType('Copper Bar'), setIdleClock(1.5), setxp(10), stopGathering()} }>
-						<Badge style={{margin:'.5rem'}} pill bg="success">Copper Bar</Badge></Col>}
+                    {  
+					<Col className='box2' style={{margin: '1rem', textAlign: 'center' }} variant='light' 
+                    	action onClick={()=>
+						{setGatheredType('Copper Bar'), setIdleClock(1.5), setxp(10),setNeedResource('Copper Ore'), stopGathering()} 
+						}>
+						<Badge style={{margin:'.5rem'}} pill bg="success">Copper Bar</Badge>
+					</Col>
+					}
 
 
-                    {character.fishing_xp >= 5000? <Col style={{margin: '.2rem', textAlign: 'center' }} variant='success'
-                     action onClick={()=>{setGatheredType('Iron Bar'), setIdleClock(2.2), setxp(15), stopGathering()}}>Iron Bar</Col>
+                    {character.smelting_xp >= 5000? <Col className='box2' style={{margin: '1rem', textAlign: 'center' }} variant='success'
+                     action onClick={()=>{setGatheredType('Iron Bar'), setIdleClock(2.2), setxp(15),setNeedResource('Iron Ore'), stopGathering()}}>
+						<Badge style={{margin:'.5rem'}} pill bg="success">Iron Bar</Badge></Col>
                      :
                      
                     <OverlayTrigger
@@ -211,8 +249,9 @@ const getCharacter=async()=>{
                      
                     }
                     
-                    {character.fishing_xp >= 15000? <Col style={{margin: '.2rem', textAlign: 'center' }} variant='success'
-                     action onClick={()=>{setGatheredType('Gold Bar'), setIdleClock(3.2), setxp(35), stopGathering()}}>Gold Bar</Col>
+                    {character.smelting_xp >= 15000? <Col style={{margin: '1rem', textAlign: 'center' }} variant='success'
+                     action onClick={()=>{setGatheredType('Gold Bar'), setIdleClock(3.2), setxp(35),setNeedResource('Gold Ore'), stopGathering()}}>
+						<Badge style={{margin:'.5rem'}} pill bg="success">Gold Bar</Badge></Col>
                      :
                      <OverlayTrigger
                         placement="top"
@@ -226,8 +265,9 @@ const getCharacter=async()=>{
                     </OverlayTrigger>
                     }
                     
-                    {character.fishing_xp >= 25000? <Col style={{margin: '.2rem', textAlign: 'center' }} variant='success'
-                     action onClick={()=>{setGatheredType('Dimond Bar'), setIdleClock(4.2), setxp(75), stopGathering()}}>Dimond Bar</Col>
+                    {character.smelting_xp >= 25000? <Col style={{margin: '1rem', textAlign: 'center' }} variant='success'
+                     action onClick={()=>{setGatheredType('Dimond Bar'), setIdleClock(4.2), setxp(75),setNeedResource('Dimond Ore'), stopGathering()}}>
+						<Badge style={{margin:'.5rem'}} pill bg="success">Dimond Bar</Badge></Col>
                      :
                      <OverlayTrigger
                         placement="top"
@@ -252,12 +292,13 @@ const getCharacter=async()=>{
 		<Row className="box2 g-4" style={{ justifyContent:'space-evenly'}} >
  
  {<Col className='box2' style={{margin: '1rem', textAlign: 'center' }} variant='light' 
- action onClick={()=>{setGatheredType('Greenwood Log'), setIdleClock(1.5), setxp(10), stopGathering()} }>
+ action onClick={()=>{setGatheredType('Greenwood Log'), setIdleClock(1.5), setxp(10),setNeedResource('Greenwood'), stopGathering()} }>
 	 <Badge style={{margin:'.5rem'}} pill bg="success">Greenwood Log</Badge></Col>}
 
 
- {character.fishing_xp >= 5000? <Col style={{margin: '.2rem', textAlign: 'center' }} variant='success'
-  action onClick={()=>{setGatheredType('Cedar Log'), setIdleClock(2.2), setxp(15), stopGathering()}}>Ceader Log</Col>
+ {character.wood_working_xp >= 5000? <Col style={{margin: '1rem', textAlign: 'center' }} variant='success'
+  action onClick={()=>{setGatheredType('Cedar Log'), setIdleClock(2.2), setxp(15), stopGathering()}}>
+	<Badge style={{margin:'.5rem'}} pill bg="success">Ceader Log</Badge></Col>
   :
   
  <OverlayTrigger
@@ -273,8 +314,9 @@ const getCharacter=async()=>{
   
  }
  
- {character.fishing_xp >= 15000? <Col style={{margin: '.2rem', textAlign: 'center' }} variant='success'
-  action onClick={()=>{setGatheredType('Spruce Log'), setIdleClock(3.2), setxp(35), stopGathering()}}>Spruce Log</Col>
+ {character.wood_working_xp >= 15000? <Col style={{margin: '1rem', textAlign: 'center' }} variant='success'
+  action onClick={()=>{setGatheredType('Spruce Log'), setIdleClock(3.2), setxp(35),setNeedResource('Spruce'), stopGathering()}}>
+	<Badge style={{margin:'.5rem'}} pill bg="success">Spruce Log</Badge></Col>
   :
   <OverlayTrigger
 	 placement="top"
@@ -288,8 +330,9 @@ const getCharacter=async()=>{
  </OverlayTrigger>
  }
  
- {character.fishing_xp >= 25000? <Col style={{margin: '.2rem', textAlign: 'center' }} variant='success'
-  action onClick={()=>{setGatheredType('RedWood Log'), setIdleClock(4.2), setxp(75), stopGathering()}}>Redwood Log</Col>
+ {character.wood_working_xp >= 25000? <Col style={{margin: '1rem', textAlign: 'center' }} variant='success'
+  action onClick={()=>{setGatheredType('RedWood Log'), setIdleClock(4.2), setxp(75),setNeedResource('Redwood'), stopGathering()}}>
+	<Badge style={{margin:'.5rem'}} pill bg="success">Redwood Log</Badge></Col>
   :
   <OverlayTrigger
 	 placement="top"

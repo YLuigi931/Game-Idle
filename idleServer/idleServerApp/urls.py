@@ -19,6 +19,7 @@ urlpatterns = [
     path('update_xp/<int:user_id>/', views.update_xp),
     path('getInventory/', views.getInventory),
     path('getEquipment/', views.getEquipment),
+    path('craftItem/', views.craftItem),
     path('myEquipmentInventory/', views.myEquipmentInventory),
 
     re_path(r'.*', views.index, name='index'),

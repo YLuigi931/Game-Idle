@@ -285,18 +285,18 @@ def character(request):
             character.mining_xp = (character.mining_xp + request.data['mining_xp'])
     #refining
         if 'smelting_xp' in request.data:
-            character.smelting_xp = request.data['smelting_xp']
+            character.smelting_xp = (character.smelting_xp +request.data['smelting_xp'])
         if 'wood_working_xp' in request.data:
-            character.wood_working_xp = request.data['wood_working_xp']
+            character.wood_working_xp = (character.wood_working_xp +request.data['wood_working_xp'])
     #crafting 
         if 'armoring_xp' in request.data:
-            character.armoring_xp = request.data['armoring_xp']
+            character.armoring_xp = (character.wood_working_xp + request.data['armoring_xp'])
         if 'arcana_xp' in request.data:
-            character.arcana_xp = request.data['arcana_xp']
+            character.arcana_xp = (character.wood_working_xp + request.data['arcana_xp'])
         if 'cooking_xp' in request.data:
-            character.cooking_xp = request.data['cooking_xp']
+            character.cooking_xp = (character.wood_working_xp + request.data['cooking_xp'])
         if 'weapons_xp' in request.data:
-            character.weapons_xp = request.data['weapons_xp']
+            character.weapons_xp = (character.wood_working_xp + request.data['weapons_xp'])
         print(character.fishing_xp)
         print(character.harvesting_xp)
         print(character.logging_xp)
@@ -383,18 +383,19 @@ def update_xp(request, user_id):
             return JsonResponse({'update': False})
 
 
-
+@api_view(['GET'])
 def getInventory(request):
-    inventory = Inventory.objects.get(user_id = request.user.id)
+    character = Character.objects.get(user_character=request.user.id)
+    inventory = Inventory.objects.get(user_id = character.id)
     frontInv = []
+    print(inventory)
+    # for x,i in enumerate(inventory.weapon_inventory):
+    #     theItem = Item.objects.get(name=inventory.weapon_inventory[x])
+    #     frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
     
-    for x,i in enumerate(inventory.weapon_inventory):
-        theItem = Item.objects.get(name=inventory.weapon_inventory[x])
-        frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
-    
-    for x,i in enumerate(inventory.armor_inventory):
-        theItem = Item.objects.get(name=inventory.armor_inventory[x])
-        frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
+    # for x,i in enumerate(inventory.armor_inventory):
+    #     theItem = Item.objects.get(name=inventory.armor_inventory[x])
+    #     frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
 
     for x,i in enumerate(inventory.item_inventory):
         theItem = Item.objects.get(name=inventory.item_inventory[x])
@@ -424,16 +425,37 @@ def myEquipmentInventory(request):
 #     data = EquipmentSerializer(inventory, many=False)
 #     return Response(data.data)
 
-@api_view(['POST'])
+
+########## might not need ##########
+@api_view(['GET'])
 def craftItem(request):
 #the request should send the name of the item that needs to be created and the materials/amount needed 
-    inventory = Inventory.objects.get(user = request.user.id)
-    itemToBeCrafted = request.data['craftItem']
-    item1 = request.data['item1'] #should have name and quantity 
-    item2 = request.data['item2']
+    frontInv = []
+    if request.method == 'GET':
+            theItem = Item.objects.get(name='Copper Ore')
+            frontInv.append({'name': theItem.name, 'quantity': theItem.quantity, 'max_stats': theItem.max_stacks, 'rarity': theItem.rarity, 'description': theItem.description})
+            theItem2 = Item.objects.get(name='Iron Ore')
+            frontInv.append({'name': theItem2.name, 'quantity': theItem2.quantity, 'max_stats': theItem2.max_stacks, 'rarity': theItem2.rarity, 'description': theItem2.description})
+            theItem3 = Item.objects.get(name= 'Gold Ore')
+            frontInv.append({'name': theItem3.name, 'quantity': theItem3.quantity, 'max_stats': theItem3.max_stacks, 'rarity': theItem3.rarity, 'description': theItem3.description})
+            theItem4 = Item.objects.get(name='Dimond Ore')
+            frontInv.append({'name': theItem4.name, 'quantity': theItem4.quantity, 'max_stats': theItem4.max_stacks, 'rarity': theItem4.rarity, 'description': theItem4.description})
+            theItem5 = Item.objects.get(name='Greenwood')
+            frontInv.append({'name': theItem5.name, 'quantity': theItem5.quantity, 'max_stats': theItem5.max_stacks, 'rarity': theItem5.rarity, 'description': theItem5.description})
+            theItem6 = Item.objects.get(name='Cedar')
+            frontInv.append({'name': theItem6.name, 'quantity': theItem6.quantity, 'max_stats': theItem6.max_stacks, 'rarity': theItem6.rarity, 'description': theItem6.description})
+            theItem7 = Item.objects.get(name='Spruce')
+            frontInv.append({'name': theItem7.name, 'quantity': theItem7.quantity, 'max_stats': theItem7.max_stacks, 'rarity': theItem7.rarity, 'description': theItem7.description})
+            theItem8 = Item.objects.get(name='Redwood')
+            frontInv.append({'name': theItem8.name, 'quantity': theItem8.quantity, 'max_stats': theItem8.max_stacks, 'rarity': theItem8.rarity, 'description': theItem8.description})
 
-    if item1.name in inventory.item_inventory:
-        pass
+        # print(resourseNeeded, 'craftItemNeeded')
+        # inventory = Item.objects.all().filter(name = resourseNeeded)
+        # serInv = ItemSerializer(inventory, many=True)
+        # print(inventory)
+    return JsonResponse({'Current Resources': frontInv})
+#####################################
+
 
 @api_view(['GET'])
 def getEquipment(request):
