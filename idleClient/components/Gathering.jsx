@@ -217,7 +217,7 @@ const getCharacter=async()=>{
                     action onClick={()=>{setCatagory('fishing'), setGatheredType('Pond Fish'), setIdleClock(1.5), setxp(10), stopGathering()} }>Pond</ListGroup.Item>}
 
 
-                    {character.fishing_xp >= 5000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.fishing_xp >= 100? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('fishing'), setGatheredType('Lake Fish'), setIdleClock(2.2), setxp(15), stopGathering()}}>River</ListGroup.Item>
                      :
                      
@@ -276,7 +276,7 @@ const getCharacter=async()=>{
                     action onClick={()=>{setCatagory('harvesting'), setGatheredType('Potato'), setIdleClock(2.5), setxp(10), stopGathering()} }>Wheat</ListGroup.Item>}
 
 
-                    {character.harvesting_xp >= 5000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
+                    {character.harvesting_xp >= 100? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
                      action onClick={()=>{setCatagory('harvesting'),setGatheredType('Corn'), setIdleClock(3.2), setxp(15), stopGathering()}}>Corn</ListGroup.Item>
                      :
                      <OverlayTrigger
@@ -330,7 +330,7 @@ const getCharacter=async()=>{
                 <ListGroup style={{ maxWidth: '10rem', margin:'1rem' }}   >
 
                     {<ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='light' 
-                    action onClick={()=>{setCatagory('logging'), setGatheredType('Greenwood'), setIdleClock(2.5), setxp(10), stopGathering()} }>Green Wood</ListGroup.Item>}
+                    action onClick={()=>{setCatagory('logging'), setGatheredType('Greenwood'), setIdleClock(2.2), setxp(10), stopGathering()} }>Green Wood</ListGroup.Item>}
 
 
                     {character.logging_xp>= 5000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'
@@ -387,7 +387,7 @@ const getCharacter=async()=>{
                 <ListGroup style={{ maxWidth: '10rem', margin:'1rem' }}   >
 
                     {<ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='light' 
-                    action onClick={()=>{setCatagory('mining'), setGatheredType('Copper Ore'), setIdleClock(2.5), setxp(10), stopGathering()} }>Copper</ListGroup.Item>}
+                    action onClick={()=>{setCatagory('mining'), setGatheredType('Copper Ore'), setIdleClock(2), setxp(10), stopGathering()} }>Copper</ListGroup.Item>}
 
 
                     {character.mining_xp >= 5000? <ListGroup.Item style={{margin: '.2rem', textAlign: 'center' }} variant='success'

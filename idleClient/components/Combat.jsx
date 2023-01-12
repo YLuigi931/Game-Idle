@@ -4,12 +4,13 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import HandleLocation from "./HandleLocation";
-
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 function Combat({combatant}) {
   let params = useParams();
-
   let id = Number(params.enemy_id);
-
   const [character, setCharacter] = useState([]);
   const [user, setUser] = useState({});
   const [enemyBeginning, setEnemyBeginning] = useState([]);
@@ -33,38 +34,36 @@ function Combat({combatant}) {
   const [playerLost, setPlayerLost] = useState(false);
   const [maxHp, setMaxHp] = useState(0)
   const [count, setCount] = useState(0)
-
   // const [userFilled, setUserFilled] = useState(user.hp);
   // const [enemyFilled, setEnemyFilled] = useState(enemy.hp);
-
   const enemyStartHp = enemy.hp;
   const userStartHp = user.hp;
-
   const getCharacter = async () => {
     let myResponse = await axios.get("character/");
     let char = myResponse.data;
     console.log(char);
     // setCharacter(char)
+    setCount(char.combat_xp)
     setMaxHp(char.hp + char.constitution * 5);
     setUser({
       name: char.name,
       id: char.id,
       level: char.level,
       weaponDamage: 30,
-      strength: char.strength,
+      // change back before push
+      strength: (char.strength + 2),
       defense: char.defense,
-      dodge: char.dodge,
+      // change back before push
+      dodge: (char.dodge + 2),
       dexterity: char.dexterity,
       wisdom: char.wisdom,
       constitution: char.constitution,
-      hp: char.hp + char.constitution * 5,
+      hp: char.hp + (char.constitution * 5),
       sprite: char.sprite,
+      xp: char.combat_xp
     });
-    
   };
-
 // console.log(enemy.combat_xp)
-
   const getEnemies = async () => {
     let myResponse = await axios.get("enemies/");
     let data = myResponse.data["success"];
@@ -80,7 +79,6 @@ function Combat({combatant}) {
       dodge: data[id - 1].dodge,
       xp: data[id - 1].combat_xp,
     });
-
     setEnemy({
       name: data[id - 1].name,
       level: data[id - 1].level,
@@ -92,10 +90,7 @@ function Combat({combatant}) {
       xp: data[id-1].combat_xp
     });
   };
-
-
-
-
+console.log((count / 100) * 100)
   function stopCombat() {
     setPlay(false);
     setUserTurn(null);
@@ -109,19 +104,16 @@ function Combat({combatant}) {
       setPlayerWon(false);
     }
   }
-
   const updateUser = async () => {
     id = user.id
     console.log(id)
     let myResponse = await axios.put(`update_xp/${id}/`, {
       xp: count
-    }) 
+    })
     if (myResponse.data["update"]){
       getCharacter()
     }
   }
-
-
   function enemyHit(playerDamage) {
     let newEnemyHp = enemy.hp - playerDamage;
     if (newEnemyHp < 0) {
@@ -131,15 +123,12 @@ function Combat({combatant}) {
       setPlayerWon(true);
       console.log(`New XP => ${user.xp}`);
       console.log(`${enemy.name} IS DEFEATED`);
-
       // setEnemy({ ...enemy, hp: newEnemyHp });
       // setEnemy(enemyBeginning)
       // setTimeout(startCombat(), 4000)
     }
-
     setEnemy({ ...enemy, hp: newEnemyHp });
   }
-
   function playerHit(enemyDamage) {
     if (enemyDamage >= 1) {
       let newUserHp = user.hp - enemyDamage;
@@ -156,17 +145,14 @@ function Combat({combatant}) {
       setUser({ ...user, hp: newUserHp });
     }
   }
-
   function handleCombat() {
     //--------------------USER TURN----------------------------------------
-
     if (userTurn === true) {
       let playerToHit = Math.floor(Math.random() * 50);
       let playerDamage = Math.floor(
         Math.random() * (user.weaponDamage + user.strength) - enemy.defense
       );
       console.log(`USER damage before crit: ${playerDamage}`);
-
       //-----------check to see if user hits enemy---------------------------
       if (playerToHit >= enemy.dodge + 15) {
         if (playerToHit >= 45 - user.dexterity && playerDamage > 0) {
@@ -174,7 +160,6 @@ function Combat({combatant}) {
           playerDamage = playerDamage * 2;
         }
         console.log(`USER damage after crit: ${playerDamage}`);
-
         if (playerDamage >= 1) {
           // console.log(playerToHit);
           enemyHit(playerDamage);
@@ -183,7 +168,6 @@ function Combat({combatant}) {
         console.log("PLAYER MISSED!");
       }
     }
-
     //--------------------------ENEMY TURN------------------------------------------
     if (userTurn === false) {
       let enemyToHit = Math.floor(Math.random() * 50);
@@ -192,7 +176,6 @@ function Combat({combatant}) {
       );
       // console.log(enemyDamage + 1);
       console.log(`ENEMY damage before crit: ${enemyDamage}`);
-
       //-----------check to see if enemy hits user------------------------
       if (enemyToHit >= user.dodge + 15) {
         if (enemyToHit >= 45 - enemy.dexterity && enemyDamage > 0) {
@@ -200,7 +183,6 @@ function Combat({combatant}) {
           enemyDamage = enemyDamage * 2;
         }
         console.log(`ENEMY damage after crit: ${enemyDamage}`);
-
         if (enemyDamage >= 1) {
           playerHit(enemyDamage);
         }
@@ -208,11 +190,9 @@ function Combat({combatant}) {
         playerHit(enemyDamage);
         console.log("ENEMY MISSED!");
       }
-
       setTurn(turn + 1);
     }
   }
-
   function combat() {
     if (playerWon == false && playerLost == false) {
       handleCombat();
@@ -231,7 +211,6 @@ function Combat({combatant}) {
       }, 2000);
     }
   }
-
   useEffect(() => {
     if (play) {
       if (user.hp > 0) {
@@ -243,100 +222,125 @@ function Combat({combatant}) {
       }
     }
   }, [userTurn]);
-
   useEffect(() => {
     getCharacter();
     getEnemies();
   }, []);
-
   return (
-    <div className="box">
-      <div className="turn">Turn: {turn}</div>
-      <div>---------------</div>
-      <div>
-        <p>Level: {enemy.level}</p>
-        <h4>
-          {enemy.name}: {enemy.hp}
-        </h4>
-      </div>
-      <div>
-        <div className="progressbar">
-          <ProgressBar
-            className="health"
-            style={{
-              margin: "1rem",
-              backgroundColor: "red",
-              width: "300px",
-              height: "30px",
-              border: "black solid 1px",
-            }}
-          >
-            {/* <div className="progressPercent">
+    <div className="box2">
+     
+        <div className="turn">
+          <h4>Turn: {turn}</h4>
+        </div>
+    
+      <Card
+        onClick={() => setExpand(!expand)}
+        className="text-center pop-out-card with-transform"
+        style={{ width: "25rem", margin: "10px" }}
+      >
+        <Row>
+          <div>
+            <Col>
+              <h5>Level: {enemy.level}</h5>
+              <h4>{enemy.name}</h4>
+              <h4>HP: {enemy.hp}</h4>
+            </Col>
+          </div>
+          <div>
+            <div className="progressbar">
+              <ProgressBar
+                className="health"
+                style={{
+                  marginLeft: "3rem",
+                  marginBottom: '.5rem',
+                  backgroundColor: "red",
+                  width: "350px",
+                  height: "30px",
+                  border: "black solid 1px",
+                }}
+              >
+                {/* <div className="progressPercent">
                 <span>{user.hp}</span>
               </div> */}
-            <ProgressBar
-              now={(enemy.hp / enemyBeginning.hp) * 100}
-              className="health-bar"
-            />
-          </ProgressBar>
-        </div>
-      </div>
+                <ProgressBar
+                  now={(enemy.hp / enemyBeginning.hp) * 100}
+                  className="health-bar"
+                />
+              </ProgressBar>
+            </div>
+          </div>
+        </Row>
+      </Card>
       <br />
-      <div>
-        <img style={{ width: "100px" }} src={user.sprite} />
+      <Card
+        onClick={() => setExpand(!expand)}
+        className="text-center pop-out-card with-transform"
+        style={{ width: "25rem", margin: "10px"}}
+      >
         <div>
-          <p>Level: {user.level}</p>
-          <p>Enemies Killed: {count}</p>
-          <h5>XP:</h5>
+          <img style={{ width: "100px" }} src={user.sprite} />
           <div>
-            <ProgressBar
-              style={{
-                margin: "1rem",
-                backgroundColor: "white",
-                width: "300px",
-                height: "10px",
-                border: "black solid 1px",
-              }}
-            >
-           
-              <ProgressBar className="combatXp"
-              now={(count/100) * 100} />
-           
-            </ProgressBar>
-          </div>
-          <h4>
-            {user.name}: {user.hp}
-          </h4>
-        </div>
-        <div>
-          <div className="progressbar">
-            <ProgressBar
-              className="health"
-              style={{
-                margin: "1rem",
-                backgroundColor: "red",
-                width: "300px",
-                height: "30px",
-                border: "black solid 1px",
-              }}
-            >
-              <div className="progressPercent">
-                {/* <span>{enemy.hp}</span> */}
-              </div>
+            <h5>XP:</h5>
+            
               <ProgressBar
-                now={(user.hp / maxHp) * 100}
-                className="health-bar"
-              />
-            </ProgressBar>
+                style={{
+                  marginLeft: "3rem",
+                  marginBottom: '.5rem',
+                  backgroundColor: "white",
+                  width: "350px",
+                  height: "10px",
+                  border: "black solid 1px",
+                }}
+              >
+                <ProgressBar className="combatXp" now={(count / 100) * 100} />
+              </ProgressBar>
+            
+            <Col>
+              <Row>
+                <h5>Experience Gained: {count}</h5>
+              </Row>
+              <Row>
+                <h4>
+                  {user.name}
+                </h4>
+                <h4>HP: {user.hp}</h4>
+              </Row>
+              <Row>
+                <h5>Level: {user.level}</h5>
+              </Row>
+            </Col>
+          </div>
+          <div>
+            <div className="progressbar">
+              <ProgressBar
+                className="health"
+                style={{
+                  marginLeft: "3rem",
+                  marginBottom: '.5rem',
+                  backgroundColor: "red",
+                  width: "350px",
+                  height: "30px",
+                  border: "black solid 1px",
+                }}
+              >
+                <div className="progressPercent">
+                  {/* <span>{enemy.hp}</span> */}
+                </div>
+                <ProgressBar
+                  now={(user.hp / maxHp) * 100}
+                  className="health-bar"
+                />
+              </ProgressBar>
+            </div>
           </div>
         </div>
-
-        <br />
-	</div>
-        <button onClick={startCombat}>Start Combat</button>
-        <button onClick={stopCombat}>Stop Combat</button>
+      </Card>
+      
+      <div>
+        <Button variant="danger" style={{margin:'.5rem'}} onClick={startCombat}>Start Combat</Button>
+        <Button variant="warning" style={{margin:'.5rem'}}  onClick={stopCombat}>Stop Combat</Button>
       </div>
+    </div>
   );
 }
-
 export default Combat;

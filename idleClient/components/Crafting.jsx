@@ -23,7 +23,8 @@ function Crafting(){
 
     return(
         <>
-        <h1 style={{color:'white'}}>Gathering page</h1>
+        <h1 style={{color:'white'}}>Buy full version to begin Crafting</h1>
+		<h4 style={{color:'white'}}> Just kiding... will be uploaded on the next major upate</h4>
         {/* <ProgressBar className='progress' style={{margin:'2rem'}}>
 	<ProgressBar className='progress-bar'/>
 	</ProgressBar> */}

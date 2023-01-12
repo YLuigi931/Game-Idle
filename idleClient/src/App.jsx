@@ -138,7 +138,6 @@ const signOut=async()=>{
           <a href="/#/CombatMenu">Combat</a>
     	  <a href={`/#/Market/`}>Market</a>
           <a href="Skills">Skills</a>
-          <a href="Whatever">Whatever</a>
         </div>
 
         <Router>

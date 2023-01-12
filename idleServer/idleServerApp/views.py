@@ -340,7 +340,7 @@ def character(request):
 
 @api_view(["POST", "GET"])
 def market_inventory(request):
-    
+
     if request.method == "GET":
         all_Inventory = list(Item.objects.all().values())
         # print(all_Inventory)
@@ -348,27 +348,39 @@ def market_inventory(request):
         return JsonResponse({'success':all_Inventory})
     
     if request.method == 'POST':
+        character = Character.objects.get(user_character=request.user.id)
         
         # userID = request.data['user']
         # item = request.data['itemData']
         print(request.data)
         #get the bag that has the same user id as the user
-        inventoryBag = Inventory.objects.all().filter(user=request.data['user']).values()
-        print(inventoryBag)
+        inventoryBag = Inventory.objects.get(user=character)
+        itemsInBag = inventoryBag.item_inventory
+        print(inventoryBag.item_inventory)
         
         #assemble the new list here  
-        for x in inventoryBag:
-            print(x.get('item_inventory'))
-            new_lst=x.get('item_inventory')
-            new_lst.append(request.data['itemData'])
-            print(new_lst)
+        new_lst = []
+        foundIt = False
+        for x in itemsInBag:
+            if (x == request.data['itemData']):
+                    found = Item.objects.get(name=x)
+                    found.quantity += 1
+                    foundIt = True
+                    found.save()
+            
+        if foundIt:
+            return JsonResponse({'success':True})
+        else:
+            itemsInBag.append(request.data['itemData'])
+            inventoryBag.item_inventory = itemsInBag
+            inventoryBag.save()
+            print(itemsInBag)
             
         #call the bag once more and update it...Save yay
-        Inventory.objects.all().filter(user=request.data['user']).update(item_inventory=new_lst)
-        
+        # print(Inventory.objects.all().filter(user=request.data['user']).update(item_inventory=new_lst))
         #print to verify its in there
-        verify = Inventory.objects.all().filter(user=request.data['user']).values()
-        print(verify)
+        # verify = Inventory.objects.all().filter(user=request.data['user']).values()
+        # print(verify)
         
         return JsonResponse({'success':True})
 

@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import axios from 'axios'
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom';
 import { Navigate } from "react-router-dom";
 import { useState, useEffect } from 'react'
 import NewCharacter from './NewCharacter';
@@ -101,7 +101,7 @@ function SignUp(){
     </div>
     {/* SIGN UP */}
 
-    {newAccount && <NewCharacter />}
+    {newAccount && <Navigate to="/newCharacter" />}
 
 
         </>

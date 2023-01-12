@@ -122,7 +122,7 @@ function NewCharacter(){
         }}>
 
 <Card style={{ width: '20rem' }}>
-      <Card.Img variant="top" src={selectedChar.sprite || '' } />
+      <Card.Img variant="top" src={selectedChar.sprite || '' } style={{ width: "150px" }} />
       <Card.Body>
         <Card.Title>Create Character</Card.Title>
         <Card.Text>
