@@ -9,26 +9,19 @@ import { useState, useEffect } from 'react';
 
 function Inventory({userStuff}) {
 
-    const[invent,setInvent] = useState([]);
-    let array = [];
     const[bag,setBag] = useState([]);
+    const[desc, setDesc] = useState(null);
 
-    const playerInventory = async()=>{
-        let myResponse = await axios.post('myInventory/',{
-            userId:userStuff,
-        })
-        console.log(myResponse.data.success)
-        let a = myResponse.data.success
-        a.forEach(function(entry) {
-            console.log(entry);
-            setInvent(entry);
-          });
-        console.log(invent)
+    const checkInv = async()=>{
+	    let Response = await axios.get('getInventory/')
+	    setBag(Response.data.thing)
+	    console.log(Response.data)
     }
+
     
 
     useEffect(()=>{
-        playerInventory()
+	checkInv()
     }, [])
 
     return (
@@ -43,14 +36,14 @@ function Inventory({userStuff}) {
                     
             <Row md={4}>
                     
-                    {Array.from({ length: 10}).map((item, index)=>{
+                    {bag.map((item, index)=>{
                         return(
                             <div>
-                            <Card className='text-center pop-out-card with-transform'style={{ width: '8rem', margin:'10px'}}>
+                            <Card onClick={()=>setDesc(item.description)} className='text-center pop-out-card with-transform'style={{ width: '8rem', margin:'10px'}}>
                                 <Card.Body>
-                                    <Card.Title>Item {index+1}</Card.Title>
+                                    <Card.Title>{item.name}</Card.Title>
                                         <Card.Text>
-                                            (0/0)
+                                            ({item.quantity}/{item.max_stats})
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
@@ -67,6 +60,7 @@ function Inventory({userStuff}) {
 	
                     <h4 className='text-center'> Description Block </h4>
                     <hr/>
+	      	    {desc}
                 
                 </Col>
             </Row>

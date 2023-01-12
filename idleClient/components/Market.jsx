@@ -19,12 +19,12 @@ function Market({userStuff}) {
 
     function buy_Handler(item){
         // let response=await axios.post()
-        console.log(item)
+        console.log(item.name)
        
         const add_Item_to_Inventory = async()=>{
         let send= await axios.post('market/',{
             'user':userStuff,
-            'itemData':item,
+            'itemData':item.name,
         })
         console.log(send)
         }
