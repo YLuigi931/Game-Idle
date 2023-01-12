@@ -20,6 +20,7 @@ urlpatterns = [
     path('getInventory/', views.getInventory),
     path('getEquipment/', views.getEquipment),
     path('craftItem/', views.craftItem),
+    path('addRefiningItem/', views.addRefiningItem),
     path('myEquipmentInventory/', views.myEquipmentInventory),
 
     re_path(r'.*', views.index, name='index'),

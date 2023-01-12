@@ -113,8 +113,6 @@ class equipInventory(models.Model):
 
     
 
-  
-
 class Enemy(models.Model):
     name = models.CharField(max_length=40)
     location = models.CharField(default=None, max_length=40)
@@ -127,6 +125,8 @@ class Enemy(models.Model):
     crit_chance =  models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(1)])
     combat_xp = models.IntegerField(default=10, validators=[MaxValueValidator(1000), MinValueValidator(1)])
     loot = ['gold coin']
+
+  
 
 
 

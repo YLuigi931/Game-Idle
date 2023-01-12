@@ -125,6 +125,33 @@ def addGatheringItem(request):
     return JsonResponse({'AddGatheringItem':'Added Gathering Item Successfully'})
 
 @api_view(["POST"])
+def addRefiningItem(request):
+    print(request.user)
+    character = Character.objects.get(user_character=request.user.id)
+    inventory = Inventory.objects.get(user=character.id)
+    print(inventory)
+    item =  Item.objects.get(name=request.data['item'])
+    neededResource = Item.objects.get(name=request.data['neededResource'])
+ 
+    print(item, 'item')
+    inventoryLength = len(inventory.weapon_inventory) +  len(inventory.item_inventory) + len(inventory.armor_inventory)
+    if f'{item}' in inventory.item_inventory:
+        item.quantity +=1
+        neededResource.quantity -= 2
+        print(neededResource.quantity)
+        inventory.save()
+        item.save()
+        neededResource.save()
+    else:
+        if inventoryLength >= inventory.max_spaces:
+            print("Inventory is full!")
+        else:
+            inventory.item_inventory.append(item)
+            inventory.save()
+        print(inventory.item_inventory)
+    return JsonResponse({'AddRefiningItem':'Added Refining Item Successfully'})
+
+@api_view(["POST"])
 def equipItem(request):
     #this is the user's equipment inventory
     equipment = equipInventory.objects.get(user=request.user.id)
@@ -238,8 +265,8 @@ def character(request):
         saveChar.save()
         print(saveChar.id, 'FIX')
         weapon = Item.objects.get(name='Luck Blade')
-        armor = Item.objects.get(name='Armor Boots +3')
-        anItem = Item.objects.get(name='iron ore')
+        armor = Item.objects.get(name='Armor Boots +1')
+        anItem = Item.objects.get(name='Copper Ore')
         saveInv = Inventory(
             max_spaces = 10,
             weapon_inventory = [weapon],
@@ -248,9 +275,9 @@ def character(request):
             user = saveChar
         )
 
-        baseHelm =Item.objects.get(name='Armor Head +3')
-        baseChest =Item.objects.get(name='Armor Body +3')
-        baseGloves = Item.objects.get(name='Armor Gloves +3')
+        baseHelm =Item.objects.get(name='Armor Head +1')
+        baseChest =Item.objects.get(name='Armor Body +1')
+        baseGloves = Item.objects.get(name='Armor Gloves +1')
         saveEq = equipInventory(
             user = saveChar,
             head = [baseHelm],
