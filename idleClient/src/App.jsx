@@ -84,7 +84,7 @@ const signOut=async()=>{
       <>
         <Navbar bg="light" expand="lg" fixed="top">
           <Container>
-            <Navbar.Brand href="/">IDLE TIME</Navbar.Brand>
+            <Navbar.Brand href="/">IDLE PLATOON</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
@@ -137,7 +137,7 @@ const signOut=async()=>{
           <a href="/#/Crafting">Crafting</a>
           <a href="/#/CombatMenu">Combat</a>
     	  <a href={`/#/Market/`}>Market</a>
-          <a href="Skills">Skills</a>
+          {/* <a href="Skills">Skills</a> */}
         </div>
 
         <Router>
